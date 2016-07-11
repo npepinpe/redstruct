@@ -1,8 +1,10 @@
 module Restruct
   class Struct
+    include Restruct::Util::Inspectable
+
     # @param [String] Key/identifier on the server
     # @param [ConnectionPool] Connection pool to use to execute commands
-    def initialize(key:, pool:)
+    def initialize(key, pool:)
       @key = key
       @pool = pool
     end
@@ -33,6 +35,10 @@ module Restruct
       success = false
       @pool.with { |c| success = c.persist(@key) }
       return success
+    end
+
+    def inspectable_attributes
+      { key: @key }
     end
   end
 end

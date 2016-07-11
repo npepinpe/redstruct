@@ -2,10 +2,13 @@ module Restruct
   # Entry point to create other Redis data structures
   class Factory
     def initialize(pool: nil, namespace: nil)
+      pool ||= Restruct.config.connection_pool
+      namespace ||= Restruct.config.namespace
+
       raise(Restruct::Error, 'A connection pool is required to create a factory, but none was given') if pool.nil?
 
       @pool = pool
-      @namespace = namespace.to_s
+      @namespace = namespace
     end
 
     def struct(key)
@@ -16,24 +19,28 @@ module Restruct
       return create(Restruct::String, key)
     end
 
-    def list
+    def list(key)
       return create(Restruct::List, key)
     end
 
-    def set
+    def set(key)
       return create(Restruct::Set, key)
     end
 
-    def sorted_set
+    def sorted_set(key)
       return create(Restruct::SortedSet, key)
     end
 
-    def hash
+    def hash(key)
       return create(Restruct::Hash, key)
     end
 
-    def lock
+    def lock(key)
       return create(Restruct::Lock, key)
+    end
+
+    def counter(key)
+      return create(Restruct::Counter, key)
     end
 
     def create(type, key)
@@ -42,7 +49,7 @@ module Restruct
     private :create
 
     def isolate(key)
-      return key.start_with?(@namespace) ? key : "#{@namespace}:#{key}"
+      return (@namespace.nil? || key.start_with?(@namespace)) ? key : "#{@namespace}:#{key}"
     end
     private :isolate
   end
