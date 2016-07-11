@@ -1,4 +1,4 @@
-# Redis::Data
+# Restruct
 
 Provides higher level data structures in Ruby using standard Redis commands. Also provides basic object mapping for pre-existing types.
 
@@ -7,7 +7,7 @@ Provides higher level data structures in Ruby using standard Redis commands. Als
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'redis-data'
+gem 'restruct'
 ```
 
 And then execute:
@@ -30,7 +30,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/redis-data.
+Bug reports and pull requests are welcome on GitHub at https://github.com/npepinpe/restruct.
 
 
 ## License
