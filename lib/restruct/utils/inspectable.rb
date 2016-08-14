@@ -1,5 +1,5 @@
 module Restruct
-  module Util
+  module Utils
     module Inspectable
       def inspect
         attributes = inspectable_attributes.map do |key, value|

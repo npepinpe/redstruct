@@ -4,22 +4,26 @@ require 'connection_pool'
 
 # Utility
 require 'restruct/version'
-require 'restruct/util/inspectable'
+require 'restruct/utils/inspectable'
+require 'restruct/utils/scriptable'
 
 # Core
+require 'restruct/connection'
 require 'restruct/configuration'
 require 'restruct/error'
 require 'restruct/factory'
-require 'restruct/struct'
+require 'restruct/types/base'
 
-# Structs
-require 'restruct/string'
-require 'restruct/counter'
-require 'restruct/hash'
-require 'restruct/list'
-require 'restruct/lock'
-require 'restruct/set'
-require 'restruct/sorted_set'
+# Data types
+require 'restruct/types/struct'
+require 'restruct/types/string'
+require 'restruct/types/counter'
+require 'restruct/types/hash'
+require 'restruct/types/list'
+require 'restruct/types/lock'
+require 'restruct/types/script'
+require 'restruct/types/set'
+require 'restruct/types/sorted_set'
 
 module Restruct
   class << self
@@ -48,6 +52,7 @@ module Restruct
 
     def make(name: nil, pool: nil, namespace: nil)
       factory = Restruct::Factory.new(pool: pool, namespace: namespace)
+      name = Restruct if name.nil?
       self[name] = factory unless name.nil?
 
       return factory
