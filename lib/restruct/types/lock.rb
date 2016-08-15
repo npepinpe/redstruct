@@ -3,7 +3,7 @@ require 'securerandom'
 module Restruct
   module Types
     class Lock < Restruct::Types::Base
-      include Restruct::Utils::Inspectable
+      include Restruct::Utils::Scriptable
 
       DEFAULT_EXPIRY = 10 # seconds
       DEFAULT_TIMEOUT = 0 # milliseconds; 0 means do not block
@@ -14,20 +14,18 @@ module Restruct
       def initialize(name: nil, expiry: DEFAULT_EXPIRY, timeout: DEFAULT_TIMEOUT, **options)
         super(**options)
 
-        @state = @factory.string('state')
-        @free = @factory.list('free')
-        @busy = @factory.list('busy')
+        @lease = @factory.string('lease')
         @name = name || generate_owner
         @expiry = expiry
         @timeout = timeout
       end
 
       def acquire
-
+        return @lease.set(@name, nx: true, expiry: @expiry) if @timeout.nil?
       end
 
       def locked?
-        return @state.get != @name
+        return @lease.get != @name
       end
 
       def with_lock
@@ -41,20 +39,8 @@ module Restruct
       end
 
       def release
-
-        if @timeout.nil?
-          self.connection.rpoplpush()
-        else
-          self.connection.brpoplpush()
-        end
+        return @lease.delete_if_equals(@name) if @timeout.nil?
       end
-
-      def assert_staleness!
-        if @state.setnx(@name)
-
-        end
-      end
-      private :assert_staleness!
 
       def generate_name
         return SecureRandom.uuid

@@ -5,6 +5,9 @@ module Restruct
     class Struct < Restruct::Types::Base
       include Restruct::Utils::Inspectable
 
+      # @return [String] The key used to identify the struct on redis
+      attr_reader :key
+
       # @param [String] Key/identifier on the server
       # @param [Restruct::Connection] Connection proxy
       def initialize(key:, **options)

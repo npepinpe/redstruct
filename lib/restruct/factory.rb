@@ -17,6 +17,7 @@ module Restruct
 
       @connection = connection
       @namespace = namespace
+      @script_cache = {}.tap { |hash| hash.extend(MonitorMixin) }
     end
 
     def struct(key)
@@ -51,8 +52,13 @@ module Restruct
       return create(Restruct::Types::Counter, key)
     end
 
-    def script(script)
-      return Restruct::Types::Script.new(script: script, factory: self)
+    # Caveat: if the script with the given ID exists in the cache, we don't bother updating it.
+    # So if the script actually changed since the first call, the one sent during the first call will
+    def script(id, script)
+      return @script_cache.synchronize do
+        @script_cache[id] = Restruct::Types::Script.new(id: id, script: script, factory: self) if @script_cache[id].nil?
+        @script_cache[id]
+      end
     end
 
     def factory(namespace)
@@ -71,7 +77,7 @@ module Restruct
 
     # :nocov:
     def inspectable_attributes
-      return { namespace: @namespace, connection: @connection }
+      return { namespace: @namespace, script_cache: @script_cache.keys }
     end
     # :nocov:
   end
