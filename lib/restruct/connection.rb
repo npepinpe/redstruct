@@ -3,6 +3,8 @@ module Restruct
     # @return [Array<Symbols>] List of methods from the Redis class that we don't want to delegate to.
     NON_COMMAND_METHODS = [:[], :[]=, :_eval, :_scan, :method_missing, :call, :dup, :inspect, :to_s].freeze
 
+    attr_reader :pool
+
     def initialize(pool)
       raise(Restruct::Error, 'Requires a ConnectionPool to proxy to') unless pool.is_a?(ConnectionPool)
       @pool = pool
@@ -14,7 +16,12 @@ module Restruct
       next if NON_COMMAND_METHODS.include?(method)
       class_eval <<~METHOD, __FILE__, __LINE__ + 1
         def #{method}(*args)
-          return @pool.with { |c| c.#{method}(*args) }
+          connection = Thread.current[:__restruct_connection]
+          if connection.nil?
+            return @pool.with { |c| c.#{method}(*args) }
+          else
+            return connection.#{method}(*args)
+          end
         end
       METHOD
     end

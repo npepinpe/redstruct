@@ -52,6 +52,10 @@ module Restruct
       return create(Restruct::Types::Counter, key)
     end
 
+    def queue(key)
+      return create(Restruct::Types::Queue, key)
+    end
+
     # Caveat: if the script with the given ID exists in the cache, we don't bother updating it.
     # So if the script actually changed since the first call, the one sent during the first call will
     def script(id, script)

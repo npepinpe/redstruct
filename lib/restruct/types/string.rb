@@ -37,6 +37,15 @@ module Restruct
       def getset(value)
         self.connection.getset(@key, value)
       end
+
+      def length
+        self.connection.strlen(@key)
+      end
+
+      def slice(start = 0, length = -1)
+        length = start + length if length >= 0
+        return self.connection.getrange(@key, start, length)
+      end
     end
   end
 end

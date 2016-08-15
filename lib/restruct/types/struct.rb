@@ -23,7 +23,7 @@ module Restruct
 
       # @return [Number] 0 if nothing was deleted in the DB, 1 if it was
       def delete
-        self.connection.delete(@key)
+        self.connection.del(@key)
       end
 
       # @return
@@ -39,6 +39,10 @@ module Restruct
       # @return
       def persist
         self.connection.persist(@key)
+      end
+
+      def type
+        self.connection.type(@key)
       end
 
       # :nocov:

@@ -11,6 +11,17 @@ module Restruct
         @factory = factory
       end
 
+      def pipelined
+        self.connection.pool.with do |c|
+          begin
+            Thread.current[:__restruct_connection] = c
+            yield
+          ensure
+            Thread.current[:__restruct_connection] = nil
+          end
+        end
+      end
+
       # :nocov:
       def inspectable_attributes
         { factory: @factory }
