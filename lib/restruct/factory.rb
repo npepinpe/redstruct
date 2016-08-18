@@ -45,7 +45,7 @@ module Restruct
     end
 
     def lock(key, **options)
-      return Restruct::Types::Lock.new(factory: factory(key), **options)
+      return create(Restruct::Types::Lock, key, **options)
     end
 
     def counter(key)
@@ -60,7 +60,7 @@ module Restruct
     # So if the script actually changed since the first call, the one sent during the first call will
     def script(id, script)
       return @script_cache.synchronize do
-        @script_cache[id] = Restruct::Types::Script.new(id: id, script: script, factory: self) if @script_cache[id].nil?
+        @script_cache[id] = Restruct::Types::Script.new(key: id, script: script, factory: self) if @script_cache[id].nil?
         @script_cache[id]
       end
     end
@@ -69,15 +69,14 @@ module Restruct
       return self.class.new(connection: @connection, namespace: isolate(namespace))
     end
 
-    def create(type, key)
-      return type.new(key: isolate(key), factory: self)
+    def create(type, key, **options)
+      return type.new(key: isolate(key), factory: self, **options)
     end
     private :create
 
     def isolate(key)
       return (@namespace.nil? || key.start_with?(@namespace)) ? key : "#{@namespace}:#{key}"
     end
-    private :isolate
 
     # :nocov:
     def inspectable_attributes

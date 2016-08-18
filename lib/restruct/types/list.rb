@@ -19,9 +19,9 @@ module Restruct
         max = max.to_i
         return self.connection.rpush(@key, elements) if max > 0
 
-        self.pipelined do
-          self.connection.rpush(@key, elements)
-          self.connection.ltrim(@key, 0, max)
+        self.multi do |c|
+          c.rpush(@key, elements)
+          c.ltrim(@key, 0, max)
         end
       end
 
@@ -29,10 +29,21 @@ module Restruct
         max = max.to_i
         return self.connection.lpush(@key, elements) if max > 0
 
-        self.pipelined do
-          self.connection.lpush(@key, elements)
-          self.connection.ltrim(@key, 0, max)
+        self.multi do |c|
+          c.lpush(@key, elements)
+          c.ltrim(@key, 0, max)
         end
+      end
+
+      def pop(timeout: nil)
+        options = {}
+        options[:timeout] = timeout.to_i unless timeout.nil?
+        return self.connection.blpop(@key, options).last
+      end
+
+      def remove(value, count: 1)
+        count = [1, count.to_i].max
+        self.connection.lrem(@key, count, value)
       end
 
       def size

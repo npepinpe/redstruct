@@ -29,7 +29,7 @@ module Restruct
       # @param [String] The value to compare with
       # @return [TrueClass|FalseClass] True if deleted, false otherwise
       def delete_if_equals(value)
-        script_eval(SCRIPT_DELETE_IF_EQUALS, value) == 1
+        script_eval(SCRIPT_DELETE_IF_EQUALS, values: value) == 1
       end
 
       # @param [Object] The object to store; note, it will be stored using a string representation

@@ -5,18 +5,14 @@ module Restruct
     class Script < Restruct::Types::Base
       ERROR_MESSAGE_PREFIX = 'NOSCRIPT'.freeze
 
-      # @return [Symbol|String] The ID of the script in the Factory script cache. Used mostly for debugging
-      attr_reader :id
-
       # @return [String] The Lua script to evaluate
       attr_reader :script
 
-      def initialize(id:, script:, **options)
+      def initialize(script:, **options)
         script = script&.strip
         raise(Restruct::Error, 'No source script given') if script.empty?
 
         super(**options)
-        @id = id
         self.script = script
       end
 

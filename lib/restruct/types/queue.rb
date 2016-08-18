@@ -17,9 +17,9 @@ module Restruct
         self.connection.rpush(@key, elements)
       end
 
-      def dequeue(max = 1)
-        elements = script_eval(DEQUEUE_SCRIPT, max)
-        max == 1 ? elements.first : elements
+      def dequeue(length: 1)
+        elements = script_eval(DEQUEUE_SCRIPT, values: length)
+        length == 1 ? elements.first : elements
       end
     end
   end
