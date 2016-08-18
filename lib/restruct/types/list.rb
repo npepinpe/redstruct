@@ -1,11 +1,13 @@
 module Restruct
   module Types
     class List < Restruct::Types::Struct
-      include Restruct::Utils::Scriptable
+      def clear
+        return self.connection.ltrim(@key, 1, 0)
+      end
 
-      # SCRIPTS
-
-      # SCRIPTS
+      def empty?
+        return !exists?
+      end
 
       def [](index)
         return self.connection.lindex(@key, index.to_i)

@@ -34,6 +34,14 @@ module Restruct
         end
       end
 
+      # Returns:
+      # => true if result is: OK, 1, or anything but 0/nil
+      # => false otherwise
+      def boolify(result)
+        return result == RESULT_OK || (result.to_i == 1) || (!result.nil? && result.to_i != 0)
+      end
+      protected :boolify
+
       def create
         return unless block_given?
         subfactory = @factory.factory(@key)
