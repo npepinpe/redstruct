@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install redis-data
+    $ gem install restruct
 
 ## Usage
 
