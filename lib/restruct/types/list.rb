@@ -1,6 +1,7 @@
 module Restruct
   module Types
     class List < Restruct::Types::Struct
+
       def clear
         return self.connection.ltrim(@key, 1, 0)
       end
@@ -40,7 +41,7 @@ module Restruct
       def pop(timeout: nil)
         options = {}
         options[:timeout] = timeout.to_i unless timeout.nil?
-        return self.connection.blpop(@key, options).last
+        return self.connection.blpop(@key, options)&.last
       end
 
       def remove(value, count: 1)

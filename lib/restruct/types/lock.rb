@@ -3,37 +3,7 @@ require 'securerandom'
 module Restruct
   module Types
     class Lock < Restruct::Types::Base
-      include Restruct::Utils::Scriptable
-
-      # SCRIPTS
-      ACQUIRE_SCRIPT = <<~LUA
-      local token = ARGV[1]
-      local expiry = tonumber(ARGV[2])
-
-      redis.call('set', KEYS[1], token, 'NX')
-      if redis.call('get', KEYS[1]) == token then
-        redis.call('expire', KEYS[1], expiry)
-        return token
-      end
-
-      return false
-      LUA
-
-      RELEASE_SCRIPT = <<~LUA
-      local currentToken = ARGV[1]
-      local nextToken = ARGV[2]
-      local expiry = tonumber(ARGV[3])
-
-      if redis.call('get', KEYS[1]) == currentToken then
-        redis.call('set', KEYS[1], nextToken, 'EX', expiry)
-        redis.call('lpush', KEYS[2], nextToken)
-        redis.call('expire', KEYS[2], expiry)
-        return true
-      end
-
-      return false
-      LUA
-      # SCRIPTS
+      include Restruct::Utils::Scriptable, Restruct::Utils::Coercion
 
       DEFAULT_EXPIRY = 10 # seconds
       DEFAULT_TIMEOUT = nil # milliseconds; nil means do not block
@@ -72,6 +42,8 @@ module Restruct
 
         unless token.nil?
           @token = token
+          # since it was popped from a list, need to update the expiry time of the lease, it could be old
+          @lease.expire(@expiry) if blocking?
           acquired = true
         end
 
@@ -80,23 +52,14 @@ module Restruct
 
       def release
         return false if @token.nil?
-        return release_script(@token)
-      end
 
-      def acquire_script(token)
-        return script(ACQUIRE_SCRIPT, id: "#{self.class.name}#acquire", keys: @lease.key, values: [token, @expiry])
-      end
-      private :acquire_script
-
-      def release_script(token)
         next_token = SecureRandom.uuid
-        return script(RELEASE_SCRIPT, id: "#{self.class.name}#release", keys: [@lease.key, @tokens.key], values: [token, next_token, @expiry]) == 1
+        return coerce_bool(release_script(keys: [@lease.key, @tokens.key], values: [@token, next_token, @expiry]))
       end
-      private :release_script
 
       def non_blocking_acquire(token = nil)
         token ||= generate_token
-        return acquire_script(token)
+        return acquire_script(keys: @lease.key, values: [token, @expiry])
       end
       private :non_blocking_acquire
 
@@ -105,6 +68,56 @@ module Restruct
         return @tokens.pop(timeout: timeout)
       end
       private :blocking_acquire
+
+      # The acquire script attempts to set the lease (KEYS[1]) to the given token (ARGV[1]), only
+      # if it wasn't already set. It then compares to check if the value of the lease is that of the token,
+      # and if so refreshes the expiry (ARGV[2]) time of the lease.
+      # KEYS:
+      # @param [String] The lease key specifying who owns the mutex at the moment
+      # ARGV:
+      # @param [String] The current token; if it is the lease value, then we can release the lock
+      # @param [Fixnum] The expiry time for lease keys in seconds
+      # @return [String] Returns the token if acquired, nil otherwise.
+      defscript :acquire_script, <<~LUA
+        local token = ARGV[1]
+        local expiry = tonumber(ARGV[2])
+
+        redis.call('set', KEYS[1], token, 'NX')
+        if redis.call('get', KEYS[1]) == token then
+          redis.call('expire', KEYS[1], expiry)
+          return token
+        end
+
+        return false
+      LUA
+      protected :acquire_script
+
+      # The release script compares the given token (ARGV[1]) with the lease value (KEYS[1]); if they are the same,
+      # then a new token (ARGV[2]) is set as the lease, and pushed on the tokens (KEYS[2]) list
+      # for the next acquire request.
+      # KEYS:
+      # @param [String] The lease key specifying who owns the mutex at the moment
+      # @param [String] The tokens list key, where the next token will be pushed if we released the lock
+      # ARGV:
+      # @param [String] The current token; if it is the lease value, then we can release the lock
+      # @param [String] The next token to push on the tokens list iff the lock was released
+      # @param [Fixnum] The expiry time for lease/tokens keys in seconds
+      # @return [Fixnum] 1 if released, 0 otherwise
+      defscript :release_script, <<~LUA
+        local currentToken = ARGV[1]
+        local nextToken = ARGV[2]
+        local expiry = tonumber(ARGV[3])
+
+        if redis.call('get', KEYS[1]) == currentToken then
+          redis.call('set', KEYS[1], nextToken, 'EX', expiry)
+          redis.call('lpush', KEYS[2], nextToken)
+          redis.call('expire', KEYS[2], expiry)
+          return true
+        end
+
+        return false
+      LUA
+      protected :release_script
 
       def generate_token
         return SecureRandom.uuid

@@ -1,6 +1,8 @@
 module Restruct
   module Types
     class Hash < Restruct::Types::Struct
+      include Restruct::Utils::Coercion
+
       def [](key)
         return self.connection.hget(@key, key)
       end
@@ -31,7 +33,7 @@ module Restruct
       end
 
       def key?(key)
-        return boolify(self.connection.hexists(@key, key))
+        return coerce_bool(self.connection.hexists(@key, key))
       end
 
       def incr(key, increment: 1)

@@ -1,17 +1,20 @@
 module Restruct
   module Utils
     module Scriptable
-      def script_eval(source, values: [], keys: [])
-        id = "#{self.class.name}##{caller_locations(1, 1)[0].base_label}".freeze
-        keys = [@key].concat(keys)
-        script(source, id: id, values: values, keys: keys)
+      def self.included(base)
+        base.extend(ClassMethods)
       end
 
-      def script(source, id:, values: [], keys: [])
-        id ||= "#{self.class.name}##{caller_locations(1, 1)[0].base_label}".freeze
-        values = [values] unless values.is_a?(Array)
-        keys = [keys] unless keys.is_a?(Array)
-        @factory.script(id, source).eval(keys: keys, argv: values)
+      module ClassMethods
+        def defscript(id, source)
+          constant = "SCRIPT_SOURCE_#{id.upcase}"
+          class_eval <<~METHOD, __FILE__, __LINE__ + 1
+          #{constant} = { id: '#{id}'.freeze, source: %(#{source}).freeze }.freeze
+            def #{id}(keys: [], values: [])
+              return @factory.script(#{constant}[:id], #{constant}[:source]).eval(keys: keys, argv: values)
+            end
+          METHOD
+        end
       end
     end
   end

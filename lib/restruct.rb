@@ -6,6 +6,7 @@ require 'connection_pool'
 require 'restruct/version'
 require 'restruct/utils/inspectable'
 require 'restruct/utils/scriptable'
+require 'restruct/utils/coercion'
 
 # Core
 require 'restruct/connection'

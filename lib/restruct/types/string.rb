@@ -1,11 +1,7 @@
 module Restruct
   module Types
     class String < Restruct::Types::Struct
-      include Restruct::Utils::Scriptable
-
-      # SCRIPTS
-      SCRIPT_DELETE_IF_EQUALS = %(if redis.call("get", KEYS[1]) == ARGV[1] then return redis.call("del", KEYS[1]) else return 0 end).freeze
-      # SCRIPTS
+      include Restruct::Utils::Scriptable, Restruct::Utils::Coercion
 
       # @return [String] The string value stored in the database
       def get
@@ -29,7 +25,7 @@ module Restruct
       # @param [String] The value to compare with
       # @return [TrueClass|FalseClass] True if deleted, false otherwise
       def delete_if_equals(value)
-        script_eval(SCRIPT_DELETE_IF_EQUALS, values: value) == 1
+        coerce_bool(delete_if_equals_script(keys: @key, values: value))
       end
 
       # @param [Object] The object to store; note, it will be stored using a string representation
@@ -46,6 +42,21 @@ module Restruct
         length = start + length if length >= 0
         return self.connection.getrange(@key, start, length)
       end
+
+      # Deletes the key (KEYS[1]) iff the value is equal to ARGV[1].
+      # KEYS:
+      # @param [String] The key to delete
+      # ARGV:
+      # @param [String] The value to compare with
+      # @return [Fixnum] 1 if deleted, 0 otherwise
+      defscript :delete_if_equals_script, <<~LUA
+        local deleted = false
+        if redis.call("get", KEYS[1]) == ARGV[1] then
+          deleted = redis.call("del", KEYS[1])
+        end
+
+        return deleted
+      LUA
     end
   end
 end

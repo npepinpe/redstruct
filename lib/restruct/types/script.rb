@@ -37,10 +37,12 @@ module Restruct
       end
 
       def eval(keys:, argv:)
-        self.connection.evalsha(self.sha1, keys: keys, argv: argv)
+        keys = [keys] unless keys.is_a?(Array)
+        argv = [argv] unless argv.is_a?(Array)
+        self.connection.evalsha(self.sha1, keys, argv)
       rescue Redis::CommandError => err
         raise unless err.message.start_with?(ERROR_MESSAGE_PREFIX)
-        self.connection.eval(@script, keys: keys, argv: argv)
+        self.connection.eval(@script, keys, argv)
       end
 
       # :nocov:
