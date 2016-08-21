@@ -2,6 +2,7 @@ require 'digest'
 
 module Restruct
   module Types
+    # It is recommended you flush your script cache on the redis server every once in a while
     class Script < Restruct::Types::Base
       ERROR_MESSAGE_PREFIX = 'NOSCRIPT'.freeze
 

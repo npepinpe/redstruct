@@ -15,17 +15,14 @@ module Restruct
         self.connection.del(@key)
       end
 
-      # @return
       def expire(ttl)
         self.connection.expire(@key, ttl)
       end
 
-      # @return
       def expire_at(time)
         self.connection.expire_at(@key,  time.to_i)
       end
 
-      # @return
       def persist
         self.connection.persist(@key)
       end

@@ -8,6 +8,7 @@ module Restruct
         return value.to_a if value.respond_to?(:to_a)
         return [value]
       end
+      module_function :coerce_array
 
       def coerce_bool(value)
         return false if value.nil?
@@ -15,6 +16,7 @@ module Restruct
 
         return true
       end
+      module_function :coerce_bool
     end
   end
 end
