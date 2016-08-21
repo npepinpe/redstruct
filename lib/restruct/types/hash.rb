@@ -64,8 +64,8 @@ module Restruct
         return self.connection.hlen(@key)
       end
 
-      def each(&block)
-        return self.connection.hscan_each(@key, &block)
+      def each(options = {}, &block)
+        return self.connection.hscan_each(@key, options, &block)
       end
     end
   end

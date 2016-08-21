@@ -4,7 +4,7 @@ module Restruct
       include Restruct::Utils::Scriptable
 
       def clear
-        return self.connection.ltrim(@key, 1, 0)
+        delete
       end
 
       def empty?
