@@ -1,5 +1,6 @@
 module Restruct
   module Types
+    # Note: keep in mind Redis converts everything to a string on the DB side
     class Set < Restruct::Types::Struct
       def clear
         delete
@@ -22,8 +23,8 @@ module Restruct
         return self.connection.smembers(@key)
       end
 
-      def add(member)
-        return self.connection.sadd(@key, member)
+      def add(*members)
+        return self.connection.sadd(@key, members)
       end
       alias_method :<<, :add
 
@@ -46,19 +47,25 @@ module Restruct
       def difference(other, dest: nil)
         destination = coerce_destination(dest)
         return self - other if destination.nil?
-        return self.connection.sdiffstore(destination.key, @key, other.key)
+
+        self.connection.sdiffstore(destination.key, @key, other.key)
+        return destination
       end
 
       def intersection(other, dest: nil)
         destination = coerce_destination(dest)
         return self - other if destination.nil?
-        return self.connection.interstore(destination.key, @key, other.key)
+
+        self.connection.sinterstore(destination.key, @key, other.key)
+        return destination
       end
 
       def union(other, dest: nil)
         destination = coerce_destination(dest)
         return self - other if destination.nil?
-        return self.connection.sunionstore(destination.key, @key, other.key)
+
+        self.connection.sunionstore(destination.key, @key, other.key)
+        return destination
       end
 
       def pop(count: 1)
@@ -75,9 +82,9 @@ module Restruct
 
       def coerce_destination(dest)
         return case dest
-        when String
-          create { |f| f.set(dest) }
-        when Restruct::Type::Set
+        when ::String
+          @factory.set(dest)
+        when self.class
           dest
         else
           nil
