@@ -13,10 +13,8 @@ module Restruct
       end
 
       # Dequeues up to ARGV[1] amount of items from the list at KEYS[1]
-      # KEYS:
-      # @param [String] The key of the list to dequeue from
-      # ARGV:
-      # @param [Fixnum] The number of items to try and dequeue
+      # @keys [String] The key of the list to dequeue from
+      # @argv [Fixnum] The number of items to try and dequeue
       # @return [Array] An array of items dequeued or an empty array
       defscript :dequeue_script, <<~LUA
         local length = tonumber(ARGV[1])

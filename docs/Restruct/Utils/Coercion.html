@@ -119,7 +119,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#coerce_array-class_method" title="coerce_array (class method)">.<strong>coerce_array</strong>(value)  &#x21d2; Object </a>
+      <a href="#coerce_array-class_method" title="coerce_array (class method)">.<strong>coerce_array</strong>(value)  &#x21d2; Array </a>
     
 
     
@@ -133,7 +133,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Coerces the value into an array.</p>
+</div></span>
   
 </li>
 
@@ -141,7 +143,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#coerce_bool-class_method" title="coerce_bool (class method)">.<strong>coerce_bool</strong>(value)  &#x21d2; Object </a>
+      <a href="#coerce_bool-class_method" title="coerce_bool (class method)">.<strong>coerce_bool</strong>(value)  &#x21d2; Boolean </a>
     
 
     
@@ -155,7 +157,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Coerces an object into a boolean:   If nil or 0 (after .to_i) =&gt; false  
+True otherwise.</p>
+</div></span>
   
 </li>
 
@@ -172,27 +177,80 @@
       <div class="method_details first">
   <h3 class="signature first" id="coerce_array-class_method">
   
-    .<strong>coerce_array</strong>(value)  &#x21d2; <tt>Object</tt> 
+    .<strong>coerce_array</strong>(value)  &#x21d2; <tt>Array</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Coerces the value into an array.</p>
+
+<pre class="code ruby"><code class="ruby">Returns the value if it is already an array (or subclass)
+Returns value.to_a if it responds to to_a
+Returns [value] otherwise</code></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The value to coerce</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The coerced value</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-5
-6
-7
-8
-9
-10</pre>
+11
+12
+13
+14
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/utils/coercion.rb', line 5</span>
+      <pre class="code"><span class="info file"># File 'lib/restruct/utils/coercion.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_coerce_array'>coerce_array</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -208,27 +266,79 @@
       <div class="method_details ">
   <h3 class="signature " id="coerce_bool-class_method">
   
-    .<strong>coerce_bool</strong>(value)  &#x21d2; <tt>Object</tt> 
+    .<strong>coerce_bool</strong>(value)  &#x21d2; <tt>Boolean</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Coerces an object into a boolean:</p>
+
+<pre class="code ruby"><code class="ruby">If nil or 0 (after .to_i) =&gt; false
+True otherwise</code></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The object to coerce into a bool</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Coerced value</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-13
-14
-15
-16
-17
-18</pre>
+24
+25
+26
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/utils/coercion.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/restruct/utils/coercion.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_coerce_bool'>coerce_bool</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -246,7 +356,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Aug 22 12:06:47 2016 by
+  Generated on Mon Aug 22 15:45:36 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.1).
 </div>

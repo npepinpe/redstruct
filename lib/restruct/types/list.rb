@@ -56,12 +56,10 @@ module Restruct
 
       # Appends or prepends (ARGV[1]) a number of items (ARGV[2]) to a list (KEYS[1]),
       # then trims it out to size (ARGV[3])
-      # KEYS:
-      # @param [String] The list to prepend to and resize
-      # ARGV:
-      # @param [Fixnum] If 1, will lpush; if false, rpush
-      # @param [Fixnum] The maximum size of the list
-      # @param [Array<String>] The items to prepend
+      # @keys [String] The list to prepend to and resize
+      # @argv [Fixnum] If 1, will lpush; if false, rpush
+      # @argv [Fixnum] The maximum size of the list
+      # @argv [Array<String>] The items to prepend
       # @return [Fixnum] The length of the list after the operation
       defscript :push_and_trim_script, <<~LUA
         local max = tonumber(table.remove(ARGV, 1))

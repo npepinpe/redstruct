@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  Module: Restruct::Utils
+  Class: Restruct::DefscriptHandler
   
     &mdash; Documentation by YARD 0.9.5
   
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  pathId = "Restruct::Utils";
+  pathId = "Restruct::DefscriptHandler";
   relpath = '../';
 </script>
 
@@ -36,10 +36,10 @@
       <div id="header">
         <div id="menu">
   
-    <a href="../_index.html">Index (U)</a> &raquo;
+    <a href="../_index.html">Index (D)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../Restruct.html" title="Restruct (module)">Restruct</a></span></span>
      &raquo; 
-    <span class="title">Utils</span>
+    <span class="title">DefscriptHandler</span>
   
 </div>
 
@@ -61,12 +61,30 @@
 
       <iframe id="search_frame" src="../class_list.html"></iframe>
 
-      <div id="content"><h1>Module: Restruct::Utils
+      <div id="content"><h1>Class: Restruct::DefscriptHandler
   
   
   
 </h1>
 <div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">YARD::Handlers::Ruby::Base</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">YARD::Handlers::Ruby::Base</li>
+          
+            <li class="next">Restruct::DefscriptHandler</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
   
 
   
@@ -80,9 +98,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/restruct/utils/coercion.rb<span class="defines">,<br />
-  lib/restruct/utils/scriptable.rb,<br /> lib/restruct/utils/inspectable.rb</span>
-</dd>
+    <dd>lib/restruct/yard/defscript_handler.rb</dd>
   </dl>
   
 </div>
@@ -91,13 +107,22 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Utils/Coercion.html" title="Restruct::Utils::Coercion (module)">Coercion</a></span>, <span class='object_link'><a href="Utils/Inspectable.html" title="Restruct::Utils::Inspectable (module)">Inspectable</a></span>, <span class='object_link'><a href="Utils/Scriptable.html" title="Restruct::Utils::Scriptable (module)">Scriptable</a></span>
-    
   
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="DefscriptHandler/LuaScriptObject.html" title="Restruct::DefscriptHandler::LuaScriptObject (class)">LuaScriptObject</a></span>, <span class='object_link'><a href="DefscriptHandler/Tag.html" title="Restruct::DefscriptHandler::Tag (class)">Tag</a></span>
     
   
 </p>
 
+  <h2>Constant Summary</h2>
+  <dl class="constants">
+    
+      <dt id="GROUP_NAME-constant" class="">GROUP_NAME =
+        
+      </dt>
+      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Lua Scripts</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+    
+  </dl>
 
 
 
@@ -105,11 +130,13 @@
 
 
 
+
+  
 
 </div>
 
       <div id="footer">
-  Generated on Mon Aug 22 15:45:36 2016 by
+  Generated on Mon Aug 22 15:45:37 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.1).
 </div>
