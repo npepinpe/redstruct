@@ -1,6 +1,8 @@
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 
+Bundler.require(:default, :development)
+
 Rake::TestTask.new(:test) do |t|
   t.libs << 'test'
   t.libs << 'lib'
@@ -8,3 +10,8 @@ Rake::TestTask.new(:test) do |t|
 end
 
 task :default => :test
+
+YARD::Rake::YardocTask.new do |t|
+ t.files   = ['lib/**/*.rb']
+ t.options = ['--output-dir=./docs']
+end

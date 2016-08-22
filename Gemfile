@@ -8,4 +8,5 @@ group :development, :test do
   gem 'pry' # better console
   gem 'pry-byebug' # pry integration for byebug
   gem 'pry-stack_explorer' # stack exploration
+  gem 'yard' # documentation
 end

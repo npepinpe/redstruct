@@ -29,6 +29,7 @@ GEM
     rake (10.5.0)
     redis (3.3.0)
     slop (3.6.0)
+    yard (0.9.5)
 
 PLATFORMS
   ruby
@@ -42,6 +43,7 @@ DEPENDENCIES
   pry-stack_explorer
   rake (~> 10.0)
   redis-data!
+  yard
 
 BUNDLED WITH
    1.12.5
