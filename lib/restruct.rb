@@ -15,14 +15,12 @@ require 'restruct/error'
 require 'restruct/factory'
 require 'restruct/types/base'
 
-# Data types
+# Base data types
 require 'restruct/types/struct'
 require 'restruct/types/string'
 require 'restruct/types/counter'
 require 'restruct/types/hash'
 require 'restruct/types/list'
-require 'restruct/types/lock'
-require 'restruct/types/queue'
 require 'restruct/types/script'
 require 'restruct/types/set'
 require 'restruct/types/sorted_set'

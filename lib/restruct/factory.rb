@@ -3,7 +3,7 @@ module Restruct
   class Factory
     include Restruct::Utils::Inspectable
 
-    # @return [Restruct::Connection] The connection proxy to use when executing commands. Shared by all factory produced objects.
+    # @return [Connection] The connection proxy to use when executing commands. Shared by all factory produced objects.
     attr_reader :connection
 
     def initialize(connection: nil, pool: nil, namespace: nil)

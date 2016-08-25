@@ -1,13 +1,13 @@
 require 'securerandom'
 
 module Restruct
-  module Types
+  module Hls
     # Implementation of a simple binary lock (locked/not locked), with option to block and wait for the lock.
     # Uses two redis structures: a string for the lease, and a list for blocking operations.
     # @see #acquire
     # @see #release
     # @see #locked
-    # @attr_reader [String, nil] token The current token or nil
+    # @attr_reader [::String, nil] token The current token or nil
     # @attr_reader [Fixnum] expiry The expiry of the underlying redis structures in seconds
     # @attr_reader [Fixnum, nil] timeout The timeout to wait when attempting to acquire the lock, in seconds
     class Lock < Restruct::Types::Base
@@ -80,12 +80,12 @@ module Restruct
         return false if @token.nil?
 
         next_token = SecureRandom.uuid
-        return coerce_bool(release_script(keys: [@lease.key, @tokens.key], values: [@token, next_token, @expiry]))
+        return coerce_bool(release_script(keys: [@lease.key, @tokens.key], argv: [@token, next_token, @expiry]))
       end
 
       def non_blocking_acquire(token = nil)
         token ||= generate_token
-        return acquire_script(keys: @lease.key, values: [token, @expiry])
+        return acquire_script(keys: @lease.key, argv: [token, @expiry])
       end
       private :non_blocking_acquire
 
@@ -95,13 +95,12 @@ module Restruct
       end
       private :blocking_acquire
 
-      # The acquire script attempts to set the lease (KEYS[1]) to the given token (ARGV[1]), only
+      # The acquire script attempts to set the lease (keys[1]) to the given token (argv[1]), only
       # if it wasn't already set. It then compares to check if the value of the lease is that of the token,
-      # and if so refreshes the expiry (ARGV[2]) time of the lease.
-      # @keys [String] The lease key specifying who owns the mutex at the moment
-      # @argv [String] The current token; if it is the lease value, then we can release the lock
-      # @argv [Fixnum] The expiry time for lease keys in seconds
-      # @return [String] Returns the token if acquired, nil otherwise.
+      # and if so refreshes the expiry (argv[2]) time of the lease.
+      # @param [Array<(::String)>] keys The lease key specifying who owns the mutex at the moment
+      # @param [Array<(::String, Fixnum)>] argv The current token; the expiry time in seconds
+      # @return [::String] Returns the token if acquired, nil otherwise.
       defscript :acquire_script, <<~LUA
         local token = ARGV[1]
         local expiry = tonumber(ARGV[2])
@@ -115,14 +114,11 @@ module Restruct
         return false
       LUA
 
-      # The release script compares the given token (ARGV[1]) with the lease value (KEYS[1]); if they are the same,
-      # then a new token (ARGV[2]) is set as the lease, and pushed on the tokens (KEYS[2]) list
+      # The release script compares the given token (argv[1]) with the lease value (keys[1]); if they are the same,
+      # then a new token (argv[2]) is set as the lease, and pushed on the tokens (keys[2]) list
       # for the next acquire request.
-      # @keys [String] The lease key specifying who owns the mutex at the moment
-      # @keys [String] The tokens list key, where the next token will be pushed if we released the lock
-      # @argv [String] The current token; if it is the lease value, then we can release the lock
-      # @argv [String] The next token to push on the tokens list iff the lock was released
-      # @argv [Fixnum] The expiry time for lease/tokens keys in seconds
+      # @param [Array<(::String, ::String)>] keys The lease key; the tokens list key
+      # @param [Array<(::String, ::String, Fixnum)>] argv The current token; the next token to push; the expiry time of both keys
       # @return [Fixnum] 1 if released, 0 otherwise
       defscript :release_script, <<~LUA
         local currentToken = ARGV[1]

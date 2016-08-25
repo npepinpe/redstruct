@@ -1,6 +1,6 @@
 module Restruct
   class Connection
-    # @return [Array<Symbols>] List of methods from the Redis class that we don't want to delegate to.
+    # @return [Array<Symbol>] List of methods from the Redis class that we don't want to delegate to.
     NON_COMMAND_METHODS = [:[], :[]=, :_eval, :_scan, :method_missing, :call, :dup, :inspect, :to_s].freeze
 
     attr_reader :pool

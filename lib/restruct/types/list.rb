@@ -22,13 +22,13 @@ module Restruct
       def append(*elements, max: 0)
         max = max.to_i
         return self.connection.rpush(@key, elements) if max <= 0
-        return push_and_trim_script(keys: @key, values: [max - 1, 0] + elements)
+        return push_and_trim_script(keys: @key, argv: [max - 1, 0] + elements)
       end
 
       def prepend(*elements, max: nil)
         max = max.to_i
         return self.connection.lpush(@key, elements) if max <= 0
-        return push_and_trim_script(keys: @key, values: [max - 1, 1] + elements)
+        return push_and_trim_script(keys: @key, argv: [max - 1, 1] + elements)
       end
 
       def pop(timeout: nil)
@@ -54,12 +54,10 @@ module Restruct
         return slice(0, -1)
       end
 
-      # Appends or prepends (ARGV[1]) a number of items (ARGV[2]) to a list (KEYS[1]),
-      # then trims it out to size (ARGV[3])
-      # @keys [String] The list to prepend to and resize
-      # @argv [Fixnum] If 1, will lpush; if false, rpush
-      # @argv [Fixnum] The maximum size of the list
-      # @argv [Array<String>] The items to prepend
+      # Appends or prepends (argv[1]) a number of items (argv[2]) to a list (keys[1]),
+      # then trims it out to size (argv[3])
+      # @param [Array<(::String)>] keys First key should be the key to the list to prepend to and resize
+      # @param [Array<(Fixnum, Fixnum, Array<::String>)>] argv The maximum size of the list; if 1, will lpush, otherwise rpush; the list of items to prepend
       # @return [Fixnum] The length of the list after the operation
       defscript :push_and_trim_script, <<~LUA
         local max = tonumber(table.remove(ARGV, 1))

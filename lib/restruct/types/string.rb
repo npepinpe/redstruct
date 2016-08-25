@@ -3,7 +3,7 @@ module Restruct
     class String < Restruct::Types::Struct
       include Restruct::Utils::Scriptable, Restruct::Utils::Coercion
 
-      # @return [String] The string value stored in the database
+      # @return [::String] The string value stored in the database
       def get
         return self.connection.get(@key)
       end
@@ -22,14 +22,14 @@ module Restruct
         self.connection.set(@key, value, options) == 'OK'
       end
 
-      # @param [String] value The value to compare with
+      # @param [::String] value The value to compare with
       # @return [Boolean] True if deleted, false otherwise
       def delete_if_equals(value)
-        coerce_bool(delete_if_equals_script(keys: @key, values: value))
+        coerce_bool(delete_if_equals_script(keys: @key, argv: value))
       end
 
       # @param [Object] value The object to store; note, it will be stored using a string representation
-      # @return [String] The old value before setting it
+      # @return [::String] The old value before setting it
       def getset(value)
         self.connection.getset(@key, value)
       end
@@ -41,15 +41,15 @@ module Restruct
 
       # @param [Fixnum] start Starting index of the slice
       # @param [Fixnum] length Length of the slice; negative numbers start counting from the right (-1 = end)
-      # @return [Array<String>] The requested slice from <start> with length <length>
+      # @return [Array<::String>] The requested slice from <start> with length <length>
       def slice(start = 0, length = -1)
         length = start + length if length >= 0
         return self.connection.getrange(@key, start, length)
       end
 
-      # Deletes the key (KEYS[1]) iff the value is equal to ARGV[1].
-      # @keys [String] The key to delete
-      # @argv [String] The value to compare with
+      # Deletes the key (keys[1]) iff the value is equal to argv[1].
+      # @param [Array<(::String)>] keys The key to delete
+      # @param [Array<(::String)>] argv The value to compare with
       # @return [Fixnum] 1 if deleted, 0 otherwise
       defscript :delete_if_equals_script, <<~LUA
         local deleted = false

@@ -10,7 +10,7 @@ module Restruct
           constant = "SCRIPT_SOURCE_#{id.upcase}"
           class_eval <<~METHOD, __FILE__, __LINE__ + 1
           #{constant} = { id: '#{id}'.freeze, source: %(#{source}).freeze }.freeze
-            def #{id}(keys: [], values: [])
+            def #{id}(keys: [], argv: [])
               return @factory.script(#{constant}[:id], #{constant}[:source]).eval(keys: keys, argv: values)
             end
           METHOD

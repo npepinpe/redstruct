@@ -1,5 +1,5 @@
 module Restruct
-  module Types
+  module Hls
     class Queue < Restruct::Types::List
       include Restruct::Utils::Scriptable
 
@@ -8,13 +8,13 @@ module Restruct
       end
 
       def dequeue(length: 1)
-        elements = dequeue_script(keys: @key, values: length)
+        elements = dequeue_script(keys: @key, argv: length)
         length == 1 ? elements.first : elements
       end
 
-      # Dequeues up to ARGV[1] amount of items from the list at KEYS[1]
-      # @keys [String] The key of the list to dequeue from
-      # @argv [Fixnum] The number of items to try and dequeue
+      # Dequeues up to argv[1] amount of items from the list at keys[1]
+      # @param [Array<(::String)>] keys The key of the list to dequeue from
+      # @param [Array<(Fixnum)>] argv The number of items to dequeue
       # @return [Array] An array of items dequeued or an empty array
       defscript :dequeue_script, <<~LUA
         local length = tonumber(ARGV[1])

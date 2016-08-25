@@ -6,7 +6,7 @@ module Restruct
     class Script < Restruct::Types::Base
       ERROR_MESSAGE_PREFIX = 'NOSCRIPT'.freeze
 
-      # @return [String] The Lua script to evaluate
+      # @return [::String] The Lua script to evaluate
       attr_reader :script
 
       def initialize(script:, **options)

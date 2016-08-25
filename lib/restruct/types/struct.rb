@@ -5,12 +5,12 @@ module Restruct
     class Struct < Restruct::Types::Base
       include Restruct::Utils::Inspectable
 
-      # @return [TrueClass|FalseClass] Returns true if it exists in redis, false otherwise
+      # @return [Boolean] Returns true if it exists in redis, false otherwise
       def exists?
         return self.connection.exists(@key)
       end
 
-      # @return [Number] 0 if nothing was deleted in the DB, 1 if it was
+      # @return [Fixnum] 0 if nothing was deleted in the DB, 1 if it was
       def delete
         self.connection.del(@key)
       end
