@@ -134,7 +134,6 @@ module Restruct
 
         return false
       LUA
-      protected :release_script
 
       def generate_token
         return SecureRandom.uuid
