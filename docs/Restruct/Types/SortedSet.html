@@ -106,6 +106,16 @@
 </div>
 
 
+  <h2>Constant Summary</h2>
+  <dl class="constants">
+    
+      <dt id="DEFAULT_SCORE-constant" class="">DEFAULT_SCORE =
+        
+      </dt>
+      <dd><pre class="code"><span class='float'>1.0</span></pre></dd>
+    
+  </dl>
+
 
 
 
@@ -117,6 +127,61 @@
   <p class="inherited"><span class='object_link'><a href="Base.html#key-instance_method" title="Restruct::Types::Base#key (method)">#key</a></span></p>
 
 
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%3C%3C-instance_method" title="#&lt;&lt; (instance method)">#<strong>&lt;&lt;</strong>(item)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add-instance_method" title="#add (instance method)">#<strong>add</strong>(options = {}, *items)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
 
   
   
@@ -124,7 +189,7 @@
   
   
   
-  <h2>Method Summary</h2>
+  
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Struct.html" title="Restruct::Types::Struct (class)">Struct</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Struct.html#delete-instance_method" title="Restruct::Types::Struct#delete (method)">#delete</a></span>, <span class='object_link'><a href="Struct.html#exists%3F-instance_method" title="Restruct::Types::Struct#exists? (method)">#exists?</a></span>, <span class='object_link'><a href="Struct.html#expire-instance_method" title="Restruct::Types::Struct#expire (method)">#expire</a></span>, <span class='object_link'><a href="Struct.html#expire_at-instance_method" title="Restruct::Types::Struct#expire_at (method)">#expire_at</a></span>, <span class='object_link'><a href="Struct.html#inspectable_attributes-instance_method" title="Restruct::Types::Struct#inspectable_attributes (method)">#inspectable_attributes</a></span>, <span class='object_link'><a href="Struct.html#persist-instance_method" title="Restruct::Types::Struct#persist (method)">#persist</a></span>, <span class='object_link'><a href="Struct.html#type-instance_method" title="Restruct::Types::Struct#type (method)">#type</a></span></p>
@@ -159,10 +224,76 @@
 </div>
 
 
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="<<-instance_method">
+  
+    #<strong>&lt;&lt;</strong>(item)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+10
+11
+12</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/restruct/types/sorted_set.rb', line 10</span>
+
+<span class='kw'>def</span> <span class='op'>&lt;&lt;</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_zadd'>zadd</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='const'>DEFAULT_SCORE</span><span class='comma'>,</span> <span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="add-instance_method">
+  
+    #<strong>add</strong>(options = {}, *items)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+6
+7
+8</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/restruct/types/sorted_set.rb', line 6</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_items'>items</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_defaults'>defaults</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>nx:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>xx:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>ch:</span> <span class='kw'>false</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
 </div>
 
       <div id="footer">
-  Generated on Mon Aug 22 17:36:42 2016 by
+  Generated on Mon Aug 29 14:24:08 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.1).
 </div>
