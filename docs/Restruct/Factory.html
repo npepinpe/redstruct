@@ -87,11 +87,16 @@
 
   
   
+  <dl>
+      <dt>Extended by:</dt>
+      <dd><span class='object_link'><a href="Factory/Deserialization.html" title="Restruct::Factory::Deserialization (module)">Deserialization</a></span></dd>
+  </dl>
+  
   
   
   <dl>
       <dt>Includes:</dt>
-      <dd><span class='object_link'><a href="Utils/Inspectable.html" title="Restruct::Utils::Inspectable (module)">Utils::Inspectable</a></span></dd>
+      <dd><span class='object_link'><a href="Factory/Creation.html" title="Restruct::Factory::Creation (module)">Creation</a></span>, <span class='object_link'><a href="Utils/Inspectable.html" title="Restruct::Utils::Inspectable (module)">Utils::Inspectable</a></span></dd>
   </dl>
   
   
@@ -101,7 +106,9 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/restruct/factory.rb</dd>
+    <dd>lib/restruct/factory.rb<span class="defines">,<br />
+  lib/restruct/factory/creation.rb,<br /> lib/restruct/factory/deserialization.rb</span>
+</dd>
   </dl>
   
 </div>
@@ -109,7 +116,8 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Entry point to create other Redis data structures</p>
+<p>Main interface of the gem; this class should be used to build all Restruct
+objects, even when deserializing them.</p>
 
 
   </div>
@@ -117,7 +125,17 @@
 <div class="tags">
   
 
-</div>
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Factory/Creation.html" title="Restruct::Factory::Creation (module)">Creation</a></span>, <span class='object_link'><a href="Factory/Deserialization.html" title="Restruct::Factory::Deserialization (module)">Deserialization</a></span>
+    
+  
+    
+  
+</p>
+
 
 
 
@@ -169,72 +187,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#counter-instance_method" title="#counter (instance method)">#<strong>counter</strong>(key)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#factory-instance_method" title="#factory (instance method)">#<strong>factory</strong>(namespace)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#hash-instance_method" title="#hash (instance method)">#<strong>hash</strong>(key)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(connection: nil, pool: nil, namespace: nil)  &#x21d2; Factory </a>
     
 
@@ -251,9 +203,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of Factory.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -276,7 +226,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>:nocov:.</p>
+<p>Helper method for serialization.</p>
 </div></span>
   
 </li>
@@ -285,95 +235,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#isolate-instance_method" title="#isolate (instance method)">#<strong>isolate</strong>(key)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#list-instance_method" title="#list (instance method)">#<strong>list</strong>(key)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#lock-instance_method" title="#lock (instance method)">#<strong>lock</strong>(key, **options)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#queue-instance_method" title="#queue (instance method)">#<strong>queue</strong>(key)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#script-instance_method" title="#script (instance method)">#<strong>script</strong>(id, script)  &#x21d2; Object </a>
+      <a href="#isolate-instance_method" title="#isolate (instance method)">#<strong>isolate</strong>(key)  &#x21d2; String </a>
     
 
     
@@ -388,97 +250,8 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Caveat: if the script with the given ID exists in the cache, we don&#39;t
-bother updating it.</p>
+<p>Returns a namespaced version of the key (unless already namespaced).</p>
 </div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#set-instance_method" title="#set (instance method)">#<strong>set</strong>(key)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#sorted_set-instance_method" title="#sorted_set (instance method)">#<strong>sorted_set</strong>(key)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#string-instance_method" title="#string (instance method)">#<strong>string</strong>(key)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#struct-instance_method" title="#struct (instance method)">#<strong>struct</strong>(key)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -495,8 +268,25 @@ bother updating it.</p>
   
   
   
+  
+  
+  
+  
+  
+  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Utils/Inspectable.html" title="Restruct::Utils::Inspectable (module)">Utils::Inspectable</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Utils/Inspectable.html#inspect-instance_method" title="Restruct::Utils::Inspectable#inspect (method)">#inspect</a></span>, <span class='object_link'><a href="Utils/Inspectable.html#to_s-instance_method" title="Restruct::Utils::Inspectable#to_s (method)">#to_s</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Factory/Creation.html" title="Restruct::Factory::Creation (module)">Creation</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Factory/Creation.html#counter-instance_method" title="Restruct::Factory::Creation#counter (method)">#counter</a></span>, <span class='object_link'><a href="Factory/Creation.html#factory-instance_method" title="Restruct::Factory::Creation#factory (method)">#factory</a></span>, <span class='object_link'><a href="Factory/Creation.html#hash-instance_method" title="Restruct::Factory::Creation#hash (method)">#hash</a></span>, <span class='object_link'><a href="Factory/Creation.html#list-instance_method" title="Restruct::Factory::Creation#list (method)">#list</a></span>, <span class='object_link'><a href="Factory/Creation.html#lock-instance_method" title="Restruct::Factory::Creation#lock (method)">#lock</a></span>, <span class='object_link'><a href="Factory/Creation.html#queue-instance_method" title="Restruct::Factory::Creation#queue (method)">#queue</a></span>, <span class='object_link'><a href="Factory/Creation.html#script-instance_method" title="Restruct::Factory::Creation#script (method)">#script</a></span>, <span class='object_link'><a href="Factory/Creation.html#set-instance_method" title="Restruct::Factory::Creation#set (method)">#set</a></span>, <span class='object_link'><a href="Factory/Creation.html#sorted_set-instance_method" title="Restruct::Factory::Creation#sorted_set (method)">#sorted_set</a></span>, <span class='object_link'><a href="Factory/Creation.html#string-instance_method" title="Restruct::Factory::Creation#string (method)">#string</a></span>, <span class='object_link'><a href="Factory/Creation.html#struct-instance_method" title="Restruct::Factory::Creation#struct (method)">#struct</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -512,13 +302,64 @@ bother updating it.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a new instance of Factory</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>connection</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Connection.html" title="Restruct::Connection (class)">Restruct::Connection</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>connection to use for all objects built by the factory</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pool</span>
+      
+      
+        <span class='type'>(<tt>ConnectionPool</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>pool to use to build a connection from if no connection param given</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>namespace</span>
+      
+      
+        <span class='type'>(<tt>::String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>all objects build from the factory will have their keys namespaced under
+this one</p>
+</div>
+      
+    </li>
+  
+</ul>
+
 
 </div><table class="source_code">
   <tr>
@@ -526,22 +367,22 @@ bother updating it.</p>
       <pre class="lines">
 
 
-9
-10
-11
-12
-13
-14
 15
 16
 17
 18
 19
 20
-21</pre>
+21
+22
+23
+24
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>connection:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>pool:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>namespace:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_namespace'>namespace</span> <span class='op'>||=</span> <span class='const'>Restruct</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_namespace'>namespace</span>
@@ -614,12 +455,12 @@ produced objects.</p>
       <pre class="lines">
 
 
-7
-8
-9</pre>
+9
+10
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_connection'>connection</span>
   <span class='ivar'>@connection</span>
@@ -637,97 +478,7 @@ produced objects.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="counter-instance_method">
-  
-    #<strong>counter</strong>(key)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-51
-52
-53</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 51</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_counter'>counter</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='const'>Restruct</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Counter</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="factory-instance_method">
-  
-    #<strong>factory</strong>(namespace)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-68
-69
-70</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 68</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_factory'>factory</span><span class='lparen'>(</span><span class='id identifier rubyid_namespace'>namespace</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>connection:</span> <span class='ivar'>@connection</span><span class='comma'>,</span> <span class='label'>namespace:</span> <span class='id identifier rubyid_isolate'>isolate</span><span class='lparen'>(</span><span class='id identifier rubyid_namespace'>namespace</span><span class='rparen'>)</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="hash-instance_method">
-  
-    #<strong>hash</strong>(key)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-43
-44
-45</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 43</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_hash'>hash</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='const'>Restruct</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Hash</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="inspectable_attributes-instance_method">
+  <h3 class="signature first" id="inspectable_attributes-instance_method">
   
     #<strong>inspectable_attributes</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -738,7 +489,7 @@ produced objects.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>:nocov:</p>
+<p>Helper method for serialization</p>
 
 
   </div>
@@ -747,235 +498,6 @@ produced objects.</p>
   
 
 </div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-82
-83
-84</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 82</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_inspectable_attributes'>inspectable_attributes</span>
-  <span class='kw'>return</span> <span class='lbrace'>{</span> <span class='label'>namespace:</span> <span class='ivar'>@namespace</span><span class='comma'>,</span> <span class='label'>script_cache:</span> <span class='ivar'>@script_cache</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="isolate-instance_method">
-  
-    #<strong>isolate</strong>(key)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-77
-78
-79</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 77</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_isolate'>isolate</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='lparen'>(</span><span class='ivar'>@namespace</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='ivar'>@namespace</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_key'>key</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@namespace</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="list-instance_method">
-  
-    #<strong>list</strong>(key)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-31
-32
-33</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 31</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_list'>list</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='const'>Restruct</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>List</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="lock-instance_method">
-  
-    #<strong>lock</strong>(key, **options)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-47
-48
-49</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 47</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_lock'>lock</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='const'>Restruct</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Lock</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="queue-instance_method">
-  
-    #<strong>queue</strong>(key)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-55
-56
-57</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 55</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_queue'>queue</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='const'>Restruct</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Queue</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="script-instance_method">
-  
-    #<strong>script</strong>(id, script)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Caveat: if the script with the given ID exists in the cache, we don&#39;t
-bother updating it. So if the script actually changed since the first call,
-the one sent during the first call will</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-61
-62
-63
-64
-65
-66</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 61</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_script'>script</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_script'>script</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='ivar'>@script_cache</span><span class='period'>.</span><span class='id identifier rubyid_synchronize'>synchronize</span> <span class='kw'>do</span>
-    <span class='ivar'>@script_cache</span><span class='lbracket'>[</span><span class='id identifier rubyid_id'>id</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Restruct</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Script</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>key:</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>script:</span> <span class='id identifier rubyid_script'>script</span><span class='comma'>,</span> <span class='label'>factory:</span> <span class='kw'>self</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@script_cache</span><span class='lbracket'>[</span><span class='id identifier rubyid_id'>id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-    <span class='ivar'>@script_cache</span><span class='lbracket'>[</span><span class='id identifier rubyid_id'>id</span><span class='rbracket'>]</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="set-instance_method">
-  
-    #<strong>set</strong>(key)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-35
-36
-37</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 35</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_set'>set</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='const'>Restruct</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Set</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="sorted_set-instance_method">
-  
-    #<strong>sorted_set</strong>(key)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -988,8 +510,8 @@ the one sent during the first call will</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 39</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_sorted_set'>sorted_set</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='const'>Restruct</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>SortedSet</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_inspectable_attributes'>inspectable_attributes</span>
+  <span class='kw'>return</span> <span class='lbrace'>{</span> <span class='label'>namespace:</span> <span class='ivar'>@namespace</span><span class='comma'>,</span> <span class='label'>script_cache:</span> <span class='ivar'>@script_cache</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -997,59 +519,78 @@ the one sent during the first call will</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="string-instance_method">
+  <h3 class="signature " id="isolate-instance_method">
   
-    #<strong>string</strong>(key)  &#x21d2; <tt>Object</tt> 
-  
-
+    #<strong>isolate</strong>(key)  &#x21d2; <tt>String</tt> 
   
 
   
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
 
-
-27
-28
-29</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 27</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_string'>string</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='const'>Restruct</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>String</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
+  
+</h3><div class="docstring">
+  <div class="discussion">
     
-      <div class="method_details ">
-  <h3 class="signature " id="struct-instance_method">
-  
-    #<strong>struct</strong>(key)  &#x21d2; <tt>Object</tt> 
-  
+<p>Returns a namespaced version of the key (unless already namespaced)</p>
 
-  
 
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
-</h3><table class="source_code">
+    <li>
+      
+        <span class='name'>key</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the key to isolate/namespace</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>namespaced version of the key (or the key itself if already namespaced)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-23
-24
-25</pre>
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/restruct/factory.rb', line 32</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_struct'>struct</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='const'>Restruct</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Struct</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_isolate'>isolate</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='ivar'>@namespace</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='ivar'>@namespace</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_key'>key</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@namespace</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1061,7 +602,7 @@ the one sent during the first call will</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Aug 29 14:26:22 2016 by
+  Generated on Thu Sep  1 12:18:03 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.1).
 </div>

@@ -81,7 +81,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/restruct.rb<span class="defines">,<br />
-  lib/restruct/error.rb,<br /> lib/restruct/version.rb,<br /> lib/restruct/factory.rb,<br /> lib/restruct/hls/lock.rb,<br /> lib/restruct/hls/queue.rb,<br /> lib/restruct/types/set.rb,<br /> lib/restruct/types/list.rb,<br /> lib/restruct/connection.rb,<br /> lib/restruct/types/base.rb,<br /> lib/restruct/types/hash.rb,<br /> lib/restruct/types/script.rb,<br /> lib/restruct/types/string.rb,<br /> lib/restruct/types/struct.rb,<br /> lib/restruct/types/counter.rb,<br /> lib/restruct/configuration.rb,<br /> lib/restruct/utils/coercion.rb,<br /> lib/restruct/utils/scriptable.rb,<br /> lib/restruct/types/sorted_set.rb,<br /> lib/restruct/utils/inspectable.rb,<br /> lib/restruct/yard/defscript_handler.rb</span>
+  lib/restruct/error.rb,<br /> lib/restruct/version.rb,<br /> lib/restruct/factory.rb,<br /> lib/restruct/hls/lock.rb,<br /> lib/restruct/hls/queue.rb,<br /> lib/restruct/types/set.rb,<br /> lib/restruct/types/list.rb,<br /> lib/restruct/connection.rb,<br /> lib/restruct/types/base.rb,<br /> lib/restruct/types/hash.rb,<br /> lib/restruct/types/struct.rb,<br /> lib/restruct/types/script.rb,<br /> lib/restruct/types/string.rb,<br /> lib/restruct/types/counter.rb,<br /> lib/restruct/configuration.rb,<br /> lib/restruct/utils/coercion.rb,<br /> lib/restruct/types/sorted_set.rb,<br /> lib/restruct/utils/scriptable.rb,<br /> lib/restruct/factory/creation.rb,<br /> lib/restruct/utils/inspectable.rb,<br /> lib/restruct/yard/defscript_handler.rb,<br /> lib/restruct/factory/deserialization.rb</span>
 </dd>
   </dl>
   
@@ -258,15 +258,15 @@
       <pre class="lines">
 
 
-38
-39
-40
-41
 42
-43</pre>
+43
+44
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/restruct.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_factory'>factory</span> <span class='op'>=</span> <span class='id identifier rubyid_factories'>factories</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span>
@@ -294,16 +294,16 @@
       <pre class="lines">
 
 
-45
-46
-47
-48
 49
 50
-51</pre>
+51
+52
+53
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/restruct.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='op'>[]=</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_factory'>factory</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_factory'>factory</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -332,12 +332,12 @@
       <pre class="lines">
 
 
-30
-31
-32</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/restruct.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_config'>config</span>
   <span class='kw'>return</span> <span class='ivar'>@config</span> <span class='op'>||=</span> <span class='const'>Configuration</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -362,12 +362,12 @@
       <pre class="lines">
 
 
-34
-35
-36</pre>
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/restruct.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_factories'>factories</span>
   <span class='kw'>return</span> <span class='ivar'>@factories</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -392,16 +392,16 @@
       <pre class="lines">
 
 
-53
-54
-55
-56
 57
 58
-59</pre>
+59
+60
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/restruct.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/restruct.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_make'>make</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>pool:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>namespace:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_factory'>factory</span> <span class='op'>=</span> <span class='const'>Restruct</span><span class='op'>::</span><span class='const'>Factory</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>pool:</span> <span class='id identifier rubyid_pool'>pool</span><span class='comma'>,</span> <span class='label'>namespace:</span> <span class='id identifier rubyid_namespace'>namespace</span><span class='rparen'>)</span>
@@ -420,7 +420,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Aug 29 14:26:22 2016 by
+  Generated on Thu Sep  1 12:18:02 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.1).
 </div>

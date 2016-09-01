@@ -12,8 +12,12 @@ require 'restruct/utils/coercion'
 require 'restruct/connection'
 require 'restruct/configuration'
 require 'restruct/error'
-require 'restruct/factory'
 require 'restruct/types/base'
+
+# Factory
+require 'restruct/factory/creation'
+require 'restruct/factory/deserialization'
+require 'restruct/factory'
 
 # Base data types
 require 'restruct/types/struct'

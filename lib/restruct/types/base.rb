@@ -15,14 +15,6 @@ module Restruct
         @key = key
       end
 
-      def multi
-        with do |c|
-          c.multi do
-            yield(c)
-          end
-        end
-      end
-
       def with
         self.connection.pool.with do |c|
           begin
@@ -32,6 +24,10 @@ module Restruct
             Thread.current[:__restruct_connection] = nil
           end
         end
+      end
+
+      def to_h
+        return { key: @key }
       end
 
       def create
