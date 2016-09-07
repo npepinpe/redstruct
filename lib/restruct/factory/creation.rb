@@ -8,43 +8,43 @@ module Restruct
       # in the same way, e.g. if it's a lock, use Factory#lock
       # @param [::String] key base key to use
       # @return [Restruct::Types::Struct] base struct pointing to that key
-      def struct(key)
-        return create(Restruct::Types::Struct, key)
+      def struct(key, **options)
+        return create(Restruct::Types::Struct, key, **options)
       end
 
       # Builds a Redis string struct from the key
       # @param [::String] key base key to use
       # @return [Restruct::Types::String]
-      def string(key)
-        return create(Restruct::Types::String, key)
+      def string(key, **options)
+        return create(Restruct::Types::String, key, **options)
       end
 
       # Builds a Redis list struct from the key
       # @param [::String] key base key to use
       # @return [Restruct::Types::List]
-      def list(key)
-        return create(Restruct::Types::List, key)
+      def list(key, **options)
+        return create(Restruct::Types::List, key, **options)
       end
 
       # Builds a Redis set struct from the key
       # @param [::String] key base key to use
       # @return [Restruct::Types::Set]
-      def set(key)
-        return create(Restruct::Types::Set, key)
+      def set(key, **options)
+        return create(Restruct::Types::Set, key, **options)
       end
 
       # Builds a Redis sorted set (zset) struct from the key
       # @param [::String] key base key to use
       # @return [Restruct::Types::SortedSet]
-      def sorted_set(key)
-        return create(Restruct::Types::SortedSet, key)
+      def sorted_set(key, **options)
+        return create(Restruct::Types::SortedSet, key, **options)
       end
 
       # Builds a Redis hash struct from the key
       # @param [::String] key base key to use
       # @return [Restruct::Types::Hash]
-      def hash(key)
-        return create(Restruct::Types::Hash, key)
+      def hash(key, **options)
+        return create(Restruct::Types::Hash, key, **options)
       end
 
       # Builds a Redis backed lock from the key
@@ -54,12 +54,11 @@ module Restruct
         return create(Restruct::Types::Lock, key, **options)
       end
 
-      # Builds a Redis counter struct from the key, which is actually based on a
-      # Restruct::Types::String
+      # Builds a Redis counter struct from the key
       # @param [::String] key base key to use
       # @return [Restruct::Types::Counter]
-      def counter(key)
-        return create(Restruct::Types::Counter, key)
+      def counter(key, **options)
+        return create(Restruct::Types::Counter, key, **options)
       end
 
       # Builds a Redis backed queue from the key

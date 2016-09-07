@@ -161,14 +161,10 @@ module Restruct
       end
       private :generate_token
 
-      # :nocov:
-
       # Helper method for easy inspection
       def inspectable_attributes
         super.merge(expiry: @expiry, blocking: blocking?)
       end
-
-      # :nocov:
     end
   end
 end
