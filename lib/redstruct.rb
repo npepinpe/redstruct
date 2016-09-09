@@ -29,6 +29,9 @@ require 'redstruct/types/script'
 require 'redstruct/types/set'
 require 'redstruct/types/sorted_set'
 
+require 'redstruct/hls/lock'
+require 'redstruct/hls/queue'
+
 module Redstruct
   class << self
     def config

@@ -49,9 +49,9 @@ module Redstruct
 
       # Builds a Redis backed lock from the key
       # @param [::String] key base key to use
-      # @return [Redstruct::Types::Lock]
+      # @return [Redstruct::Hls::Lock]
       def lock(key, **options)
-        return create(Redstruct::Types::Lock, key, **options)
+        return create(Redstruct::Hls::Lock, key, **options)
       end
 
       # Builds a Redis counter struct from the key
@@ -63,9 +63,9 @@ module Redstruct
 
       # Builds a Redis backed queue from the key
       # @param [::String] key base key to use
-      # @return [Redstruct::Types::Queue]
+      # @return [Redstruct::Hls::Queue]
       def queue(key)
-        return create(Redstruct::Types::Queue, key)
+        return create(Redstruct::Hls::Queue, key)
       end
 
       # @todo The script cache is actually based on the database you will connect to. Therefore, it might be smarter to move it to the connection used?
