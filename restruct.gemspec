@@ -3,14 +3,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'restruct/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'redis-data'
+  spec.name          = 'restruct'
   spec.version       = Restruct::VERSION
   spec.authors       = ['Nicolas Pepin-Perreault']
   spec.email         = ['nicolas.pepin-perreault@offerista.com']
 
   spec.summary       = %q{Higher level data structures for Redis.}
   spec.description   = %q{Provides higher level data structures in Ruby using standard Redis commands. Also provides basic object mapping for pre-existing types.}
-  spec.homepage      = 'https://github.com/npepinpe/redis-data'
+  spec.homepage      = 'https://npepinpe.github.com/restruct/'
   spec.license       = "MIT"
 
   spec.files         = Dir['lib/**/*', 'Rakefile', 'README.md']
