@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 require 'bundler/setup'
-require 'restruct'
+require 'redstruct'
 require 'pry'
 
 # Prepare connection configuration
-Restruct.config.namespace = 'restruct'.freeze
-Restruct.config.connection_pool = ConnectionPool.new(size: 2, timeout: 5) { Redis.new }
+Redstruct.config.namespace = 'redstruct'.freeze
+Redstruct.config.connection_pool = ConnectionPool.new(size: 2, timeout: 5) { Redis.new }
 
 Pry.start

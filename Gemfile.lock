@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    redis-data (0.0.1)
-      connection_pool (~> 2.2.0)
-      redis (~> 3.3.0)
+    redstruct (0.1.0)
+      connection_pool (~> 2.2)
+      redis (~> 3.3)
 
 GEM
   remote: https://rubygems.org/
@@ -27,7 +27,7 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     rake (10.5.0)
-    redis (3.3.0)
+    redis (3.3.1)
     slop (3.6.0)
     yard (0.9.5)
 
@@ -42,7 +42,7 @@ DEPENDENCIES
   pry-byebug
   pry-stack_explorer
   rake (~> 10.0)
-  redis-data!
+  redstruct!
   yard
 
 BUNDLED WITH

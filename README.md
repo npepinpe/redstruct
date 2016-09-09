@@ -1,4 +1,4 @@
-# Restruct
+# Redstruct
 
 Provides higher level data structures in Ruby using standard Redis commands. Also provides basic object mapping for pre-existing types.
 
@@ -7,7 +7,7 @@ Provides higher level data structures in Ruby using standard Redis commands. Als
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'restruct'
+gem 'redstruct'
 ```
 
 And then execute:
@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install restruct
+    $ gem install redstruct
 
 ## Usage
 
@@ -30,11 +30,11 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 *Note*
 
-Avoid using transactions; the Redis documentation suggests using Lua scripts where possible, as in most cases they will be faster than transactions. Use the `Restruct::Utils::Scriptable` module and the `defscript` macro instead.
+Avoid using transactions; the Redis documentation suggests using Lua scripts where possible, as in most cases they will be faster than transactions. Use the `Redstruct::Utils::Scriptable` module and the `defscript` macro instead.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/npepinpe/restruct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/npepinpe/redstruct.
 
 
 ## License
