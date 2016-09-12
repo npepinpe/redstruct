@@ -9,10 +9,10 @@ Rake::TestTask.new(:test) do |t|
   t.test_files = FileList['test/**/*_test.rb']
 end
 
-task :default => :test
+task default: :test
 
-require 'redstruct/yard/defscript_handler'
+require 'yard/defscript_handler'
 YARD::Rake::YardocTask.new do |t|
- t.files   = ['lib/**/*.rb']
- t.options = ['--output-dir=./docs']
+  t.files   = ['lib/**/*.rb']
+  t.options = ['--output-dir=./docs']
 end
