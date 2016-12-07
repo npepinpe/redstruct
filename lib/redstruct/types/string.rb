@@ -3,9 +3,28 @@ module Redstruct
     class String < Redstruct::Types::Struct
       include Redstruct::Utils::Scriptable, Redstruct::Utils::Coercion
 
+      # @!group Value transformers
+
+      # Used internally to transform the value before saving it to the database.
+      # This is especially useful for strings, as a lot of types are encoded as strings for Redis,
+      # such as counters, times, etc.
+      # @return [String] value to be written to redis
+      def transform_write_value(value)
+        return value.to_s
+      end
+      protected :transform_write_value
+
+      # @return [String] value read from redis
+      def transform_read_value(value)
+        return value
+      end
+      protected :transform_read_value
+
+      # @!endgroup
+
       # @return [::String] The string value stored in the database
       def get
-        return self.connection.get(@key)
+        return transform_read_value(self.connection.get(@key))
       end
 
       # @param [Object] value The object to store; note, it will be stored using a string representation
@@ -19,19 +38,19 @@ module Redstruct
         options[:nx] = nx unless nx.nil?
         options[:xx] = xx unless xx.nil?
 
-        self.connection.set(@key, value, options) == 'OK'
+        self.connection.set(@key, transform_write_value(value), options) == 'OK'
       end
 
       # @param [::String] value The value to compare with
       # @return [Boolean] True if deleted, false otherwise
       def delete_if_equals(value)
-        coerce_bool(delete_if_equals_script(keys: @key, argv: value))
+        coerce_bool(delete_if_equals_script(keys: @key, argv: transform_write_value(value)))
       end
 
       # @param [Object] value The object to store; note, it will be stored using a string representation
       # @return [::String] The old value before setting it
       def getset(value)
-        self.connection.getset(@key, value)
+        transform_read_value(self.connection.getset(@key, transform_write_value(value)))
       end
 
       # @return [Fixnum] The length of the string

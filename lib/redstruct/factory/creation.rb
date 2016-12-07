@@ -68,6 +68,20 @@ module Redstruct
         return create(Redstruct::Hls::Queue, key)
       end
 
+      # Builds a string collection
+      # @param [Array<::String>] keys base key to use
+      # @return [Redstruct::Collections::Structs]
+      def structs(*keys)
+        return create_collection(Redstruct::Collections::Structs, keys)
+      end
+
+      # Builds a string collection
+      # @param [Array<::String>] keys base key to use
+      # @return [Redstruct::Collections::Strings]
+      def strings(*keys)
+        return create_collection(Redstruct::Collections::Strings, keys)
+      end
+
       # @todo The script cache is actually based on the database you will connect to. Therefore, it might be smarter to move it to the connection used?
       # Caveat: if the script with the given ID exists in the cache, we don't bother updating it.
       # So if the script actually changed since the first call, the one sent during the first call will
@@ -90,6 +104,12 @@ module Redstruct
         return type.new(key: isolate(key), factory: self, **options)
       end
       private :create
+
+      def create_collection(type, keys, **options)
+        keys = keys.map { |key| isolate(key) }
+        return type.new(keys: keys, factory: self, **options)
+      end
+      private :create_collection
     end
   end
 end

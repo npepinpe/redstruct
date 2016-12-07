@@ -1,27 +1,27 @@
+# frozen_string_literal: true
 module Redstruct
-  module Types
-    # Base class for all objects a factory can produce
+  module Collections
     class Base
       include Redstruct::Utils::Inspectable
       extend Forwardable
 
       def_delegators :@factory, :connection, :connection
 
-      # @return [String] The key used to identify the struct on redis
-      attr_reader :key
+      # @return [String] The keys pointing to the objects part of the collection
+      attr_reader :keys
 
-      def initialize(key:, factory:)
+      def initialize(keys:, factory:)
         @factory = factory
-        @key = key
+        @keys = keys.dup.freeze
       end
 
       def to_h
-        return { key: @key }
+        return { keys: @keys }
       end
 
       # :nocov:
       def inspectable_attributes
-        { key: @key, factory: @factory }
+        { key: @keys, factory: @factory }
       end
       # :nocov:
     end

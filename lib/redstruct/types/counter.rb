@@ -9,35 +9,32 @@ module Redstruct
         @max = max
       end
 
-      def get
-        super.to_i
+      def transform_write_value(value)
+        return value.to_i
       end
+      protected :transform_write_value
 
-      def set(value)
-        super(value.to_i)
+      def transform_read_value(value)
+        return value.to_i
       end
+      protected :transform_read_value
 
       def increment(by: nil, max: nil)
-        by ||= @increment
-        max ||= @max
+        by ||= transform_write_value(@increment)
+        max ||= transform_write_value(@max)
 
         value = if max.nil?
-          self.connection.incrby(@key, by.to_i).to_i
+          self.connection.incrby(@key, by)
         else
-          ring_increment_script(keys: @key, argv: [by.to_i, max.to_i]).to_i
+          ring_increment_script(keys: @key, argv: [by, max.to_i]).to_i
         end
 
-        return value
+        return transform_read_value(value)
       end
 
       def decrement(by: nil, max: nil)
-        by ||= @increment
-        by = -by.to_i
-        return increment(by: by, max: max)
-      end
-
-      def getset(value)
-        return super(value.to_i).to_i
+        by ||= transform_read_value(@increment)
+        return increment(by: -by, max: max)
       end
 
       # @!group Lua Scripts

@@ -16,11 +16,15 @@ module Redstruct
       end
 
       def expire(ttl)
-        self.connection.expire(@key, ttl)
+        self.connection.expire(@key, ttl.to_i)
       end
 
       def expire_at(time)
-        self.connection.expire_at(@key,  time.to_i)
+        self.connection.expire_at(@key, time.to_i)
+      end
+
+      def ttl
+        return self.connection.ttl(@key)
       end
 
       def persist
