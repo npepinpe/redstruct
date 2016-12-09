@@ -28,7 +28,7 @@ module Redstruct
         self.connection.mapped_hmset(@key, hash)
       end
 
-      def delete(*keys)
+      def remove(*keys)
         return self.connection.hdel(@key, keys)
       end
 
@@ -45,7 +45,7 @@ module Redstruct
       end
 
       def decr(key, increment: 1)
-        return incr(key, (-increment))
+        return incr(key, -increment)
       end
 
       def to_h
