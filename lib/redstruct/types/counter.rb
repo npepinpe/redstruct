@@ -13,8 +13,8 @@ module Redstruct
         super.to_i
       end
 
-      def set(value)
-        super(value.to_i)
+      def set(value, **options)
+        super(value.to_i, **options)
       end
 
       def increment(by: nil, max: nil)
