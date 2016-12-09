@@ -70,9 +70,8 @@ module Redstruct
         return destination
       end
 
-      def pop(count: 1)
-        list = self.connection.spop(@key, count)
-        return count == 1 ? list[0] : Set.new(list)
+      def pop
+        return self.connection.spop(@key)
       end
 
       def remove(*members)

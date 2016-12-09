@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = Dir['test/**/*']
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'redis', '>= 3.3.2', '< 4'
+  spec.add_dependency 'redis', '>= 3.3.1', '< 4'
   spec.add_dependency 'connection_pool', '~> 2.2'
 
   spec.add_development_dependency 'bundler', '~> 1.12'
