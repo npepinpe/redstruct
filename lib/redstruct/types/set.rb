@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Redstruct
   module Types
     # Note: keep in mind Redis converts everything to a string on the DB side
@@ -7,7 +8,8 @@ module Redstruct
       end
 
       def random(count: 1)
-        return self.connection.srandmember(@key, count.to_i)
+        list = self.connection.srandmember(@key, count)
+        return count == 1 ? list[0] : Set.new(list)
       end
 
       def empty?
@@ -69,7 +71,8 @@ module Redstruct
       end
 
       def pop(count: 1)
-        return self.connection.spop(@key, count.to_i)
+        list = self.connection.spop(@key, count)
+        return count == 1 ? list[0] : Set.new(list)
       end
 
       def remove(*members)
@@ -86,8 +89,6 @@ module Redstruct
           @factory.set(dest)
         when self.class
           dest
-        else
-          nil
         end
       end
       private :coerce_destination

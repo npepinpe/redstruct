@@ -15,17 +15,6 @@ module Redstruct
         @key = key
       end
 
-      def with
-        self.connection.pool.with do |c|
-          begin
-            Thread.current[:__redstruct_connection] = c
-            yield(c)
-          ensure
-            Thread.current[:__redstruct_connection] = nil
-          end
-        end
-      end
-
       def to_h
         return { key: @key }
       end

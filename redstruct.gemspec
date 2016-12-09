@@ -8,16 +8,16 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Nicolas Pepin-Perreault']
   spec.email         = ['nicolas.pepin-perreault@offerista.com']
 
-  spec.summary       = %q{Higher level data structures for Redis.}
-  spec.description   = %q{Provides higher level data structures in Ruby using standard Redis commands. Also provides basic object mapping for pre-existing types.}
+  spec.summary       = 'Higher level data structures for Redis.'
+  spec.description   = 'Provides higher level data structures in Ruby using standard Redis commands. Also provides basic object mapping for pre-existing types.'
   spec.homepage      = 'https://npepinpe.github.com/redstruct/'
-  spec.license       = "MIT"
+  spec.license       = 'MIT'
 
   spec.files         = Dir['lib/**/*', 'Rakefile', 'README.md']
   spec.test_files    = Dir['test/**/*']
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
-  spec.add_dependency 'redis', '~> 3.3'
+  spec.add_dependency 'redis', '>= 3.3.2', '< 4'
   spec.add_dependency 'connection_pool', '~> 2.2'
 
   spec.add_development_dependency 'bundler', '~> 1.12'

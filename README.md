@@ -32,6 +32,21 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Avoid using transactions; the Redis documentation suggests using Lua scripts where possible, as in most cases they will be faster than transactions. Use the `Redstruct::Utils::Scriptable` module and the `defscript` macro instead.
 
+## TODO
+
+[x] Implement counters
+[x] Implement locks (blocking/non-blocking)
+[x] Implement queues
+[x] Implement basic types (set, string, list, hash)
+[ ] Implement SortedSet
+[ ] Implement stacks
+[ ] Discuss supporting pipelining vs. just using lua scripts (better interface for scripted extensions?)
+[ ] Design/discuss stored factory meta-data (i.e. keep track of created objects, clear said objects, etc.)
+[ ] Implement/redesign factory such that types, hls, etc., packages add methods as necessary (or not? discuss)
+[ ] Implement collections to leverage redis commands such as mget, mset, etc.
+[ ] Implement value transformers (read and write) to make reusing types with specially encoded objects easy
+
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/npepinpe/redstruct.

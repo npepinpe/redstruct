@@ -10,17 +10,35 @@ module Redstruct
       @pool = pool
     end
 
+    # Executes the given block by first fixing a thread local connection from the pool,
+    # such that all redis commands executed within the block are on the same connection.
+    # This is necessary when doing pipelining, or multi/exec stuff
+    # @return [Object] whatever the passed block evaluates to, nil otherwise
+    def with
+      result = nil
+      @pool.with do |c|
+        begin
+          Thread.current[:__redstruct_connection] = c
+          result = yield(c) if block_given?
+        ensure
+          Thread.current[:__redstruct_connection] = nil
+        end
+      end
+
+      return result
+    end
+
     # While slower on load, defining all methods that we want to pipe to one of the connections results in
     # faster calls at runtime, and gives us the convenience of not going through the pool.with everytime.
     Redis.public_instance_methods(false).each do |method|
       next if NON_COMMAND_METHODS.include?(method)
       class_eval <<~METHOD, __FILE__, __LINE__ + 1
-        def #{method}(*args)
+        def #{method}(*args, &block)
           connection = Thread.current[:__redstruct_connection]
           if connection.nil?
-            return @pool.with { |c| c.#{method}(*args) }
+            with { |c| c.#{method}(*args, &block) }
           else
-            return connection.#{method}(*args)
+            return connection.#{method}(*args, &block)
           end
         end
       METHOD
