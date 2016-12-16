@@ -32,9 +32,9 @@ module Redstruct
       def expire_at(time, ms: false)
         if ms
           time = (time.to_f * 1000) if time.is_a?(Time)
-          self.connection.pexpire_at(@key, time.to_i)
+          self.connection.pexpireat(@key, time.to_i)
         else
-          self.connection.expire_at(@key, time.to_i)
+          self.connection.expireat(@key, time.to_i)
         end
       end
 
