@@ -341,7 +341,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#pop-instance_method" title="#pop (instance method)">#<strong>pop</strong>(count: 1)  &#x21d2; Object </a>
+      <a href="#pop-instance_method" title="#pop (instance method)">#<strong>pop</strong>  &#x21d2; Object </a>
     
 
     
@@ -774,12 +774,12 @@
       <pre class="lines">
 
 
+81
 82
-83
-84</pre>
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/types/set.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/types/set.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_sscan_each'>sscan_each</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -882,7 +882,7 @@
       <div class="method_details ">
   <h3 class="signature " id="pop-instance_method">
   
-    #<strong>pop</strong>(count: 1)  &#x21d2; <tt>Object</tt> 
+    #<strong>pop</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -896,15 +896,13 @@
 
 73
 74
-75
-76</pre>
+75</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/redstruct/types/set.rb', line 73</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_pop'>pop</span><span class='lparen'>(</span><span class='label'>count:</span> <span class='int'>1</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_spop'>spop</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_count'>count</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_count'>count</span> <span class='op'>==</span> <span class='int'>1</span> <span class='op'>?</span> <span class='id identifier rubyid_list'>list</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_list'>list</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_pop'>pop</span>
+  <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_spop'>spop</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -958,12 +956,12 @@
       <pre class="lines">
 
 
+77
 78
-79
-80</pre>
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/types/set.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/types/set.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_members'>members</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_srem'>srem</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_members'>members</span><span class='rparen'>)</span>
@@ -1106,7 +1104,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Dec  9 15:35:15 2016 by
+  Generated on Fri Dec 16 15:12:17 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.1).
 </div>
