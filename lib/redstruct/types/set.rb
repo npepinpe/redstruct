@@ -82,6 +82,10 @@ module Redstruct
         return self.connection.sscan_each(@key, options, &block)
       end
 
+      def to_set
+        return ::Set.new(to_a)
+      end
+
       def coerce_destination(dest)
         return case dest
         when ::String
