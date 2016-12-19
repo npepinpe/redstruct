@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 require 'redstruct/error'
 require 'redstruct/connection'
-require 'redstruct/'
 require 'redstruct/utils/inspectable'
 require 'redstruct/factory/creation'
-require 'redstruct/scripts/cache'
+require 'redstruct/types/script'
 
 module Redstruct
   # Main interface of the gem; this class should be used to build all Redstruct
