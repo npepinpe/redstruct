@@ -1,10 +1,13 @@
+# frozen_string_literal: true
 require 'digest'
+require 'redstruct/types/base'
+require 'redstruct/error'
 
 module Redstruct
   module Types
     # It is recommended you flush your script cache on the redis server every once in a while
-    class Script < Redstruct::Types::Base
-      ERROR_MESSAGE_PREFIX = 'NOSCRIPT'.freeze
+    class Script < Redstruct::Factory::Object
+      ERROR_MESSAGE_PREFIX = 'NOSCRIPT'
 
       # @return [::String] The Lua script to evaluate
       attr_reader :script

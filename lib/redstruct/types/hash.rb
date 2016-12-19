@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+require 'redstruct/types/struct'
+require 'redstruct/utils/coercion'
+
 module Redstruct
   module Types
     class Hash < Redstruct::Types::Struct
-      include Redstruct::Utils::Coercion
-
       def [](key)
         return self.connection.hget(@key, key)
       end

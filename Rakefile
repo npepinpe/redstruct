@@ -13,6 +13,6 @@ task default: :test
 
 require 'yard/defscript_handler'
 YARD::Rake::YardocTask.new do |t|
-  t.files   = ['lib/**/*.rb']
+  t.files   = ['lib/redstruct/*.rb']
   t.options = ['--output-dir=./docs']
 end

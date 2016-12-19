@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+require 'redstruct/types/struct'
+require 'redstruct/utils/scriptable'
+
 module Redstruct
   module Types
     class List < Redstruct::Types::Struct

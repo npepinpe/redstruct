@@ -1,8 +1,10 @@
-module Redstruct
-  module Hls
-    class Queue < Redstruct::Types::List
-      include Redstruct::Utils::Scriptable
+# frozen_string_literal: true
+require 'redstruct/types/list'
+require 'redstruct/utils/scriptable'
 
+module Redstruct
+  module Types
+    class Queue < Redstruct::Types::List
       def enqueue(*elements)
         self.connection.rpush(@key, elements)
       end

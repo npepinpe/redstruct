@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+require 'set'
+require 'redstruct/types/struct'
+
 module Redstruct
   module Types
     # Note: keep in mind Redis converts everything to a string on the DB side

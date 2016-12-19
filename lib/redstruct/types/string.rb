@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+require 'redstruct/types/struct'
+require 'redstruct/utils/scriptable'
+
 module Redstruct
   module Types
     class String < Redstruct::Types::Struct
-      include Redstruct::Utils::Scriptable, Redstruct::Utils::Coercion
+      include Redstruct::Utils::Scriptable
 
       # @return [::String] The string value stored in the database
       def get

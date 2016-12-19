@@ -1,33 +1,10 @@
-# Dependencies
-require 'redis'
-require 'connection_pool'
-
 # Utility
 require 'redstruct/version'
-require 'redstruct/utils/inspectable'
-require 'redstruct/utils/scriptable'
-require 'redstruct/utils/coercion'
 
 # Core
-require 'redstruct/connection'
 require 'redstruct/configuration'
-require 'redstruct/error'
-require 'redstruct/types/base'
-
-# Factory
-require 'redstruct/factory/creation'
-require 'redstruct/factory/deserialization'
 require 'redstruct/factory'
-
-# Base data types
-require 'redstruct/types/struct'
-require 'redstruct/types/string'
-require 'redstruct/types/counter'
-require 'redstruct/types/hash'
-require 'redstruct/types/list'
-require 'redstruct/types/script'
-require 'redstruct/types/set'
-require 'redstruct/types/sorted_set'
+require 'redstruct/types/all'
 
 module Redstruct
   class << self

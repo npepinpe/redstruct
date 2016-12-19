@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+require 'redstruct/types/string'
+
 module Redstruct
   module Types
     class Counter < Redstruct::Types::String

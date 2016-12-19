@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Redstruct
   module Utils
     module Scriptable
@@ -11,7 +12,9 @@ module Redstruct
           class_eval <<~METHOD, __FILE__, __LINE__ + 1
           #{constant} = { id: '#{id}'.freeze, source: %(#{source}).freeze }.freeze
             def #{id}(keys: [], argv: [])
-              return @factory.script(#{constant}[:id], #{constant}[:source]).eval(keys: keys, argv: argv)
+              script = @factory.scripts.get(#{constant}[:id])
+              script ||= @factory.scripts.set(#{constant}[:id], #{constant}[:source])
+              return script.eval(keys: keys, argv: argv)
             end
           METHOD
         end

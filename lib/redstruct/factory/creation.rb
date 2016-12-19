@@ -68,16 +68,6 @@ module Redstruct
         return create(Redstruct::Hls::Queue, key)
       end
 
-      # @todo The script cache is actually based on the database you will connect to. Therefore, it might be smarter to move it to the connection used?
-      # Caveat: if the script with the given ID exists in the cache, we don't bother updating it.
-      # So if the script actually changed since the first call, the one sent during the first call will
-      def script(id, script)
-        return @script_cache.synchronize do
-          @script_cache[id] = Redstruct::Types::Script.new(key: id, script: script, factory: self) if @script_cache[id].nil?
-          @script_cache[id]
-        end
-      end
-
       # Returns a factory with an isolated namespace.
       # @example Given a factory `f` with namespace fact:first
       #   f.factory('second') # => Redstruct::Factory: namespace: <"fact:first:second">, script_cache: <[]>

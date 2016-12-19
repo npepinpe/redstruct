@@ -1,10 +1,16 @@
 # frozen_string_literal: true
+require 'redstruct/error'
+require 'redstruct/connection'
+require 'redstruct/'
+require 'redstruct/utils/inspectable'
+require 'redstruct/factory/creation'
+require 'redstruct/scripts/cache'
+
 module Redstruct
   # Main interface of the gem; this class should be used to build all Redstruct
   # objects, even when deserializing them.
   class Factory
     include Redstruct::Utils::Inspectable, Redstruct::Factory::Creation
-    extend Redstruct::Factory::Deserialization
 
     # @return [Connection] The connection proxy to use when executing commands. Shared by all factory produced objects.
     attr_reader :connection
@@ -34,40 +40,27 @@ module Redstruct
       return @namespace.nil? || key.start_with?(@namespace) ? key : "#{@namespace}:#{key}"
     end
 
-    # Iterates over the keys of this factory using the Redis scan command
-    # For more about the scan command, see https://redis.io/commands/scan
-    # @param [String] match will prepend the factory namespace to the match string; see the redis documentation for the syntax
-    # @param [Integer] count maximum number of items returned per iteration
-    # @param [Integer] max maximum number of iterations; if none given, could potentially never terminate
-    # @return [Enumerator::Lazy] if no block given, returns an enumerator that you can chain with others
-    def each(match: '*', count: nil, max: 10_000, &block)
-      options = { match: isolate(match) }
-      options[:count] = count.to_i unless count.nil?
-
-      enumerator = @connection.scan_each(options)
-      enumerator = enumerator.each_slice(count) unless count.nil?
-
-      # creates a temporary enumerator which limits the number of possible iterations, ensuring this eventually finishes
-      unless max.nil?
-        unbounded_enumerator = enumerator
-        enumerator = Enumerator.new do |yielder|
-          iterations = 0
-          loop do
-            yielder << unbounded_enumerator.next
-            iterations += 1
-            raise StopIteration if iterations == max
-          end
-        end
+    # Returns or creates the script described by ID and source.
+    # @param [String] id the ID of the script
+    # @param [String] source the lua source code
+    # @return [Redstruct::Script]
+    def scripts(id, source)
+      return @script_cache.synchronize do
+        script = @script_cache[id]
+        script ||= @script_cache.set(id, Redstruct::Types::Script.new(script: source, factory: self))
       end
+    end
 
-      return enumerator unless block_given?
-      return enumerator.each(&block)
+    # Use redis-rb scan_each method to iterate over particular keys
+    # @return [Enumerator] base enumerator to iterate of the namespaced keys
+    def to_enum(match:, count:)
+      return @connection.scan_each(match: isolate(match), count: count)
     end
 
     # Deletes all keys created by the factory. By defaults will iterate at most of 500 million keys
     # @param [Hash] options accepts the options as given in each
     # @see Redstruct::Factory#each
-    def delete_all(options = {})
+    def delete(options = {})
       return each({ match: '*', count: 500, max: 1_000_000 }.merge(options)) do |keys|
         @connection.del(*keys)
       end

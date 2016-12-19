@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+require 'connection_pool'
+require 'redstruct/error'
+
 module Redstruct
   class Connection
     # @return [Array<Symbol>] List of methods from the Redis class that we don't want to delegate to.

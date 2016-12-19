@@ -1,7 +1,11 @@
+# frozen_string_literal: true
 require 'securerandom'
+require 'redstruct/types/base'
+require 'redstruct/utils/scriptable'
+require 'redstruct/utils/coercion'
 
 module Redstruct
-  module Hls
+  module Types
     # Implementation of a simple binary lock (locked/not locked), with option to block and wait for the lock.
     # Uses two redis structures: a string for the lease, and a list for blocking operations.
     # @see #acquire
@@ -11,7 +15,7 @@ module Redstruct
     # @attr_reader [Fixnum] expiry expiry of the underlying redis structures in milliseconds
     # @attr_reader [Fixnum, nil] timeout the timeout to wait when attempting to acquire the lock, in seconds
     class Lock < Redstruct::Types::Base
-      include Redstruct::Utils::Scriptable, Redstruct::Utils::Coercion
+      include Redstruct::Utils::Scriptable
 
       # The default expiry on the underlying redis keys, in milliseconds
       DEFAULT_EXPIRY = 1000
@@ -19,13 +23,21 @@ module Redstruct
       # The default timeout when blocking, in seconds; a nil value means it is non-blocking
       DEFAULT_TIMEOUT = nil
 
-      attr_reader :token, :expiry, :timeout
+      # @return [String] the current token
+      attr_reader :token
+
+      # @return [Float, Integer] the expiry of the underlying redis structure in seconds
+      attr_reader :expiry
+
+      # @return [Integer] if greater than 0, will block until timeout is reached or the lock is acquired
+      attr_reader :timeout
 
       # @param [Integer] expiry in milliseconds; to prevent infinite locking, each mutex is released after a certain expiry time
       # @param [Integer] timeout in seconds; if > 0, will block for this amount of time when trying to obtain the lock
-      def initialize(expiry: DEFAULT_EXPIRY, timeout: DEFAULT_TIMEOUT, **options)
+      def initialize(key:, expiry: DEFAULT_EXPIRY, timeout: DEFAULT_TIMEOUT, **options)
         super(**options)
 
+        @key = key
         @token = nil
         @expiry = expiry
         @timeout = timeout.to_i

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Redstruct
-  VERSION = '0.1.6'.freeze
+  VERSION = '0.2.0'
 end

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in redis-data.gemspec
+# Specify your gem's dependencies in redstruct.gemspec
 gemspec
 
 group :development, :test do
