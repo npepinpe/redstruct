@@ -4,31 +4,31 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  Class: Redstruct::Types::Script
+  Class: Redstruct::Script
   
     &mdash; Documentation by YARD 0.9.5
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  pathId = "Redstruct::Types::Script";
-  relpath = '../../';
+  pathId = "Redstruct::Script";
+  relpath = '../';
 </script>
 
 
-  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
 
-  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
 
 
   </head>
   <body>
     <div class="nav_wrap">
-      <iframe id="nav" src="../../class_list.html"></iframe>
+      <iframe id="nav" src="../class_list.html"></iframe>
       <div id="resizer"></div>
     </div>
 
@@ -36,8 +36,8 @@
       <div id="header">
         <div id="menu">
   
-    <a href="../../_index.html">Index (S)</a> &raquo;
-    <span class='title'><span class='object_link'><a href="../../Redstruct.html" title="Redstruct (module)">Redstruct</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Types.html" title="Redstruct::Types (module)">Types</a></span></span>
+    <a href="../_index.html">Index (S)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Redstruct.html" title="Redstruct (module)">Redstruct</a></span></span>
      &raquo; 
     <span class="title">Script</span>
   
@@ -46,7 +46,7 @@
         <div id="search">
   
     <a class="full_list_link" id="class_list_link"
-        href="../../class_list.html">
+        href="../class_list.html">
 
         <svg width="24" height="24">
           <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
@@ -59,9 +59,9 @@
         <div class="clear"></div>
       </div>
 
-      <iframe id="search_frame" src="../../class_list.html"></iframe>
+      <iframe id="search_frame" src="../class_list.html"></iframe>
 
-      <div id="content"><h1>Class: Redstruct::Types::Script
+      <div id="content"><h1>Class: Redstruct::Script
   
   
   
@@ -71,14 +71,14 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName"><span class='object_link'><a href="Base.html" title="Redstruct::Types::Base (class)">Base</a></span></span>
+      <span class="inheritName">Factory::Object</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next"><span class='object_link'><a href="Base.html" title="Redstruct::Types::Base (class)">Base</a></span></li>
+            <li class="next">Factory::Object</li>
           
-            <li class="next">Redstruct::Types::Script</li>
+            <li class="next">Redstruct::Script</li>
           
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
@@ -98,7 +98,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/redstruct/types/script.rb</dd>
+    <dd>lib/redstruct/script.rb</dd>
   </dl>
   
 </div>
@@ -106,8 +106,9 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>It is recommended you flush your script cache on the redis server every
-once in a while</p>
+<p>Utility class to interact with Lua scripts on Redis. It is recommended you
+flush your script cache on the redis server every once in a while to remove
+scripts that are not used anymore.</p>
 
 
   </div>
@@ -120,9 +121,21 @@ once in a while</p>
   <dl class="constants">
     
       <dt id="ERROR_MESSAGE_PREFIX-constant" class="">ERROR_MESSAGE_PREFIX =
-        
+        <div class="docstring">
+  <div class="discussion">
+    
+<p>Redis returns an error starting with NOSCRIPT when we try to evaluate am
+unknown script using its sha1.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
       </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>NOSCRIPT</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>NOSCRIPT</span><span class='tstring_end'>&#39;</span></span></pre></dd>
     
   </dl>
 
@@ -163,11 +176,6 @@ once in a while</p>
 
 
 
-  
-  
-  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="Base.html" title="Redstruct::Types::Base (class)">Base</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Base.html#key-instance_method" title="Redstruct::Types::Base#key (method)">#key</a></span></p>
-
 
   
     <h2>
@@ -180,7 +188,7 @@ once in a while</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#eval-instance_method" title="#eval (instance method)">#<strong>eval</strong>(keys:, argv:)  &#x21d2; Object </a>
+      <a href="#eval-instance_method" title="#eval (instance method)">#<strong>eval</strong>(keys:, argv:)  &#x21d2; nil, ... </a>
     
 
     
@@ -194,7 +202,10 @@ once in a while</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Evaluates the script using the given keys and argv arrays, and returns the
+unparsed result.</p>
+</div></span>
   
 </li>
 
@@ -216,7 +227,9 @@ once in a while</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Checks if the script was already loaded for the given redis db using #sha1.</p>
+</div></span>
   
 </li>
 
@@ -265,7 +278,7 @@ once in a while</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>:nocov:.</p>
+<p># @!visibility private.</p>
 </div></span>
   
 </li>
@@ -274,7 +287,7 @@ once in a while</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#load-instance_method" title="#load (instance method)">#<strong>load</strong>  &#x21d2; Object </a>
+      <a href="#load-instance_method" title="#load (instance method)">#<strong>load</strong>  &#x21d2; String </a>
     
 
     
@@ -288,7 +301,10 @@ once in a while</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Loads the given script to redis (i.e. sends the source, which gets compiled
+and saved) and saves the returned sha1.</p>
+</div></span>
   
 </li>
 
@@ -296,7 +312,7 @@ once in a while</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#sha1-instance_method" title="#sha1 (instance method)">#<strong>sha1</strong>  &#x21d2; Object </a>
+      <a href="#sha1-instance_method" title="#sha1 (instance method)">#<strong>sha1</strong>  &#x21d2; String </a>
     
 
     
@@ -310,7 +326,11 @@ once in a while</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the sha1 representation of the source code at `script` When running
+a lua script, redis will compile it once and cache the bytecode, using the
+sha1 of the source code as the cache key.</p>
+</div></span>
   
 </li>
 
@@ -319,35 +339,13 @@ once in a while</p>
   
 
 
-  
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Base.html" title="Redstruct::Types::Base (class)">Base</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Base.html#to_h-instance_method" title="Redstruct::Types::Base#to_h (method)">#to_h</a></span></p>
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Utils/Inspectable.html" title="Redstruct::Utils::Inspectable (module)">Utils::Inspectable</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Utils/Inspectable.html#inspect-instance_method" title="Redstruct::Utils::Inspectable#inspect (method)">#inspect</a></span>, <span class='object_link'><a href="../Utils/Inspectable.html#to_s-instance_method" title="Redstruct::Utils::Inspectable#to_s (method)">#to_s</a></span></p>
-<div id="constructor_details" class="method_details_list">
+  <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(script:, **options)  &#x21d2; <tt><span class='object_link'><a href="" title="Redstruct::Types::Script (class)">Script</a></span></tt> 
+    #<strong>initialize</strong>(script:, **options)  &#x21d2; <tt><span class='object_link'><a href="" title="Redstruct::Script (class)">Script</a></span></tt> 
   
 
   
@@ -362,20 +360,27 @@ once in a while</p>
   </div>
 </div>
 <div class="tags">
-  
-<p class="tag_title">Raises:</p>
-<ul class="raise">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
     <li>
       
+        <span class='name'>script</span>
       
-        <span class='type'>(<tt><span class='object_link'><a href="../Error.html" title="Redstruct::Error (class)">Redstruct::Error</a></span></tt>)</span>
+      
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">String</a></span></tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>the lua source code for the script</p>
+</div>
       
     </li>
   
 </ul>
+
 
 </div><table class="source_code">
   <tr>
@@ -383,21 +388,15 @@ once in a while</p>
       <pre class="lines">
 
 
-12
-13
-14
-15
-16
-17
-18</pre>
+18
+19
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/types/script.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/script.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>script:</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_script'>script</span> <span class='op'>=</span> <span class='id identifier rubyid_script'>script</span><span class='op'>&amp;.</span><span class='id identifier rubyid_strip'>strip</span>
-  <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='const'>Redstruct</span><span class='op'>::</span><span class='const'>Error</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>No source script given</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_script'>script</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-
   <span class='kw'>super</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_script'>script</span> <span class='op'>=</span> <span class='id identifier rubyid_script'>script</span>
 <span class='kw'>end</span></pre>
@@ -416,7 +415,7 @@ once in a while</p>
       <div class="method_details first">
   <h3 class="signature first" id="script-instance_method">
   
-    #<strong>script</strong>  &#x21d2; <tt><span class='object_link'><a href="String.html" title="Redstruct::Types::String (class)">::String</a></span></tt> 
+    #<strong>script</strong>  &#x21d2; <tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">::String</a></span></tt> 
   
 
   
@@ -438,7 +437,7 @@ once in a while</p>
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Redstruct::Types::String (class)">::String</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">::String</a></span></tt>)</span>
       
       
       
@@ -457,12 +456,12 @@ once in a while</p>
       <pre class="lines">
 
 
-10
-11
-12</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/types/script.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/script.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_script'>script</span>
   <span class='ivar'>@script</span>
@@ -482,29 +481,102 @@ once in a while</p>
       <div class="method_details first">
   <h3 class="signature first" id="eval-instance_method">
   
-    #<strong>eval</strong>(keys:, argv:)  &#x21d2; <tt>Object</tt> 
+    #<strong>eval</strong>(keys:, argv:)  &#x21d2; <tt>nil</tt>, ... 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Evaluates the script using the given keys and argv arrays, and returns the
+unparsed result. Caller is in charge of interpreting the result. NOTE: To
+minimize the number of redis commands, this always first assumes that the
+script was already loaded using its sha1 representation, and tells redis to
+execute the script cached by `sha1`. If it receives as error that the
+script does not exist, only then will it send the source to be executed. So
+in the worst case you get 2 redis commands, but in the average case you get
+1, and it&#39;s much faster as redis does not have to reparse the script,
+and we don&#39;t need to send the lua source every time.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>keys</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="String.html" title="Redstruct::String (class)">String</a></span>&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the KEYS array as described in the Redis doc for eval</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>argv</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="String.html" title="Redstruct::String (class)">String</a></span>&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the ARGV array as described in the Redis doc for eval</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>, <tt>Boolean</tt>, <tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">String</a></span></tt>, <tt>Numeric</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>returns whatever redis returns</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-40
-41
-42
-43
-44
-45
-46
-47</pre>
+66
+67
+68
+69
+70
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/types/script.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/script.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_eval'>eval</span><span class='lparen'>(</span><span class='label'>keys:</span><span class='comma'>,</span> <span class='label'>argv:</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_keys'>keys</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_keys'>keys</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
@@ -531,6 +603,8 @@ once in a while</p>
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Checks if the script was already loaded for the given redis db using #sha1</p>
+
 
   </div>
 </div>
@@ -546,6 +620,11 @@ once in a while</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>true if the script was already loaded, false otherwise</p>
+</div>
+      
     </li>
   
 </ul>
@@ -556,12 +635,12 @@ once in a while</p>
       <pre class="lines">
 
 
-31
-32
-33</pre>
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/types/script.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/script.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exists?'>exists?</span>
   <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_script'>script</span><span class='lparen'>(</span><span class='symbol'>:exists</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_sha1'>sha1</span><span class='rparen'>)</span>
@@ -583,7 +662,7 @@ once in a while</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>:nocov:</p>
+<p># @!visibility private</p>
 
 
   </div>
@@ -597,12 +676,12 @@ once in a while</p>
       <pre class="lines">
 
 
-50
-51
-52</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/types/script.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/script.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspectable_attributes'>inspectable_attributes</span>
   <span class='kw'>return</span> <span class='kw'>super</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>sha1:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_sha1'>sha1</span><span class='comma'>,</span> <span class='label'>script:</span> <span class='ivar'>@script</span><span class='period'>.</span><span class='id identifier rubyid_slice'>slice</span><span class='lparen'>(</span><span class='int'>0</span><span class='comma'>,</span> <span class='int'>20</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -615,25 +694,55 @@ once in a while</p>
       <div class="method_details ">
   <h3 class="signature " id="load-instance_method">
   
-    #<strong>load</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>load</strong>  &#x21d2; <tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">String</a></span></tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Loads the given script to redis (i.e. sends the source, which gets compiled
+and saved) and saves the returned sha1</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the new sha1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-35
-36
-37
-38</pre>
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/types/script.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/script.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load'>load</span>
   <span class='ivar'>@sha1</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_script'>script</span><span class='lparen'>(</span><span class='symbol'>:load</span><span class='comma'>,</span> <span class='ivar'>@script</span><span class='rparen'>)</span>
@@ -647,26 +756,57 @@ once in a while</p>
       <div class="method_details ">
   <h3 class="signature " id="sha1-instance_method">
   
-    #<strong>sha1</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>sha1</strong>  &#x21d2; <tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">String</a></span></tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the sha1 representation of the source code at `script` When running
+a lua script, redis will compile it once and cache the bytecode, using the
+sha1 of the source code as the cache key.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>sha1 representation of `script`</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-25
-26
-27
-28
-29</pre>
+37
+38
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/types/script.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/script.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sha1'>sha1</span>
   <span class='kw'>return</span> <span class='ivar'>@sha1</span> <span class='op'>||=</span> <span class='kw'>begin</span>
@@ -683,7 +823,7 @@ once in a while</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Dec 16 15:12:18 2016 by
+  Generated on Sun Dec 25 21:16:14 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.1).
 </div>

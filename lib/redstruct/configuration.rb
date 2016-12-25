@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 module Redstruct
+  # Simple class holding the Redstruct configuration
   class Configuration
     # @return [ConnectionPool] The Redis-rb connection pool to use
     attr_accessor :connection_pool

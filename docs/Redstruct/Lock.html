@@ -4,31 +4,31 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  Class: Redstruct::Hls::Lock
+  Class: Redstruct::Lock
   
     &mdash; Documentation by YARD 0.9.5
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  pathId = "Redstruct::Hls::Lock";
-  relpath = '../../';
+  pathId = "Redstruct::Lock";
+  relpath = '../';
 </script>
 
 
-  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
 
-  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
 
 
   </head>
   <body>
     <div class="nav_wrap">
-      <iframe id="nav" src="../../class_list.html"></iframe>
+      <iframe id="nav" src="../class_list.html"></iframe>
       <div id="resizer"></div>
     </div>
 
@@ -36,8 +36,8 @@
       <div id="header">
         <div id="menu">
   
-    <a href="../../_index.html">Index (L)</a> &raquo;
-    <span class='title'><span class='object_link'><a href="../../Redstruct.html" title="Redstruct (module)">Redstruct</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Hls.html" title="Redstruct::Hls (module)">Hls</a></span></span>
+    <a href="../_index.html">Index (L)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Redstruct.html" title="Redstruct (module)">Redstruct</a></span></span>
      &raquo; 
     <span class="title">Lock</span>
   
@@ -46,7 +46,7 @@
         <div id="search">
   
     <a class="full_list_link" id="class_list_link"
-        href="../../class_list.html">
+        href="../class_list.html">
 
         <svg width="24" height="24">
           <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
@@ -59,9 +59,9 @@
         <div class="clear"></div>
       </div>
 
-      <iframe id="search_frame" src="../../class_list.html"></iframe>
+      <iframe id="search_frame" src="../class_list.html"></iframe>
 
-      <div id="content"><h1>Class: Redstruct::Hls::Lock
+      <div id="content"><h1>Class: Redstruct::Lock
   
   
   
@@ -71,14 +71,14 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName"><span class='object_link'><a href="../Types/Base.html" title="Redstruct::Types::Base (class)">Types::Base</a></span></span>
+      <span class="inheritName">Factory::Object</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next"><span class='object_link'><a href="../Types/Base.html" title="Redstruct::Types::Base (class)">Types::Base</a></span></li>
+            <li class="next">Factory::Object</li>
           
-            <li class="next">Redstruct::Hls::Lock</li>
+            <li class="next">Redstruct::Lock</li>
           
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
@@ -93,7 +93,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd><span class='object_link'><a href="../Utils/Coercion.html" title="Redstruct::Utils::Coercion (module)">Utils::Coercion</a></span>, <span class='object_link'><a href="../Utils/Scriptable.html" title="Redstruct::Utils::Scriptable (module)">Utils::Scriptable</a></span></dd>
+      <dd>Utils::Scriptable</dd>
   </dl>
   
   
@@ -103,7 +103,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/redstruct/hls/lock.rb</dd>
+    <dd>lib/redstruct/lock.rb</dd>
   </dl>
   
 </div>
@@ -121,17 +121,6 @@ lease, and a list for blocking operations.</p>
 <div class="tags">
   
 
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><span class='object_link'><a href="#acquire-instance_method" title="Redstruct::Hls::Lock#acquire (method)">#acquire</a></span></li>
-    
-      <li><span class='object_link'><a href="#release-instance_method" title="Redstruct::Hls::Lock#release (method)">#release</a></span></li>
-    
-      <li><span class='object_link'><a href="#locked-instance_method" title="Redstruct::Hls::Lock#locked (method)">#locked</a></span></li>
-    
-  </ul>
-
 </div>
   <h2>Constant Summary</h2>
   <dl class="constants">
@@ -140,7 +129,8 @@ lease, and a list for blocking operations.</p>
         <div class="docstring">
   <div class="discussion">
     
-<p>The default expiry on the underlying redis keys, in milliseconds</p>
+<p>The default expiry on the underlying redis keys, in seconds; can be between
+0 and 1 as a float for milliseconds</p>
 
 
   </div>
@@ -150,7 +140,7 @@ lease, and a list for blocking operations.</p>
 
 </div>
       </dt>
-      <dd><pre class="code"><span class='int'>1000</span></pre></dd>
+      <dd><pre class="code"><span class='int'>1</span></pre></dd>
     
       <dt id="DEFAULT_TIMEOUT-constant" class="">DEFAULT_TIMEOUT =
         <div class="docstring">
@@ -180,7 +170,7 @@ non-blocking</p>
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#expiry-instance_method" title="#expiry (instance method)">#<strong>expiry</strong>  &#x21d2; Fixnum </a>
+      <a href="#expiry-instance_method" title="#expiry (instance method)">#<strong>expiry</strong>  &#x21d2; Float, Integer </a>
     
 
     
@@ -200,7 +190,7 @@ non-blocking</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>expiry of the underlying redis structures in milliseconds.</p>
+<p>The expiry of the underlying redis structure in seconds.</p>
 </div></span>
   
 </li>
@@ -209,7 +199,7 @@ non-blocking</p>
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#timeout-instance_method" title="#timeout (instance method)">#<strong>timeout</strong>  &#x21d2; Fixnum<sup>?</sup> </a>
+      <a href="#timeout-instance_method" title="#timeout (instance method)">#<strong>timeout</strong>  &#x21d2; Integer </a>
     
 
     
@@ -229,7 +219,8 @@ non-blocking</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>the timeout to wait when attempting to acquire the lock, in seconds.</p>
+<p>If greater than 0, will block until timeout is reached or the lock is
+acquired.</p>
 </div></span>
   
 </li>
@@ -238,7 +229,7 @@ non-blocking</p>
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#token-instance_method" title="#token (instance method)">#<strong>token</strong>  &#x21d2; ::String<sup>?</sup> </a>
+      <a href="#token-instance_method" title="#token (instance method)">#<strong>token</strong>  &#x21d2; String </a>
     
 
     
@@ -258,7 +249,7 @@ non-blocking</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>the current token or nil.</p>
+<p>The current token.</p>
 </div></span>
   
 </li>
@@ -267,11 +258,6 @@ non-blocking</p>
   </ul>
 
 
-
-  
-  
-  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="../Types/Base.html" title="Redstruct::Types::Base (class)">Types::Base</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Types/Base.html#key-instance_method" title="Redstruct::Types::Base#key (method)">#key</a></span></p>
 
 
   
@@ -451,7 +437,7 @@ href="2">keys</a>) list for the next acquire request.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(expiry: DEFAULT_EXPIRY, timeout: DEFAULT_TIMEOUT, **options)  &#x21d2; Lock </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(key:, expiry: DEFAULT_EXPIRY, timeout: DEFAULT_TIMEOUT, **options)  &#x21d2; Lock </a>
     
 
     
@@ -492,7 +478,7 @@ href="2">keys</a>) list for the next acquire request.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Helper method for easy inspection.</p>
+<p># @!visibility private.</p>
 </div></span>
   
 </li>
@@ -551,51 +537,13 @@ href="2">keys</a>) list for the next acquire request.</p>
 
 
   
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Utils/Scriptable.html" title="Redstruct::Utils::Scriptable (module)">Utils::Scriptable</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Utils/Scriptable.html#included-class_method" title="Redstruct::Utils::Scriptable.included (method)">included</a></span></p>
-
-  
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Utils/Coercion.html" title="Redstruct::Utils::Coercion (module)">Utils::Coercion</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Utils/Coercion.html#coerce_array-class_method" title="Redstruct::Utils::Coercion.coerce_array (method)">coerce_array</a></span>, <span class='object_link'><a href="../Utils/Coercion.html#coerce_bool-class_method" title="Redstruct::Utils::Coercion.coerce_bool (method)">coerce_bool</a></span></p>
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Utils/Inspectable.html" title="Redstruct::Utils::Inspectable (module)">Utils::Inspectable</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Utils/Inspectable.html#inspect-instance_method" title="Redstruct::Utils::Inspectable#inspect (method)">#inspect</a></span>, <span class='object_link'><a href="../Utils/Inspectable.html#to_s-instance_method" title="Redstruct::Utils::Inspectable#to_s (method)">#to_s</a></span></p>
-<div id="constructor_details" class="method_details_list">
+  <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(expiry: DEFAULT_EXPIRY, timeout: DEFAULT_TIMEOUT, **options)  &#x21d2; <tt><span class='object_link'><a href="" title="Redstruct::Hls::Lock (class)">Lock</a></span></tt> 
+    #<strong>initialize</strong>(key:, expiry: DEFAULT_EXPIRY, timeout: DEFAULT_TIMEOUT, **options)  &#x21d2; <tt><span class='object_link'><a href="" title="Redstruct::Lock (class)">Lock</a></span></tt> 
   
 
   
@@ -624,8 +572,8 @@ href="2">keys</a>) list for the next acquire request.</p>
       
         &mdash;
         <div class='inline'>
-<p>in milliseconds; to prevent infinite locking, each mutex is released after
-a certain expiry time</p>
+<p>in seconds; to prevent infinite locking, each mutex is released after a
+certain expiry time</p>
 </div>
       
     </li>
@@ -656,10 +604,6 @@ obtain the lock</p>
       <pre class="lines">
 
 
-26
-27
-28
-29
 30
 31
 32
@@ -667,16 +611,22 @@ obtain the lock</p>
 34
 35
 36
-37</pre>
+37
+38
+39
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/hls/lock.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/lock.rb', line 30</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>expiry:</span> <span class='const'>DEFAULT_EXPIRY</span><span class='comma'>,</span> <span class='label'>timeout:</span> <span class='const'>DEFAULT_TIMEOUT</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>key:</span><span class='comma'>,</span> <span class='label'>expiry:</span> <span class='const'>DEFAULT_EXPIRY</span><span class='comma'>,</span> <span class='label'>timeout:</span> <span class='const'>DEFAULT_TIMEOUT</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 
+  <span class='ivar'>@key</span> <span class='op'>=</span> <span class='id identifier rubyid_key'>key</span>
   <span class='ivar'>@token</span> <span class='op'>=</span> <span class='kw'>nil</span>
-  <span class='ivar'>@expiry</span> <span class='op'>=</span> <span class='id identifier rubyid_expiry'>expiry</span>
+  <span class='ivar'>@expiry</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_expiry'>expiry</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>*</span> <span class='int'>1000</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_floor'>floor</span>
   <span class='ivar'>@timeout</span> <span class='op'>=</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
 
   <span class='id identifier rubyid_create'>create</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_factory'>factory</span><span class='op'>|</span>
@@ -699,7 +649,7 @@ obtain the lock</p>
       <div class="method_details first">
   <h3 class="signature first" id="expiry-instance_method">
   
-    #<strong>expiry</strong>  &#x21d2; <tt>Fixnum</tt>  <span class="extras">(readonly)</span>
+    #<strong>expiry</strong>  &#x21d2; <tt>Float</tt>, <tt>Integer</tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -708,7 +658,7 @@ obtain the lock</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>expiry of the underlying redis structures in milliseconds</p>
+<p>Returns the expiry of the underlying redis structure in seconds</p>
 
 
   </div>
@@ -721,13 +671,13 @@ obtain the lock</p>
     <li>
       
       
-        <span class='type'>(<tt>Fixnum</tt>)</span>
+        <span class='type'>(<tt>Float</tt>, <tt>Integer</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>the current value of expiry</p>
+<p>the expiry of the underlying redis structure in seconds</p>
 </div>
       
     </li>
@@ -740,12 +690,12 @@ obtain the lock</p>
       <pre class="lines">
 
 
-13
-14
-15</pre>
+23
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/hls/lock.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/lock.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expiry'>expiry</span>
   <span class='ivar'>@expiry</span>
@@ -760,7 +710,7 @@ obtain the lock</p>
       <div class="method_details ">
   <h3 class="signature " id="timeout-instance_method">
   
-    #<strong>timeout</strong>  &#x21d2; <tt>Fixnum</tt><sup>?</sup>  <span class="extras">(readonly)</span>
+    #<strong>timeout</strong>  &#x21d2; <tt>Integer</tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -769,7 +719,8 @@ obtain the lock</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>the timeout to wait when attempting to acquire the lock, in seconds</p>
+<p>Returns if greater than 0, will block until timeout is reached or the lock
+is acquired</p>
 
 
   </div>
@@ -782,13 +733,14 @@ obtain the lock</p>
     <li>
       
       
-        <span class='type'>(<tt>Fixnum</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>the current value of timeout</p>
+<p>if greater than 0, will block until timeout is reached or the lock is
+acquired</p>
 </div>
       
     </li>
@@ -801,12 +753,12 @@ obtain the lock</p>
       <pre class="lines">
 
 
-13
-14
-15</pre>
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/hls/lock.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/lock.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_timeout'>timeout</span>
   <span class='ivar'>@timeout</span>
@@ -821,7 +773,7 @@ obtain the lock</p>
       <div class="method_details ">
   <h3 class="signature " id="token-instance_method">
   
-    #<strong>token</strong>  &#x21d2; <tt>::String</tt><sup>?</sup>  <span class="extras">(readonly)</span>
+    #<strong>token</strong>  &#x21d2; <tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">String</a></span></tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -830,7 +782,7 @@ obtain the lock</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>the current token or nil</p>
+<p>Returns the current token</p>
 
 
   </div>
@@ -843,13 +795,13 @@ obtain the lock</p>
     <li>
       
       
-        <span class='type'>(<tt>::String</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">String</a></span></tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>the current value of token</p>
+<p>the current token</p>
 </div>
       
     </li>
@@ -862,12 +814,12 @@ obtain the lock</p>
       <pre class="lines">
 
 
-13
-14
-15</pre>
+20
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/hls/lock.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/lock.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_token'>token</span>
   <span class='ivar'>@token</span>
@@ -887,7 +839,7 @@ obtain the lock</p>
       <div class="method_details first">
   <h3 class="signature first" id="from_h-class_method">
   
-    .<strong>from_h</strong>(hash, factory)  &#x21d2; <tt><span class='object_link'><a href="" title="Redstruct::Hls::Lock (class)">Lock</a></span></tt> 
+    .<strong>from_h</strong>(hash, factory)  &#x21d2; <tt><span class='object_link'><a href="" title="Redstruct::Lock (class)">Lock</a></span></tt> 
   
 
   
@@ -910,7 +862,7 @@ obtain the lock</p>
         <span class='name'>hash</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Hash.html" title="Redstruct::Hash (class)">Hash</a></span></tt>)</span>
       
       
       
@@ -930,7 +882,7 @@ symbols.</p>
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="" title="Redstruct::Hls::Lock (class)">Lock</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Redstruct::Lock (class)">Lock</a></span></tt>)</span>
       
       
       
@@ -941,7 +893,7 @@ symbols.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><span class='object_link'><a href="#to_h-instance_method" title="Redstruct::Hls::Lock#to_h (method)">#to_h</a></span></li>
+      <li><span class='object_link'><a href="#to_h-instance_method" title="Redstruct::Lock#to_h (method)">#to_h</a></span></li>
     
       <li>Factory#create_from_h</li>
     
@@ -953,13 +905,13 @@ symbols.</p>
       <pre class="lines">
 
 
-157
-158
-159
-160</pre>
+163
+164
+165
+166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/hls/lock.rb', line 157</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/lock.rb', line 163</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_from_h'>from_h</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='comma'>,</span> <span class='id identifier rubyid_factory'>factory</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:factory</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_factory'>factory</span>
@@ -1028,21 +980,21 @@ then:</p>
       <pre class="lines">
 
 
-61
-62
-63
-64
-65
 66
 67
 68
 69
 70
 71
-72</pre>
+72
+73
+74
+75
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/hls/lock.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/lock.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_acquire'>acquire</span>
   <span class='id identifier rubyid_acquired'>acquired</span> <span class='op'>=</span> <span class='kw'>false</span>
@@ -1064,7 +1016,7 @@ then:</p>
       <div class="method_details ">
   <h3 class="signature " id="acquire_script-instance_method">
   
-    #<strong>acquire_script</strong>(keys = [], argv = [])  &#x21d2; <tt>::String</tt> 
+    #<strong>acquire_script</strong>(keys = [], argv = [])  &#x21d2; <tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">::String</a></span></tt> 
   
 
   
@@ -1090,7 +1042,7 @@ if so refreshes the expiry (<a href="2">argv</a>) time of the lease.</p>
         <span class='name'>keys</span>
       
       
-        <span class='type'>(<tt>Array&lt;(::String)&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;(<span class='object_link'><a href="String.html" title="Redstruct::String (class)">::String</a></span>)&gt;</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[]</tt>)</em>
@@ -1108,7 +1060,7 @@ if so refreshes the expiry (<a href="2">argv</a>) time of the lease.</p>
         <span class='name'>argv</span>
       
       
-        <span class='type'>(<tt>Array&lt;(::String, Fixnum)&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;(<span class='object_link'><a href="String.html" title="Redstruct::String (class)">::String</a></span>, Fixnum)&gt;</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[]</tt>)</em>
@@ -1129,7 +1081,7 @@ if so refreshes the expiry (<a href="2">argv</a>) time of the lease.</p>
     <li>
       
       
-        <span class='type'>(<tt>::String</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">::String</a></span></tt>)</span>
       
       
       
@@ -1148,19 +1100,19 @@ if so refreshes the expiry (<a href="2">argv</a>) time of the lease.</p>
       <pre class="lines">
 
 
-109
-110
-111
-112
-113
 114
 115
 116
 117
-118</pre>
+118
+119
+120
+121
+122
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/hls/lock.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/lock.rb', line 114</span>
 
 <span class='id identifier rubyid_local'>local</span> <span class='id identifier rubyid_token'>token</span> <span class='op'>=</span> <span class='const'>ARGV</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
 <span class='id identifier rubyid_local'>local</span> <span class='id identifier rubyid_expiry'>expiry</span> <span class='op'>=</span> <span class='id identifier rubyid_tonumber'>tonumber</span><span class='lparen'>(</span><span class='const'>ARGV</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1216,12 +1168,12 @@ if so refreshes the expiry (<a href="2">argv</a>) time of the lease.</p>
       <pre class="lines">
 
 
-49
-50
-51</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/hls/lock.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/lock.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_blocking?'>blocking?</span>
   <span class='kw'>return</span> <span class='ivar'>@timeout</span><span class='period'>.</span><span class='id identifier rubyid_positive?'>positive?</span>
@@ -1243,7 +1195,7 @@ if so refreshes the expiry (<a href="2">argv</a>) time of the lease.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Helper method for easy inspection</p>
+<p># @!visibility private</p>
 
 
   </div>
@@ -1257,12 +1209,12 @@ if so refreshes the expiry (<a href="2">argv</a>) time of the lease.</p>
       <pre class="lines">
 
 
-170
-171
-172</pre>
+177
+178
+179</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/hls/lock.rb', line 170</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/lock.rb', line 177</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspectable_attributes'>inspectable_attributes</span>
   <span class='kw'>super</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>expiry:</span> <span class='ivar'>@expiry</span><span class='comma'>,</span> <span class='label'>blocking:</span> <span class='id identifier rubyid_blocking?'>blocking?</span><span class='rparen'>)</span>
@@ -1316,14 +1268,14 @@ if so refreshes the expiry (<a href="2">argv</a>) time of the lease.</p>
       <pre class="lines">
 
 
-41
-42
-43
-44
-45</pre>
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/hls/lock.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/lock.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_locked'>locked</span>
   <span class='kw'>yield</span> <span class='kw'>if</span> <span class='id identifier rubyid_acquire'>acquire</span>
@@ -1381,15 +1333,15 @@ the tokens list.</p>
       <pre class="lines">
 
 
-77
-78
-79
-80
-81
-82</pre>
+82
+83
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/hls/lock.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/lock.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_release'>release</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='ivar'>@token</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -1431,7 +1383,7 @@ href="2">keys</a>) list for the next acquire request.</p>
         <span class='name'>keys</span>
       
       
-        <span class='type'>(<tt>Array&lt;(::String, ::String)&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;(<span class='object_link'><a href="String.html" title="Redstruct::String (class)">::String</a></span>, <span class='object_link'><a href="String.html" title="Redstruct::String (class)">::String</a></span>)&gt;</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[]</tt>)</em>
@@ -1449,7 +1401,7 @@ href="2">keys</a>) list for the next acquire request.</p>
         <span class='name'>argv</span>
       
       
-        <span class='type'>(<tt>Array&lt;(::String, ::String, Fixnum)&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;(<span class='object_link'><a href="String.html" title="Redstruct::String (class)">::String</a></span>, <span class='object_link'><a href="String.html" title="Redstruct::String (class)">::String</a></span>, Fixnum)&gt;</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[]</tt>)</em>
@@ -1489,21 +1441,21 @@ href="2">keys</a>) list for the next acquire request.</p>
       <pre class="lines">
 
 
-128
-129
-130
-131
-132
 133
 134
 135
 136
 137
 138
-139</pre>
+139
+140
+141
+142
+143
+144</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/hls/lock.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/lock.rb', line 133</span>
 
 <span class='id identifier rubyid_local'>local</span> <span class='id identifier rubyid_currentToken'>currentToken</span> <span class='op'>=</span> <span class='const'>ARGV</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
 <span class='id identifier rubyid_local'>local</span> <span class='id identifier rubyid_nextToken'>nextToken</span> <span class='op'>=</span> <span class='const'>ARGV</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span>
@@ -1525,7 +1477,7 @@ href="2">keys</a>) list for the next acquire request.</p>
       <div class="method_details ">
   <h3 class="signature " id="to_h-instance_method">
   
-    #<strong>to_h</strong>  &#x21d2; <tt>Hash&lt;Symbol, Object&gt;</tt> 
+    #<strong>to_h</strong>  &#x21d2; <tt><span class='object_link'><a href="Hash.html" title="Redstruct::Hash (class)">Hash</a></span>&lt;Symbol, Object&gt;</tt> 
   
 
   
@@ -1547,7 +1499,7 @@ href="2">keys</a>) list for the next acquire request.</p>
     <li>
       
       
-        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Hash.html" title="Redstruct::Hash (class)">Hash</a></span>&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1563,7 +1515,7 @@ href="2">keys</a>) list for the next acquire request.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><span class='object_link'><a href="#from_h-class_method" title="Redstruct::Hls::Lock.from_h (method)">from_h</a></span></li>
+      <li><span class='object_link'><a href="#from_h-class_method" title="Redstruct::Lock.from_h (method)">from_h</a></span></li>
     
   </ul>
 
@@ -1573,12 +1525,12 @@ href="2">keys</a>) list for the next acquire request.</p>
       <pre class="lines">
 
 
-147
-148
-149</pre>
+153
+154
+155</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/hls/lock.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/lock.rb', line 153</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
   <span class='kw'>return</span> <span class='kw'>super</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>token:</span> <span class='ivar'>@token</span><span class='comma'>,</span> <span class='label'>expiry:</span> <span class='ivar'>@expiry</span><span class='comma'>,</span> <span class='label'>timeout:</span> <span class='ivar'>@timeout</span><span class='rparen'>)</span>
@@ -1593,7 +1545,7 @@ href="2">keys</a>) list for the next acquire request.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Dec 16 15:12:17 2016 by
+  Generated on Sun Dec 25 21:16:13 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.1).
 </div>

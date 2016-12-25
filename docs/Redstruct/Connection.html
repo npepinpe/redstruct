@@ -101,7 +101,18 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Connection proxy class for the ConnectionPool</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
   <h2>Constant Summary</h2>
   <dl class="constants">
     
@@ -287,13 +298,13 @@ same connection.</p>
       <pre class="lines">
 
 
-8
-9
-10
-11</pre>
+14
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/connection.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/connection.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_pool'>pool</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='const'>Redstruct</span><span class='op'>::</span><span class='const'>Error</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Requires a ConnectionPool to proxy to</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_pool'>pool</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>ConnectionPool</span><span class='rparen'>)</span>
@@ -337,12 +348,12 @@ same connection.</p>
       <pre class="lines">
 
 
-6
-7
-8</pre>
+12
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/connection.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/connection.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pool'>pool</span>
   <span class='ivar'>@pool</span>
@@ -406,22 +417,22 @@ stuff</p>
       <pre class="lines">
 
 
-17
-18
-19
-20
-21
-22
 23
 24
 25
 26
 27
 28
-29</pre>
+29
+30
+31
+32
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/connection.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/connection.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with'>with</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -446,7 +457,7 @@ stuff</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Dec 16 15:12:17 2016 by
+  Generated on Sun Dec 25 21:16:14 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.1).
 </div>

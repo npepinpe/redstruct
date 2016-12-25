@@ -80,8 +80,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/redstruct.rb<span class="defines">,<br />
-  lib/redstruct/error.rb,<br /> lib/redstruct/version.rb,<br /> lib/redstruct/factory.rb,<br /> lib/redstruct/hls/lock.rb,<br /> lib/redstruct/types/set.rb,<br /> lib/redstruct/hls/queue.rb,<br /> lib/redstruct/types/base.rb,<br /> lib/redstruct/types/hash.rb,<br /> lib/redstruct/types/list.rb,<br /> lib/redstruct/connection.rb,<br /> lib/yard/defscript_handler.rb,<br /> lib/redstruct/types/script.rb,<br /> lib/redstruct/types/string.rb,<br /> lib/redstruct/types/struct.rb,<br /> lib/redstruct/configuration.rb,<br /> lib/redstruct/types/counter.rb,<br /> lib/redstruct/utils/coercion.rb,<br /> lib/redstruct/utils/scriptable.rb,<br /> lib/redstruct/types/sorted_set.rb,<br /> lib/redstruct/factory/creation.rb,<br /> lib/redstruct/utils/inspectable.rb,<br /> lib/redstruct/factory/deserialization.rb</span>
+    <dd>lib/redstruct/set.rb<span class="defines">,<br />
+  lib/redstruct/lock.rb,<br /> lib/redstruct/list.rb,<br /> lib/redstruct/hash.rb,<br /> lib/redstruct/error.rb,<br /> lib/redstruct/queue.rb,<br /> lib/redstruct/string.rb,<br /> lib/redstruct/script.rb,<br /> lib/redstruct/struct.rb,<br /> lib/redstruct/counter.rb,<br /> lib/redstruct/factory.rb,<br /> lib/redstruct/version.rb,<br /> lib/redstruct/sorted_set.rb,<br /> lib/redstruct/connection.rb,<br /> lib/redstruct/configuration.rb,<br /> lib/redstruct/lex_sorted_set.rb</span>
 </dd>
   </dl>
   
@@ -91,11 +91,9 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Redstruct/Hls.html" title="Redstruct::Hls (module)">Hls</a></span>, <span class='object_link'><a href="Redstruct/Types.html" title="Redstruct::Types (module)">Types</a></span>, <span class='object_link'><a href="Redstruct/Utils.html" title="Redstruct::Utils (module)">Utils</a></span>
-    
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Redstruct/Configuration.html" title="Redstruct::Configuration (class)">Configuration</a></span>, <span class='object_link'><a href="Redstruct/Connection.html" title="Redstruct::Connection (class)">Connection</a></span>, <span class='object_link'><a href="Redstruct/DefscriptHandler.html" title="Redstruct::DefscriptHandler (class)">DefscriptHandler</a></span>, <span class='object_link'><a href="Redstruct/Error.html" title="Redstruct::Error (class)">Error</a></span>, <span class='object_link'><a href="Redstruct/Factory.html" title="Redstruct::Factory (class)">Factory</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Redstruct/Configuration.html" title="Redstruct::Configuration (class)">Configuration</a></span>, <span class='object_link'><a href="Redstruct/Connection.html" title="Redstruct::Connection (class)">Connection</a></span>, <span class='object_link'><a href="Redstruct/Counter.html" title="Redstruct::Counter (class)">Counter</a></span>, <span class='object_link'><a href="Redstruct/Error.html" title="Redstruct::Error (class)">Error</a></span>, <span class='object_link'><a href="Redstruct/Factory.html" title="Redstruct::Factory (class)">Factory</a></span>, <span class='object_link'><a href="Redstruct/Hash.html" title="Redstruct::Hash (class)">Hash</a></span>, <span class='object_link'><a href="Redstruct/LexSortedSet.html" title="Redstruct::LexSortedSet (class)">LexSortedSet</a></span>, <span class='object_link'><a href="Redstruct/List.html" title="Redstruct::List (class)">List</a></span>, <span class='object_link'><a href="Redstruct/Lock.html" title="Redstruct::Lock (class)">Lock</a></span>, <span class='object_link'><a href="Redstruct/Queue.html" title="Redstruct::Queue (class)">Queue</a></span>, <span class='object_link'><a href="Redstruct/Script.html" title="Redstruct::Script (class)">Script</a></span>, <span class='object_link'><a href="Redstruct/Set.html" title="Redstruct::Set (class)">Set</a></span>, <span class='object_link'><a href="Redstruct/SortedSet.html" title="Redstruct::SortedSet (class)">SortedSet</a></span>, <span class='object_link'><a href="Redstruct/String.html" title="Redstruct::String (class)">String</a></span>, <span class='object_link'><a href="Redstruct/Struct.html" title="Redstruct::Struct (class)">Struct</a></span>
     
   
 </p>
@@ -104,9 +102,20 @@
   <dl class="constants">
     
       <dt id="VERSION-constant" class="">VERSION =
-        
+        <div class="docstring">
+  <div class="discussion">
+    
+<p>Current version</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
       </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.1.5</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.2.0</span><span class='tstring_end'>&#39;</span></span></pre></dd>
     
   </dl>
 
@@ -116,311 +125,12 @@
 
 
 
-  
-    <h2>
-      Class Method Summary
-      <small><a href="#" class="summary_toggle">collapse</a></small>
-    </h2>
 
-    <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#%5B%5D-class_method" title="[] (class method)">.<strong>[]</strong>(key)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#%5B%5D%3D-class_method" title="[]= (class method)">.<strong>[]=</strong>(key, factory)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#config-class_method" title="config (class method)">.<strong>config</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#factories-class_method" title="factories (class method)">.<strong>factories</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#make-class_method" title="make (class method)">.<strong>make</strong>(name: nil, pool: nil, namespace: nil)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-    </ul>
-  
-
-
-
-  <div id="class_method_details" class="method_details_list">
-    <h2>Class Method Details</h2>
-
-    
-      <div class="method_details first">
-  <h3 class="signature first" id="[]-class_method">
-  
-    .<strong>[]</strong>(key)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-42
-43
-44
-45
-46
-47</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct.rb', line 42</span>
-
-<span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_factory'>factory</span> <span class='op'>=</span> <span class='id identifier rubyid_factories'>factories</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_factory'>factory</span> <span class='op'>=</span> <span class='id identifier rubyid_make'>make</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_factory'>factory</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-
-  <span class='kw'>return</span> <span class='id identifier rubyid_factory'>factory</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="[]=-class_method">
-  
-    .<strong>[]=</strong>(key, factory)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-49
-50
-51
-52
-53
-54
-55</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct.rb', line 49</span>
-
-<span class='kw'>def</span> <span class='op'>[]=</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_factory'>factory</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_factory'>factory</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-    <span class='id identifier rubyid_factories'>factories</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_factories'>factories</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_factory'>factory</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="config-class_method">
-  
-    .<strong>config</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-34
-35
-36</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct.rb', line 34</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_config'>config</span>
-  <span class='kw'>return</span> <span class='ivar'>@config</span> <span class='op'>||=</span> <span class='const'>Configuration</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="factories-class_method">
-  
-    .<strong>factories</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-38
-39
-40</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct.rb', line 38</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_factories'>factories</span>
-  <span class='kw'>return</span> <span class='ivar'>@factories</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="make-class_method">
-  
-    .<strong>make</strong>(name: nil, pool: nil, namespace: nil)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-57
-58
-59
-60
-61
-62
-63</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct.rb', line 57</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_make'>make</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>pool:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>namespace:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_factory'>factory</span> <span class='op'>=</span> <span class='const'>Redstruct</span><span class='op'>::</span><span class='const'>Factory</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>pool:</span> <span class='id identifier rubyid_pool'>pool</span><span class='comma'>,</span> <span class='label'>namespace:</span> <span class='id identifier rubyid_namespace'>namespace</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='const'>Redstruct</span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-  <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_factory'>factory</span> <span class='kw'>unless</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-
-  <span class='kw'>return</span> <span class='id identifier rubyid_factory'>factory</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
 
 </div>
 
       <div id="footer">
-  Generated on Fri Dec 16 15:12:17 2016 by
+  Generated on Sun Dec 25 21:16:12 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.1).
 </div>

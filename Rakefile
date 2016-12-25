@@ -11,8 +11,9 @@ end
 
 task default: :test
 
-require 'yard/defscript_handler'
 YARD::Rake::YardocTask.new do |t|
+  require 'yard/defscript_handler'
   t.files   = ['lib/redstruct/*.rb']
-  t.options = ['--output-dir=./docs']
+  t.options = ['--output-dir=./docs', '--no-private']
+  t.stats_options = ['--list-undoc']
 end

@@ -19,6 +19,8 @@ module Redstruct
         super(@value)
       end
 
+      # Uses the score to compare with another ScoredValue
+      # @return [Integer] 0 if equal, -1 if less than other.score, 1 if greater
       def <=>(other)
         return @score <=> other.score
       end

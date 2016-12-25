@@ -18,11 +18,10 @@ module Redstruct
         return @factory.connection
       end
 
-      # :nocov:
+      # # @!visibility private
       def inspectable_attributes
         { factory: @factory }
       end
-      # :nocov:
     end
   end
 end
