@@ -278,7 +278,7 @@ href="1">argv</a>.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#set-instance_method" title="#set (instance method)">#<strong>set</strong>(value, expiry: nil, nx: nil, xx: nil)  &#x21d2; Boolean </a>
+      <a href="#set-instance_method" title="#set (instance method)">#<strong>set</strong>(value, expiry: nil, nx: false, xx: false)  &#x21d2; Boolean </a>
     
 
     
@@ -416,12 +416,12 @@ href="1">argv</a>.</p>
       <pre class="lines">
 
 
-31
-32
-33</pre>
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/string.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/string.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_if_equals'>delete_if_equals</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_coerce_bool'>coerce_bool</span><span class='lparen'>(</span><span class='id identifier rubyid_delete_if_equals_script'>delete_if_equals_script</span><span class='lparen'>(</span><span class='label'>keys:</span> <span class='ivar'>@key</span><span class='comma'>,</span> <span class='label'>argv:</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -516,15 +516,15 @@ href="1">argv</a>.</p>
       <pre class="lines">
 
 
+56
+57
 58
 59
 60
-61
-62
-63</pre>
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/string.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/string.rb', line 56</span>
 
 <span class='id identifier rubyid_local'>local</span> <span class='id identifier rubyid_deleted'>deleted</span> <span class='op'>=</span> <span class='kw'>false</span>
 <span class='kw'>if</span> <span class='id identifier rubyid_redis'>redis</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>get</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'>KEYS</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='const'>ARGV</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='kw'>then</span>
@@ -660,12 +660,12 @@ href="1">argv</a>.</p>
       <pre class="lines">
 
 
-37
-38
-39</pre>
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/string.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/string.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_getset'>getset</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_getset'>getset</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -719,12 +719,12 @@ href="1">argv</a>.</p>
       <pre class="lines">
 
 
-42
-43
-44</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/string.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/string.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_length'>length</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_strlen'>strlen</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='rparen'>)</span>
@@ -737,7 +737,7 @@ href="1">argv</a>.</p>
       <div class="method_details ">
   <h3 class="signature " id="set-instance_method">
   
-    #<strong>set</strong>(value, expiry: nil, nx: nil, xx: nil)  &#x21d2; <tt>Boolean</tt> 
+    #<strong>set</strong>(value, expiry: nil, nx: false, xx: false)  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -851,18 +851,14 @@ href="1">argv</a>.</p>
 22
 23
 24
-25
-26
-27</pre>
+25</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/redstruct/string.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_set'>set</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='label'>expiry:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>nx:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>xx:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_set'>set</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='label'>expiry:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>nx:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>xx:</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>nx:</span> <span class='id identifier rubyid_nx'>nx</span><span class='comma'>,</span> <span class='label'>xx:</span> <span class='id identifier rubyid_xx'>xx</span> <span class='rbrace'>}</span>
   <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:ex</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_expiry'>expiry</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='kw'>unless</span> <span class='id identifier rubyid_expiry'>expiry</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:nx</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_nx'>nx</span> <span class='kw'>unless</span> <span class='id identifier rubyid_nx'>nx</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:xx</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_xx'>xx</span> <span class='kw'>unless</span> <span class='id identifier rubyid_xx'>xx</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 
   <span class='id identifier rubyid_coerce_bool'>coerce_bool</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_set'>set</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -956,13 +952,13 @@ end)</p>
       <pre class="lines">
 
 
+47
+48
 49
-50
-51
-52</pre>
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/string.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/string.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_slice'>slice</span><span class='lparen'>(</span><span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_length'>length</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_length'>length</span> <span class='op'>=</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>+</span> <span class='id identifier rubyid_length'>length</span> <span class='kw'>if</span> <span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;=</span> <span class='int'>0</span>
@@ -978,7 +974,7 @@ end)</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Dec 25 21:16:14 2016 by
+  Generated on Mon Dec 26 01:10:50 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.1).
 </div>
