@@ -2,13 +2,18 @@
 require 'redstruct/error'
 require 'redstruct/connection'
 require 'redstruct/utils/inspectable'
+require 'redstruct/utils/iterable'
+
+# Default objects; the rest you have to require
+require 'redstruct/factory/object'
+require 'redstruct/struct'
 require 'redstruct/script'
 
 module Redstruct
   # Main interface of the gem; this class should be used to build all Redstruct
   # objects, even when deserializing them.
   class Factory
-    include Redstruct::Utils::Inspectable
+    include Redstruct::Utils::Inspectable, Redstruct::Utils::Iterable
 
     # @return [Connection] The connection proxy to use when executing commands. Shared by all factory produced objects.
     attr_reader :connection
@@ -76,11 +81,11 @@ module Redstruct
 
     # Factory methods for Factory::Object subclasses
     %w(Counter Hash LexSortedSet List Lock Queue Set SortedSet String Struct).each do |type|
-      snake_case_type = type.gsub(/([a-z\d])([A-Z])/, '\1_\2')
+      method = type.gsub(/([a-z\d])([A-Z])/, '\1_\2').downcase
 
       next if defined?(snake_case_type) # do not redefine if overloaded
       class_eval <<~METHOD, __FILE__, __LINE__ + 1
-        def #{snake_case_type}(key, **options)
+        def #{method}(key, **options)
           isolated = isolate(key)
           return Redstruct::#{type}.new(key: isolated, factory: self, **options)
         end

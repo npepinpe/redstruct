@@ -17,11 +17,9 @@ module Redstruct
     # @param [Boolean] nx Not Exists: if true, will not set the key if it already existed
     # @param [Boolean] xx Already Exists: if true, will set the key only if it already existed
     # @return [Boolean] true if set, false otherwise
-    def set(value, expiry: nil, nx: nil, xx: nil)
-      options = {}
+    def set(value, expiry: nil, nx: false, xx: false)
+      options = { nx: nx, xx: xx }
       options[:ex] = expiry.to_i unless expiry.nil?
-      options[:nx] = nx unless nx.nil?
-      options[:xx] = xx unless xx.nil?
 
       coerce_bool(self.connection.set(@key, value, options))
     end

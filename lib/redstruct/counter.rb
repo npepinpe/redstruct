@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'redstruct/types/string'
+require 'redstruct/string'
 
 module Redstruct
   # Additional counter operations, using redis string values.

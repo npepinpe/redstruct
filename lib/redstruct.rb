@@ -15,24 +15,25 @@ module Redstruct
 
     # @return [Hash<String, Redstruct::Factory>] list of current existing factories
     def factories
-      return @factories ||= {}
+      return @factories ||= {}.tap { |hash| hash.extend(MonitorMixin) }
     end
+    private :factories
 
     # Returns the factory at key `key`
-    # @param [String] key the factory ID
+    # @param [String] name the factory ID
     # @return [Redstruct::Factory] the factory at key
-    def [](key)
-      return factories[key]
+    def [](name)
+      return factories.synchronize { factories[name] }
     end
 
-    # Sets the factory at key `key`. Pass nil as a factory to remove it
-    # @param [String] key the factory ID
-    # @param [Redstruct::Factory, nil] factory the factory; if nil, removes the key
-    def []=(key, factory)
-      if factory.nil?
-        factories.delete(key)
-      else
-        factories[key] = factory
+    # Deletes a factory from the cache.
+    # @param [String] name the name of the factory
+    # @param [Boolean] clear if true, attempts to delete all keys created by the factory
+    def delete(name, clear: false)
+      factories.synchronize do
+        factory = factories[name]
+        factories.delete(name)
+        factory.delete if !factory.nil? && clear
       end
     end
 
@@ -44,8 +45,7 @@ module Redstruct
     # @return [Redstruct::Factory]
     def make(name: nil, pool: nil, namespace: nil)
       factory = Redstruct::Factory.new(pool: pool, namespace: namespace)
-      self[name] = factory unless name.nil?
-
+      factories.synchronize { factories[name] = factory } unless name.nil?
       return factory
     end
   end

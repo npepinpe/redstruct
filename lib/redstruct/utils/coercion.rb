@@ -10,10 +10,12 @@ module Redstruct
       # @param [Object] value The value to coerce
       # @return [Array] The coerced value
       def coerce_array(value)
-        return [] if value.nil?
-        return value if value.is_a?(Array)
-        return value.to_a if value.respond_to?(:to_a)
-        return [value]
+        case value
+        when nil then []
+        when Array then value
+        else
+          value.respond_to?(:to_a) ? value.to_a : [value]
+        end
       end
       module_function :coerce_array
 
@@ -23,10 +25,12 @@ module Redstruct
       # @param [Object] value The object to coerce into a bool
       # @return [Boolean] Coerced value
       def coerce_bool(value)
-        return false if value.nil?
-        return false if value.to_i == 0
-
-        return true
+        case value
+        when nil, false then false
+        when Numeric then !value.zero?
+        else
+          true
+        end
       end
       module_function :coerce_bool
     end

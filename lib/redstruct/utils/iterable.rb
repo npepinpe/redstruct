@@ -33,7 +33,7 @@ module Redstruct
         # @param [Integer] max maximum number of iterations possible
         # @return [Enumerator]
         def bound_enumerator(enumerator, max:)
-          raise ArgumentError, 'max must be greater than 0' unless maximum.positive?
+          raise ArgumentError, 'max must be greater than 0' unless max.positive?
 
           return Enumerator.new do |yielder|
             iterations = 0
