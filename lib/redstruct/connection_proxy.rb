@@ -70,6 +70,7 @@ module Redstruct
     def respond_to_missing?(_method, _include_private = false)
       true
     end
+    private :respond_to_missing?
 
     # Fallback when calling methods we may not have dynamically created above
     # @param [String, Symbol] method the called method name
