@@ -220,31 +220,6 @@ proxy</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#respond_to_missing%3F-instance_method" title="#respond_to_missing? (instance method)">#<strong>respond_to_missing?</strong>(_method, _include_private = false)  &#x21d2; Boolean </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Necessary when overwriting method_missing, so that respond_to? work
-properly.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#with-instance_method" title="#with (instance method)">#<strong>with</strong> {|Redis| ... } &#x21d2; Object </a>
     
 
@@ -471,7 +446,6 @@ same connection.</p>
       <pre class="lines">
 
 
-79
 80
 81
 82
@@ -479,10 +453,11 @@ same connection.</p>
 84
 85
 86
-87</pre>
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/connection_proxy.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/connection_proxy.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_with'>with</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
@@ -506,105 +481,7 @@ same connection.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="respond_to_missing?-instance_method">
-  
-    #<strong>respond_to_missing?</strong>(_method, _include_private = false)  &#x21d2; <tt>Boolean</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Necessary when overwriting method_missing, so that respond_to? work
-properly</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>_method</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">String</a></span></tt>, <tt>Symbol</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the method name</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>_include_private</span>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>false</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>if true, also looks up private methods</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>true if responding through method_missing, false otherwise</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-70
-71
-72</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/connection_proxy.rb', line 70</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_respond_to_missing?'>respond_to_missing?</span><span class='lparen'>(</span><span class='id identifier rubyid__method'>_method</span><span class='comma'>,</span> <span class='id identifier rubyid__include_private'>_include_private</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
-  <span class='kw'>true</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="with-instance_method">
+  <h3 class="signature first" id="with-instance_method">
   
     #<strong>with</strong> {|Redis| ... } &#x21d2; <tt>Object</tt> 
   
@@ -726,7 +603,7 @@ stuff</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Dec 28 01:28:48 2016 by
+  Generated on Wed Dec 28 01:29:53 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.1).
 </div>
