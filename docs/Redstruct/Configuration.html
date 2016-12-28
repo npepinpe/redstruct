@@ -122,7 +122,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#connection_pool-instance_method" title="#connection_pool (instance method)">#<strong>connection_pool</strong>  &#x21d2; ConnectionPool </a>
+      <a href="#default_connection-instance_method" title="#default_connection (instance method)">#<strong>default_connection</strong>  &#x21d2; ConnectionPool, Redis </a>
     
 
     
@@ -140,7 +140,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>The Redis-rb connection pool to use.</p>
+<p>The default redis-rb connection, or a pool of said connections.</p>
 </div></span>
   
 </li>
@@ -149,7 +149,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#namespace-instance_method" title="#namespace (instance method)">#<strong>namespace</strong>  &#x21d2; String </a>
+      <a href="#default_namespace-instance_method" title="#default_namespace (instance method)">#<strong>default_namespace</strong>  &#x21d2; String </a>
     
 
     
@@ -253,8 +253,8 @@
       <pre class="code"><span class="info file"># File 'lib/redstruct/configuration.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
-  <span class='ivar'>@connection_pool</span> <span class='op'>=</span> <span class='kw'>nil</span>
-  <span class='ivar'>@namespace</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@default_connection</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@default_namespace</span> <span class='op'>=</span> <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -267,11 +267,11 @@
     <h2>Instance Attribute Details</h2>
     
       
-      <span id="connection_pool=-instance_method"></span>
+      <span id="default_connection=-instance_method"></span>
       <div class="method_details first">
-  <h3 class="signature first" id="connection_pool-instance_method">
+  <h3 class="signature first" id="default_connection-instance_method">
   
-    #<strong>connection_pool</strong>  &#x21d2; <tt>ConnectionPool</tt> 
+    #<strong>default_connection</strong>  &#x21d2; <tt>ConnectionPool</tt>, <tt>Redis</tt> 
   
 
   
@@ -280,7 +280,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns The Redis-rb connection pool to use</p>
+<p>Returns the default redis-rb connection, or a pool of said connections</p>
 
 
   </div>
@@ -293,13 +293,13 @@
     <li>
       
       
-        <span class='type'>(<tt>ConnectionPool</tt>)</span>
+        <span class='type'>(<tt>ConnectionPool</tt>, <tt>Redis</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>The Redis-rb connection pool to use</p>
+<p>the default redis-rb connection, or a pool of said connections</p>
 </div>
       
     </li>
@@ -319,8 +319,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/redstruct/configuration.rb', line 6</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_connection_pool'>connection_pool</span>
-  <span class='ivar'>@connection_pool</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_default_connection'>default_connection</span>
+  <span class='ivar'>@default_connection</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -328,11 +328,11 @@
 </div>
     
       
-      <span id="namespace=-instance_method"></span>
+      <span id="default_namespace=-instance_method"></span>
       <div class="method_details ">
-  <h3 class="signature " id="namespace-instance_method">
+  <h3 class="signature " id="default_namespace-instance_method">
   
-    #<strong>namespace</strong>  &#x21d2; <tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">String</a></span></tt> 
+    #<strong>default_namespace</strong>  &#x21d2; <tt><span class='object_link'><a href="String.html" title="Redstruct::String (class)">String</a></span></tt> 
   
 
   
@@ -380,8 +380,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/redstruct/configuration.rb', line 9</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_namespace'>namespace</span>
-  <span class='ivar'>@namespace</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_default_namespace'>default_namespace</span>
+  <span class='ivar'>@default_namespace</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -394,7 +394,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Dec 26 01:10:51 2016 by
+  Generated on Wed Dec 28 01:28:48 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.1).
 </div>

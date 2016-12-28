@@ -64,8 +64,8 @@ module Redstruct
     end
 
     # Necessary when overwriting method_missing, so that respond_to? work properly
-    # @param [String, Symbol] method the method name
-    # @param [Boolean] include_private if true, also looks up private methods
+    # @param [String, Symbol] _method the method name
+    # @param [Boolean] _include_private if true, also looks up private methods
     # @return [Boolean] true if responding through method_missing, false otherwise
     def respond_to_missing?(_method, _include_private = false)
       true
