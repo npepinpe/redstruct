@@ -13,7 +13,7 @@ module Redstruct
       end
 
       # Convenience accessor for the factory's connection
-      # @return [Redstruct::Connection]
+      # @return [Redstruct::ConnectionProxy]
       def connection
         return @factory.connection
       end

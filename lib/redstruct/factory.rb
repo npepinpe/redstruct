@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require 'redstruct/error'
-require 'redstruct/connection'
+require 'redstruct/connection_proxy'
 require 'redstruct/utils/inspectable'
 require 'redstruct/utils/iterable'
 
@@ -15,21 +15,15 @@ module Redstruct
   class Factory
     include Redstruct::Utils::Inspectable, Redstruct::Utils::Iterable
 
-    # @return [Connection] The connection proxy to use when executing commands. Shared by all factory produced objects.
+    # @return [Redstruct::ConnectionProxy] connection proxy used to execute commands
     attr_reader :connection
 
-    # @param [Redstruct::Connection] connection connection to use for all objects built by the factory
-    # @param [ConnectionPool] pool pool to use to build a connection from if no connection param given
-    # @param [::String] namespace all objects build from the factory will have their keys namespaced under this one
-    # @return [Factory]
-    def initialize(connection: nil, pool: nil, namespace: nil)
-      namespace ||= Redstruct.config.namespace
-
-      if connection.nil?
-        pool ||= Redstruct.config.connection_pool
-        raise(Redstruct::Error, 'A connection pool is required to create a factory, but none was given') if pool.nil?
-        connection = Redstruct::Connection.new(pool)
-      end
+    # @param [Redstruct::ConnectionProxy] connection connection to use for all objects built by the factory
+    # @param [String] namespace optional; all objects built from the factory will have their keys prefixed with this
+    # @return [Redstruct::Factory]
+    def initialize(connection: nil, namespace: '')
+      namespace ||= Redstruct.config.default_namespace
+      connection ||= Redstruct::ConnectionProxy.new(Redstruct.config.default_connection)
 
       @connection = connection
       @namespace = namespace

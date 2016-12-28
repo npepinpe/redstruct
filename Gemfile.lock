@@ -15,6 +15,7 @@ GEM
     connection_pool (2.2.1)
     debug_inspector (0.0.2)
     dotenv (2.1.1)
+    flexmock (2.3.4)
     method_source (0.8.2)
     minitest (5.9.0)
     pry (0.10.4)
@@ -40,6 +41,7 @@ DEPENDENCIES
   bundler (~> 1.13)
   byebug
   dotenv
+  flexmock
   minitest (~> 5.1)
   pry
   pry-byebug
