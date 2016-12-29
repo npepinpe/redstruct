@@ -21,6 +21,7 @@ module Redstruct
     def default_logger
       logger = Logger.new(STDOUT)
       logger.level = Logger::WARN
+      logger.progname = 'Redstruct'
       return logger
     end
     private :default_logger

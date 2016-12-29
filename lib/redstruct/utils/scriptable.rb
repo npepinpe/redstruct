@@ -19,6 +19,17 @@ module Redstruct
         # @param [String] script the lua script source
         def defscript(id, script)
           constant = "SCRIPT_#{id.upcase}"
+
+          if const_defined?(constant)
+            Redstruct.logger.warn("cowardly aborting defscript #{id}; constant with name #{constant} already exists!")
+            return
+          end
+
+          if method_defined?(id)
+            Redstruct.logger.warn("cowardly aborting defscript #{id}; method with name #{id} already exists!")
+            return
+          end
+
           class_eval <<~METHOD, __FILE__, __LINE__ + 1
           #{constant} = { script: %(#{script}).freeze, sha1: Digest::SHA1.hexdigest(%(#{script})).freeze }.freeze
             def #{id}(keys: [], argv: [])
