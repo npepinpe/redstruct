@@ -41,10 +41,7 @@ module Redstruct
             loop do
               yielder << enumerator.next
               iterations += 1
-              if iterations == max
-                Redstruct.logger.warn('raising StopIteration')
-                raise StopIteration
-              end
+              raise StopIteration if iterations == max
             end
           end
         end
