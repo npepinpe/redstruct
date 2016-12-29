@@ -24,7 +24,7 @@ module Redstruct
     def test_with
       proxy = connection_proxy
       proxy.with do |connection|
-        assert connection.is_a?(Redis), 'should have yielded a redis connection'
+        assert_kind_of Redis, connection, 'should have yielded a redis connection'
         proxy.with do |new_connection|
           assert_equal connection, new_connection, 'calling with from within a with block should return the same connection'
         end

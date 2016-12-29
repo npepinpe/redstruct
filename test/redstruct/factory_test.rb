@@ -17,7 +17,7 @@ module Redstruct
       factory = Redstruct::Factory.new(connection: connection, namespace: namespace)
 
       assert_equal namespace, factory.namespace, 'should have assigned the correct namespace'
-      assert factory.connection.is_a?(Redstruct::ConnectionProxy), 'should have properly constructed the proxy'
+      assert_kind_of Redstruct::ConnectionProxy, factory, 'should have properly constructed the proxy'
     end
 
     def test_initialize_no_proxy
@@ -68,7 +68,7 @@ module Redstruct
     def test_script
       factory = create_factory
       script = factory.script(script: 'return 0')
-      assert script.is_a?(Redstruct::Script), 'should always return a script object'
+      assert_kind_of Redstruct::Script, script, 'should always return a script object'
       assert_equal 0, script.eval, 'should execute script correctly'
       assert_equal factory.connection, script.connection, 'script and factory should share the same connection'
     end
@@ -84,7 +84,7 @@ module Redstruct
     def test_lock
       factory1 = create_factory
       lock1 = factory1.lock('res')
-      assert lock1.is_a?(Redstruct::Lock), 'should always return a Redstruct::Lock'
+      assert_kind_of Redstruct::Lock, lock1, 'should always return a Redstruct::Lock'
 
       factory2 = create_factory
       lock2 = factory2.lock('res')
@@ -114,7 +114,7 @@ module Redstruct
       object = factory.public_send(method, 'key')
       assert_equal factory.prefix('key'), object.key, 'object key should be namespaced under the factory namespace'
       assert_equal factory, object.factory
-      assert object.is_a?(type), "factory method #{method} should always return an object of type #{type}"
+      assert_kind_of type, object, "factory method #{method} should always return an object of type #{type}"
     end
     private :assert_struct_method
 

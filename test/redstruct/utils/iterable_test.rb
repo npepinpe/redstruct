@@ -20,7 +20,7 @@ module Redstruct
         iterator = self.class::Iterator.new
         enum = iterator.each # returns an enum
 
-        assert enum.is_a?(Enumerator), 'should return an enumerator when called with no block'
+        assert_kind_of Enumerator, enum, 'should return an enumerator when called with no block'
         assert_equal 0, iterator.iterations, 'should not actually have been called ever yet'
       end
 
