@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'digest'
+
 module Redstruct
   module Utils
     # Provides utility methods to add lua scripts to any class
@@ -11,19 +13,16 @@ module Redstruct
 
       # Class methods added when the module is included at the class level (i.e. extend)
       module ClassMethods
-        # Creates a method with the given id, which will create a constant and a method in the class.
-        # This allows you to use defscript as a macro for your lua scripts, which gets translated to Ruby code at compile
-        # time.
+        # Creates a method with the given id, which will create a constant and a method in the class. This allows you
+        # to use defscript as a macro for your lua scripts, which gets translated to Ruby code at compile time.
         # @param [String] id the script ID
-        # @param [String] source the lua script source
-        def defscript(id, source)
-          constant = "SCRIPT_SOURCE_#{id.upcase}"
+        # @param [String] script the lua script source
+        def defscript(id, script)
+          constant = "SCRIPT_#{id.upcase}"
           class_eval <<~METHOD, __FILE__, __LINE__ + 1
-          #{constant} = { id: '#{id}'.freeze, source: %(#{source}).freeze }.freeze
+          #{constant} = { script: %(#{script}).freeze, sha1: Digest::SHA1.hexdigest(%(#{script})).freeze }.freeze
             def #{id}(keys: [], argv: [])
-              script = @factory.scripts(#{constant}[:id], #{constant}[:source])
-              raise Redstruct::Error, 'could not create script from factory' if script.nil?
-              return script.eval(keys: keys, argv: argv)
+              return @factory.script(script: #{constant}[:script], sha1: #{constant}[:sha1]).eval(keys: keys, argv: argv)
             end
           METHOD
         end

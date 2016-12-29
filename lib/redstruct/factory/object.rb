@@ -7,6 +7,9 @@ module Redstruct
     class Object
       include Redstruct::Utils::Inspectable
 
+      # @return [Redstruct::Factory] factory which was used to create the object
+      attr_reader :factory
+
       # @param [Redstruct::Factory] factory the factory which produced the object
       def initialize(factory:)
         @factory = factory

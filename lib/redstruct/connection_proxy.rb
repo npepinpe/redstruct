@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 require 'redis'
 require 'connection_pool'
+require 'redstruct/utils/inspectable'
 require 'redstruct/error'
 
 module Redstruct
   # Connection proxy class for the ConnectionPool
   class ConnectionProxy
+    include Redstruct::Utils::Inspectable
+
     # @return [Array<Symbol>] List of methods from the Redis class that we don't want to proxy
     NON_COMMAND_METHODS = [:[], :[]=, :_eval, :_scan, :method_missing, :call, :dup, :inspect, :to_s].freeze
 
@@ -85,6 +88,19 @@ module Redstruct
           super
         end
       end
+    end
+
+    # @!visibility private
+    def inspectable_attributes # :nodoc:
+      uses, transport = if !@pool.nil?
+        ['connection_pool', @pool]
+      elsif !@redis.nil?
+        ['redis', @redis]
+      else
+        ['nothing', nil]
+      end
+
+      return { using: uses, transport: transport }
     end
   end
 end

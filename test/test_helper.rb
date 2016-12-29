@@ -20,13 +20,12 @@ module Redstruct
     parallelize_me!
     make_my_diffs_pretty!
 
-    def initialize(*args)
-      super
+    # Clear previous factories
+    def setup
       @factories = []
     end
 
-    # Clear previous factories
-    def setup
+    def teardown
       @factories.each(&:delete)
       @factories.clear
     end
@@ -35,6 +34,7 @@ module Redstruct
     def create_factory(namespace = nil)
       namespace ||= "#{Redstruct.config.default_namespace}:#{SecureRandom.hex(8)}"
       @factories << Redstruct::Factory.new(namespace: namespace)
+      return @factories.last
     end
   end
 end

@@ -121,7 +121,7 @@ module Redstruct
 
     # Use redis-rb sscan_each method to iterate over particular keys
     # @return [Enumerator] base enumerator to iterate of the namespaced keys
-    def to_enum(match:, count:)
+    def to_enum(match: '*', count: 10)
       return self.connection.sscan_each(match: match, count: count)
     end
 

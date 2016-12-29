@@ -5,8 +5,8 @@ require 'redstruct/all'
 Bundler.require(:default, :development)
 
 # Prepare connection configuration
-Redstruct.config.namespace = 'redstruct'.freeze
-Redstruct.config.connection_pool = ConnectionPool.new(size: 2, timeout: 5) do
+Redstruct.config.default_namespace = 'redstruct'.freeze
+Redstruct.config.default_connection = ConnectionPool.new(size: 2, timeout: 5) do
   Redis.new(host: ENV.fetch('REDIS_HOST', '127.0.0.1'), port: ENV.fetch('REDIS_PORT', 6379).to_i)
 end
 
