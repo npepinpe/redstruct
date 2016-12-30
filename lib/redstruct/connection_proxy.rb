@@ -92,15 +92,15 @@ module Redstruct
 
     # @!visibility private
     def inspectable_attributes # :nodoc:
-      uses, transport = if !@pool.nil?
-        ['connection_pool', @pool]
+      transport = if !@pool.nil?
+        'connection_pool'
       elsif !@redis.nil?
-        ['redis', @redis]
+        'redis'
       else
-        ['nothing', nil]
+        'nothing'
       end
 
-      return { using: uses, transport: transport }
+      return { transport: transport }
     end
   end
 end

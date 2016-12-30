@@ -31,7 +31,7 @@ module Redstruct
     # Sets or updates the value for item at index
     # @param [Integer] index the index
     # @param [#to_s] value the new value
-    # @raise Redis::Error when index is out of range
+    # @raise Redis::BaseError when index is out of range
     # @return [Boolean] true if set, false otherwise
     def []=(index, value)
       return coerce_bool(self.connection.lset(@key, index.to_i, value))
