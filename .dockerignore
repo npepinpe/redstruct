@@ -1,7 +1,0 @@
-.git
-.dockerignore
-.rubocop.yml
-.travis.yml
-docs
-README.md
-license.txt
