@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'logger'
 require 'redstruct/configuration'
 require 'redstruct/factory'

@@ -14,7 +14,7 @@ namespace :releaser do
 
       repo.fetch_remote_tags
 
-      tasks = [:update_version, :update_readme, :update_changelog, :update_tags]
+      tasks = %i[update_version update_readme update_changelog update_tags]
       tasks.each do |task|
         Rake::Task[task].invoke
       end
@@ -24,7 +24,6 @@ namespace :releaser do
 
     desc 'Updates the current version'
     task :update_version do
-      
     end
 
     desc 'Updates the README'
@@ -43,7 +42,6 @@ namespace :releaser do
   namespace :gem do
     desc 'Ensures repo version exists, builds the gem, and pushes it'
     task :release do
-
     end
   end
 end

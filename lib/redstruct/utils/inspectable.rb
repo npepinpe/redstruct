@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Redstruct
   module Utils
     # Adds helper methods for calling #inspect on a custom object

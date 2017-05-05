@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'redstruct/error'
 require 'redstruct/connection_proxy'
 require 'redstruct/utils/inspectable'
@@ -13,7 +14,8 @@ module Redstruct
   # Main interface of the gem; this class should be used to build all Redstruct
   # objects, even when deserializing them.
   class Factory
-    include Redstruct::Utils::Inspectable, Redstruct::Utils::Iterable
+    include Redstruct::Utils::Inspectable
+    include Redstruct::Utils::Iterable
 
     # @return [String] namespace used to prefix the keys of all objects created by this factory
     attr_reader :namespace
@@ -94,7 +96,7 @@ module Redstruct
     end
 
     # Factory methods for struct classes
-    %w(Counter LexSortedSet List Queue Set SortedSet String Struct).each do |struct|
+    %w[Counter LexSortedSet List Queue Set SortedSet String Struct].each do |struct|
       method = struct.gsub(/([a-z\d])([A-Z])/, '\1_\2').downcase
 
       if method_defined?(method)

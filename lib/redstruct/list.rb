@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'redstruct/struct'
 require 'redstruct/utils/scriptable'
 require 'redstruct/utils/iterable'

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Redstruct
   module Utils
     # Small value object to pair a value with its score.

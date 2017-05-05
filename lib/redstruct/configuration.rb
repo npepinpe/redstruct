@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Redstruct
   # Simple class holding the Redstruct configuration
   class Configuration

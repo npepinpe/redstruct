@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'redis'
 require 'connection_pool'
 require 'redstruct/utils/inspectable'
@@ -10,7 +11,7 @@ module Redstruct
     include Redstruct::Utils::Inspectable
 
     # @return [Array<Symbol>] List of methods from the Redis class that we don't want to proxy
-    NON_COMMAND_METHODS = [:[], :[]=, :_eval, :_scan, :method_missing, :call, :dup, :inspect, :to_s].freeze
+    NON_COMMAND_METHODS = %i[[] []= _eval _scan method_missing call dup inspect to_s].freeze
 
     # @param [Redis, ConnectionPool<Redis>] pool_or_conn a redis connection, or a pool of redis connections
     # @raise [ArgumentError] raises an exception if the argument is not one of the required classes

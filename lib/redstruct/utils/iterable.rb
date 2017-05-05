@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Redstruct
   module Utils
     # Adds iterable capabilities to any object which implements a to_enum method with the correct arguments.

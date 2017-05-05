@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Redstruct
   module Utils
     # Coercion utilities to map Redis replies to Ruby types, or vice-versa

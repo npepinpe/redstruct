@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'securerandom'
 require 'test_helper'
 
@@ -34,23 +35,17 @@ module Redstruct
       assert @struct.expire(1), 'should have correctly expired the existing key'
     end
 
-    def test_expire_at
-    end
+    def test_expire_at; end
 
-    def test_persist
-    end
+    def test_persist; end
 
-    def test_type
-    end
+    def test_type; end
 
-    def test_ttl
-    end
+    def test_ttl; end
 
-    def test_dump
-    end
+    def test_dump; end
 
-    def test_restore
-    end
+    def test_restore; end
 
     # a struct has no set value, so use the redis connection to "cheat" and set one so the struct actually exists
     def write_struct

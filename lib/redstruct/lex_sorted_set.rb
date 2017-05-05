@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'redstruct/sorted_set'
 
 module Redstruct

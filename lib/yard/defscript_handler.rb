@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module YARD
   class DefscriptHandler < YARD::Handlers::Ruby::Base # :nodoc:
     GROUP_NAME = 'Lua Scripts'

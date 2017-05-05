@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Convenience file to include the gem + all known structs
 require 'redstruct'
 

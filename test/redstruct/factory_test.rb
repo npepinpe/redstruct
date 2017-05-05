@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 
 module Redstruct
@@ -101,7 +102,7 @@ module Redstruct
 
     def test_structs
       factory = create_factory
-      %w(Counter LexSortedSet List Queue Set SortedSet String Struct).each do |struct|
+      %w[Counter LexSortedSet List Queue Set SortedSet String Struct].each do |struct|
         method = struct.gsub(/([a-z\d])([A-Z])/, '\1_\2').downcase
         type = Redstruct.const_get(struct)
         assert_struct_method(method, type, factory)
