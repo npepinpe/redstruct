@@ -1,24 +1,18 @@
 #!/usr/bin/env ruby
 require 'bundler/setup'
-require 'redstruct'
-require 'releaser/repository'
 require 'pry'
 
-# Prepare connection configuration
-Redstruct.config.namespace = 'redstruct'.freeze
-Redstruct.config.connection_pool = ConnectionPool.new(size: 2, timeout: 5) { Redis.new }
-
 def reload!
-  verbosity = $VERBOSE
-  begin
-    $VERBOSE = nil
-    files = $LOADED_FEATURES.select { |feat| feat =~ %r{/redstruct/} || feat =~ %r{/releaser/} }
-    files.each { |file| load(file) }
-  ensure
-    $VERBOSE = verbosity
-  end
+  Object.send(:remove_const, :Redstruct) if Object.const_defined?(:Redstruct)
+  $LOADED_FEATURES.reject! { |path| path =~ %r{/lib/redstruct} }
 
+  require 'redstruct'
+
+  # Prepare connection configuration
+  Redstruct.config.namespace = 'redstruct'.freeze
+  Redstruct.config.connection_pool = ConnectionPool.new(size: 2, timeout: 5) { Redis.new }
   return nil
 end
 
+reload!
 Pry.start
