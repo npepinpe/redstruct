@@ -32,9 +32,7 @@ module Redstruct
       end
 
       def pop(timeout: nil)
-        options = {}
-        options[:timeout] = timeout.to_i unless timeout.nil?
-        return self.connection.blpop(@key, options)&.last
+        return timeout.nil? ? self.connection.lpop(@key) : self.connection.blpop(@key, timeout: timeout)&.last
       end
 
       def remove(value, count: 1)
