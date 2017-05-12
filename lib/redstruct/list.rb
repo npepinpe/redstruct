@@ -82,9 +82,7 @@ module Redstruct
     # @param [Integer] timeout the amount of time to wait in seconds; if 0, waits indefinitely
     # @return [nil, String] nil if the list was empty, otherwise the item
     def pop(timeout: nil)
-      options = {}
-      options[:timeout] = timeout.to_i unless timeout.nil?
-      return self.connection.blpop(@key, options)&.last
+      return timeout.nil? ? self.connection.lpop(@key) : self.connection.blpop(@key, timeout: timeout)&.last
     end
 
     # Removes the given item from the list.
