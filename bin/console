@@ -1,26 +1,22 @@
 #!/usr/bin/env ruby
 require 'bundler/setup'
-require 'redstruct/all'
-
 Bundler.require(:default, :development)
 
-# Prepare connection configuration
-Redstruct.config.default_namespace = 'redstruct'.freeze
-Redstruct.config.default_connection = ConnectionPool.new(size: 2, timeout: 5) do
-  Redis.new(host: ENV.fetch('REDIS_HOST', '127.0.0.1'), port: ENV.fetch('REDIS_PORT', 6379).to_i)
-end
+require 'pry'
 
 def reload!
-  verbosity = $VERBOSE
-  begin
-    $VERBOSE = nil
-    files = $LOADED_FEATURES.select { |feat| feat =~ %r{/redstruct/} }
-    files.each { |file| load(file) }
-  ensure
-    $VERBOSE = verbosity
-  end
+  Object.send(:remove_const, :Redstruct) if Object.const_defined?(:Redstruct)
+  $LOADED_FEATURES.reject! { |path| path =~ %r{/lib/redstruct} }
 
+  require 'redstruct/all'
+
+  # Prepare connection configuration
+  Redstruct.config.default_namespace = 'redstruct'.freeze
+  Redstruct.config.default_connection = ConnectionPool.new(size: 2, timeout: 5) do
+    Redis.new(host: ENV.fetch('REDIS_HOST', '127.0.0.1'), port: ENV.fetch('REDIS_PORT', 6379).to_i)
+  end
   return nil
 end
 
+reload!
 Pry.start
