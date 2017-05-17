@@ -87,26 +87,30 @@ module Redstruct
       return Redstruct::Lock.new(resource, factory: self, **options)
     end
 
-    # As #hash is a special method in Ruby that you should not overload, the factory method for the Hash class is
-    # called hashmap.
-    # @param [String] key the underlying key for the hash map
-    # @return [Redstruct::Hash]
-    def hashmap(key, **options)
-      return Redstruct::Hash.new(key: prefix(key), factory: self, **options)
-    end
-
     # Factory methods for struct classes
-    %w[Counter LexSortedSet List Queue Set SortedSet String Struct].each do |struct|
-      method = struct.gsub(/([a-z\d])([A-Z])/, '\1_\2').downcase
+    {
+      Counter: :counter,
+      Hash: :hashmap,
+      List: :list,
+      Queue: :queue,
+      Set: :set,
+      SortedSet: :sorted_set,
+      String: :string,
+      Struct: :struct
+    }.each do |class_name, method_name|
+      unless defined?(class_name)
+        Redstruct.logger.warn("cannot define factory method #{method_name} for non-existing class Redstruct::#{class_name}")
+        next
+      end
 
-      if method_defined?(method)
-        Redstruct.logger.warn("trying to redefine Redstruct::Factory##{method}; already defined?")
+      if method_defined?(method_name)
+        Redstruct.logger.warn("trying to redefine Redstruct::Factory##{method_name}; already defined?")
         next
       end
 
       class_eval <<~METHOD, __FILE__, __LINE__ + 1
-        def #{method}(key, **options)
-          return Redstruct::#{struct}.new(key: prefix(key), factory: self, **options)
+        def #{method_name}(key, **options)
+          return Redstruct::#{class_name}.new(key: prefix(key), factory: self, **options)
         end
       METHOD
     end

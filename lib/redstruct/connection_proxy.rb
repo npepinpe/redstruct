@@ -67,6 +67,22 @@ module Redstruct
       METHOD
     end
 
+    # @!group redis-rb polyfills
+    # The following methods are methods not currently implemented in redis-rb,
+    # or only in trunk; they should be remove once support is wide-spread
+
+    # see: https://redis.io/commands/zlexcount
+    # zlexcount is not supported as of redis-rb 3.3.2
+    def zlexcount(key, min, max)
+      with do |c|
+        c.synchronize do |client|
+          client.call([:zlexcount, key, min, max])
+        end
+      end
+    end
+
+    # @!endgroup
+
     # Necessary when overwriting method_missing, so that respond_to? work properly
     # @param [String, Symbol] _method the method name
     # @param [Boolean] _include_private if true, also looks up private methods
