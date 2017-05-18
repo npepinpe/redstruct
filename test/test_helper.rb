@@ -5,6 +5,7 @@ require 'securerandom'
 require 'bundler/setup'
 require 'redstruct/all'
 require 'minitest/autorun'
+require 'flexmock/minitest'
 
 Bundler.require(:default, :test)
 

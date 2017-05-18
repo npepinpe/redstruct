@@ -18,7 +18,7 @@ module Redstruct
       factory = Redstruct::Factory.new(connection: connection, namespace: namespace)
 
       assert_equal namespace, factory.namespace, 'should have assigned the correct namespace'
-      assert_kind_of Redstruct::ConnectionProxy, factory, 'should have properly constructed the proxy'
+      assert_kind_of Redstruct::ConnectionProxy, factory.connection, 'should have properly constructed the proxy'
     end
 
     def test_initialize_no_proxy
@@ -102,7 +102,7 @@ module Redstruct
 
     def test_structs
       factory = create_factory
-      %w[Counter LexSortedSet List Queue Set SortedSet String Struct].each do |struct|
+      %w[Counter List Queue Set SortedSet String Struct].each do |struct|
         method = struct.gsub(/([a-z\d])([A-Z])/, '\1_\2').downcase
         type = Redstruct.const_get(struct)
         assert_struct_method(method, type, factory)

@@ -35,7 +35,12 @@ module Redstruct
       assert @struct.expire(1), 'should have correctly expired the existing key'
     end
 
-    def test_expire_at; end
+    def test_expire_at
+      refute @struct.expire_at(1), 'should return false since no existing key was expired'
+      write_struct
+      assert @struct.expire_at(1), 'should have correctly marked to key to be expired'
+      refute @struct.exists?, 'should not exist since it was marked to be expired 1 second after 1970-01-01'
+    end
 
     def test_persist; end
 

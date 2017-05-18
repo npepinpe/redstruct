@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require 'securerandom'
-require 'flexmock/minitest'
-require 'pry'
 
 module Redstruct
   # TODO: not quite sure if this test suite is good enough
