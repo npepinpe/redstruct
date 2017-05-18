@@ -17,11 +17,11 @@ module Redstruct
 
     # Returns the value at key
     # @param [Array<#to_s>] keys a list of keys to fetch; can be only one
-    # @return [Hash<String, [nil, String]>] if only one key was passed, then return the value for it; otherwise returns a Ruby hash
-    #                                       where each key in the `keys` is mapped to the value returned by redis
+    # @return [Hash<String, String>] if only one key was passed, then return the value for it; otherwise returns a Ruby hash
+    #                                where each key in the `keys` is mapped to the value returned by redis
     def get(*keys)
       return self.connection.hget(@key, keys.first) if keys.size == 1
-      return self.connection.mapped_hmget(@key, *keys)
+      return self.connection.mapped_hmget(@key, *keys).reject { |_, v| v.nil? }
     end
 
     # Sets or updates the value at key
@@ -85,6 +85,11 @@ module Redstruct
     # @return [Integer, Float] returns the decremented value
     def decrement(key, by: 1)
       return decrement(key, -by)
+    end
+
+    # @return [Boolean] true if the hash contains no elements
+    def empty?
+      return !exists?
     end
 
     # Loads all the hash members in memory
