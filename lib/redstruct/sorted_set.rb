@@ -16,7 +16,7 @@ module Redstruct
       @lex = lex
     end
 
-    # @param [#to_s] member the object to add to the set
+    # @param [Array<#to_s>] values the object to add to the set
     # @param [Boolean] exists if true, only update elements that exist (do not add new ones)
     # @param [Boolean] overwrite if false, do not update existing elements
     # @return [Integer] the number of elements that have changed (includes new ones)

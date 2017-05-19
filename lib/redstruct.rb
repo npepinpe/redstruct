@@ -4,7 +4,8 @@ require 'logger'
 require 'redstruct/configuration'
 require 'redstruct/factory'
 
-# TODO: Add top level documentation
+# Top level namespace
+# TODO: Add documentation later
 module Redstruct
   class << self
     # @return [Redstruct::Configuration] current default configuration
