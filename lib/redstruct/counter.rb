@@ -6,23 +6,22 @@ module Redstruct
   # Additional counter operations, using redis string values.
   class Counter < Redstruct::String
     # @return [Integer] the default increment value of the counter, defaults to 1
-    attr_reader :increment
+    attr_reader :default_increment
 
     # @return [Integer] the default maximum value of the counter, leave nil unless you want the cycle effect
     attr_reader :max
 
-    # @param [Integer] increment the default increment value
+    # @param [Integer] by the default increment value
     # @param [Integer, nil] max the default max value of the counter, leave nil unless you want cyclical counters
-    def initialize(increment: 1, max: nil, **options)
+    def initialize(by: 1, max: nil, **options)
       super(**options)
-      @increment = increment
+      @default_increment = by
       @max = max
     end
 
-    # @return [Integer, nil] the stored value as an integer, or nil if nothing stored
+    # @return [Integer] the stored value as an integer
     def get
-      result = super
-      return result.nil? ? nil : result.to_i
+      return super.to_i
     end
 
     # Sets the new value, converting it to int first
@@ -47,7 +46,7 @@ module Redstruct
     #   pry> counter.increment(by: 9, max: 5) # returns 4
     # @return [Integer] the updated value
     def increment(by: nil, max: nil)
-      by ||= @increment
+      by ||= @default_increment
       max ||= @max
 
       value = if max.nil?
@@ -67,8 +66,12 @@ module Redstruct
     #   pry> counter.decrement(by: 9, max: 5) # returns -4
     # @return [Integer] the updated value
     def decrement(by: nil, max: nil)
-      by ||= @increment
+      by ||= @default_increment
       by = -by.to_i
+
+      max ||= @max
+      max = -max unless max.nil?
+
       return increment(by: by, max: max)
     end
 
@@ -87,7 +90,7 @@ module Redstruct
 
     # @!visibility private
     def inspectable_attributes
-      super.merge(max: @max, increment: @increment)
+      super.merge(max: @max, by: @default_increment)
     end
   end
 end
