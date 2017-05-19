@@ -80,24 +80,59 @@ module Redstruct
     end
 
     def test_increment
+      assert_equal 1, @hash.increment('a'), 'initial increment should return 1'
+      assert_equal 2, @hash.increment('a'), 'second increment should return 2'
+      assert_equal 3.5, @hash.increment('a', by: 1.5), 'should return 3.5'
     end
 
     def test_decrement
+      assert_equal(-1, @hash.decrement('a'), 'initial decrement should return -1')
+      assert_equal(-2, @hash.decrement('a'), 'second decrement should return -2')
+      assert_equal(-3.5, @hash.decrement('a', by: 1.5), 'should return -3.5')
     end
 
     def test_keys
+      hash = { 'a' => 'b', 'b' => 'a' }
+      assert_equal [], @hash.keys, 'should initially return no keys initially'
+      @hash.update(hash)
+      assert_equal hash.keys, @hash.keys, 'should return the same keys after an update'
     end
 
     def test_values
+      hash = { 'a' => 'b', 'b' => 'a' }
+      assert_equal [], @hash.values, 'should initially return no values initially'
+      @hash.update(hash)
+      assert_equal hash.values, @hash.values, 'should return the same values after an update'
     end
 
     def test_to_h
+      hash = { 'a' => 'b', 'b' => 'a' }
+      assert_equal({}, @hash.to_h, 'should be an empty hash initially')
+      @hash.update(hash)
+      assert_equal hash, @hash.to_h, 'should return the whole hash as a standard ruby hash'
     end
 
     def test_size
+      hash = { 'a' => 'b', 'b' => 'a' }
+      assert_equal 0, @hash.size, 'should be an empty hash initially'
+      @hash.update(hash)
+      assert_equal 2, @hash.size, 'should return the correct amount of pairs'
     end
 
     def test_each
+      hash = { 'a' => 'b', 'b' => 'a' }
+      keys = hash.keys
+      values = hash.values
+
+      @hash.update(hash)
+      @hash.each do |key, value|
+        keys.delete(key)
+        values.delete(value)
+        assert_equal hash[key], value, 'should return the correct key-value-pair'
+      end
+
+      assert_empty keys, 'should have no more keys left to match'
+      assert_empty values, 'should have no more values to match'
     end
   end
 end

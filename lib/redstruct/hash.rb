@@ -84,7 +84,7 @@ module Redstruct
     # @param [Integer, Float] by defaults to 1
     # @return [Integer, Float] returns the decremented value
     def decrement(key, by: 1)
-      return decrement(key, -by)
+      return increment(key, by: -by)
     end
 
     # @return [Boolean] true if the hash contains no elements
@@ -117,7 +117,7 @@ module Redstruct
     # Use redis-rb hscan_each method to iterate over particular keys
     # @return [Enumerator] base enumerator to iterate of the namespaced keys
     def to_enum(match: '*', count: 10)
-      return self.connection.hscan_each(match: match, count: count)
+      return self.connection.hscan_each(@key, match: match, count: count)
     end
   end
 end
