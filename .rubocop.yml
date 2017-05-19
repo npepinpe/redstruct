@@ -7,7 +7,7 @@ AllCops:
   TargetRubyVersion: 2.3
 
 Rails:
-  Enabled: true
+  Enabled: false
 
 Documentation:
   Enabled: false
