@@ -19,6 +19,9 @@ module Redstruct
         # @param [String] id the script ID
         # @param [String] script the lua script source
         def defscript(id, script)
+          raise ArgumentError, 'no script given' unless script && !script.empty?
+
+          script = script.strip
           constant = "SCRIPT_#{id.upcase}"
 
           if const_defined?(constant)
