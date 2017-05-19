@@ -29,7 +29,7 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     rake (10.5.0)
-    redis (3.3.2)
+    redis (3.3.3)
     slop (3.6.0)
     yard (0.9.5)
 
@@ -51,4 +51,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   1.13.7
+   1.14.6
