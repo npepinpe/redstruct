@@ -128,7 +128,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#increment-instance_method" title="#increment (instance method)">#<strong>increment</strong>(by: nil, max: nil)  &#x21d2; Integer </a>
+      <a href="#default_increment-instance_method" title="#default_increment (instance method)">#<strong>default_increment</strong>  &#x21d2; Integer </a>
     
 
     
@@ -148,7 +148,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Increments the counter by the given value.</p>
+<p>The default increment value of the counter, defaults to 1.</p>
 </div></span>
   
 </li>
@@ -229,7 +229,7 @@ cycle effect.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#get-instance_method" title="#get (instance method)">#<strong>get</strong>  &#x21d2; Integer<sup>?</sup> </a>
+      <a href="#get-instance_method" title="#get (instance method)">#<strong>get</strong>  &#x21d2; Integer </a>
     
 
     
@@ -244,7 +244,7 @@ cycle effect.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>The stored value as an integer, or nil if nothing stored.</p>
+<p>The stored value as an integer.</p>
 </div></span>
   
 </li>
@@ -277,7 +277,31 @@ cycle effect.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(increment: 1, max: nil, **options)  &#x21d2; Counter </a>
+      <a href="#increment-instance_method" title="#increment (instance method)">#<strong>increment</strong>(by: nil, max: nil)  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Increments the counter by the given value.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(by: 1, max: nil, **options)  &#x21d2; Counter </a>
     
 
     
@@ -349,7 +373,7 @@ cycle effect.</p>
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Struct.html" title="Redstruct::Struct (class)">Struct</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Struct.html#delete-instance_method" title="Redstruct::Struct#delete (method)">#delete</a></span>, <span class='object_link'><a href="Struct.html#exists%3F-instance_method" title="Redstruct::Struct#exists? (method)">#exists?</a></span>, <span class='object_link'><a href="Struct.html#expire-instance_method" title="Redstruct::Struct#expire (method)">#expire</a></span>, <span class='object_link'><a href="Struct.html#expire_at-instance_method" title="Redstruct::Struct#expire_at (method)">#expire_at</a></span>, <span class='object_link'><a href="Struct.html#persist-instance_method" title="Redstruct::Struct#persist (method)">#persist</a></span>, <span class='object_link'><a href="Struct.html#type-instance_method" title="Redstruct::Struct#type (method)">#type</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Struct.html#delete-instance_method" title="Redstruct::Struct#delete (method)">#delete</a></span>, <span class='object_link'><a href="Struct.html#dump-instance_method" title="Redstruct::Struct#dump (method)">#dump</a></span>, <span class='object_link'><a href="Struct.html#exists%3F-instance_method" title="Redstruct::Struct#exists? (method)">#exists?</a></span>, <span class='object_link'><a href="Struct.html#expire-instance_method" title="Redstruct::Struct#expire (method)">#expire</a></span>, <span class='object_link'><a href="Struct.html#expire_at-instance_method" title="Redstruct::Struct#expire_at (method)">#expire_at</a></span>, <span class='object_link'><a href="Struct.html#persist-instance_method" title="Redstruct::Struct#persist (method)">#persist</a></span>, <span class='object_link'><a href="Struct.html#restore-instance_method" title="Redstruct::Struct#restore (method)">#restore</a></span>, <span class='object_link'><a href="Struct.html#ttl-instance_method" title="Redstruct::Struct#ttl (method)">#ttl</a></span>, <span class='object_link'><a href="Struct.html#type-instance_method" title="Redstruct::Struct#type (method)">#type</a></span></p>
 
   
   <div id="constructor_details" class="method_details_list">
@@ -358,7 +382,7 @@ cycle effect.</p>
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(increment: 1, max: nil, **options)  &#x21d2; <tt><span class='object_link'><a href="" title="Redstruct::Counter (class)">Counter</a></span></tt> 
+    #<strong>initialize</strong>(by: 1, max: nil, **options)  &#x21d2; <tt><span class='object_link'><a href="" title="Redstruct::Counter (class)">Counter</a></span></tt> 
   
 
   
@@ -378,7 +402,7 @@ cycle effect.</p>
   
     <li>
       
-        <span class='name'>increment</span>
+        <span class='name'>by</span>
       
       
         <span class='type'>(<tt>Integer</tt>)</span>
@@ -418,18 +442,18 @@ counters</p>
       <pre class="lines">
 
 
-15
 16
 17
 18
-19</pre>
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/counter.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/counter.rb', line 16</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>increment:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>max:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>by:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>max:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='ivar'>@increment</span> <span class='op'>=</span> <span class='id identifier rubyid_increment'>increment</span>
+  <span class='ivar'>@default_increment</span> <span class='op'>=</span> <span class='id identifier rubyid_by'>by</span>
   <span class='ivar'>@max</span> <span class='op'>=</span> <span class='id identifier rubyid_max'>max</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -445,9 +469,9 @@ counters</p>
       
       <span id=""></span>
       <div class="method_details first">
-  <h3 class="signature first" id="increment-instance_method">
+  <h3 class="signature first" id="default_increment-instance_method">
   
-    #<strong>increment</strong>(by: nil, max: nil)  &#x21d2; <tt>Integer</tt>  <span class="extras">(readonly)</span>
+    #<strong>default_increment</strong>  &#x21d2; <tt>Integer</tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -456,60 +480,13 @@ counters</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Increments the counter by the given value. If max is given, will loop
-around and start again from 0 (will increment by (current_value + by) %
-max).</p>
+<p>Returns the default increment value of the counter, defaults to 1</p>
 
 
   </div>
 </div>
 <div class="tags">
   
-  <div class="examples">
-    <p class="tag_title">Examples:</p>
-    
-      
-      <pre class="example code"><code><span class='id identifier rubyid_pry'>pry</span><span class='op'>&gt;</span> <span class='id identifier rubyid_counter'>counter</span><span class='period'>.</span><span class='id identifier rubyid_increment'>increment</span><span class='lparen'>(</span><span class='label'>by:</span> <span class='int'>10</span><span class='comma'>,</span> <span class='label'>max:</span> <span class='int'>5</span><span class='rparen'>)</span> <span class='comment'># returns 0, since 10 % 5 == 0
-</span><span class='id identifier rubyid_pry'>pry</span><span class='op'>&gt;</span> <span class='id identifier rubyid_counter'>counter</span><span class='period'>.</span><span class='id identifier rubyid_increment'>increment</span><span class='lparen'>(</span><span class='label'>by:</span> <span class='int'>9</span><span class='comma'>,</span> <span class='label'>max:</span> <span class='int'>5</span><span class='rparen'>)</span> <span class='comment'># returns 4</span></code></pre>
-    
-  </div>
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>by</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>defaults to @increment, used to increment the underlying counter</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>max</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>if non-nil, the counter will loop and start over from 0 when it reaches max</p>
-</div>
-      
-    </li>
-  
-</ul>
-
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -522,7 +499,7 @@ max).</p>
       
         &mdash;
         <div class='inline'>
-<p>the updated value</p>
+<p>the default increment value of the counter, defaults to 1</p>
 </div>
       
     </li>
@@ -535,15 +512,15 @@ max).</p>
       <pre class="lines">
 
 
-8
 9
-10</pre>
+10
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/counter.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/counter.rb', line 9</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_increment'>increment</span>
-  <span class='ivar'>@increment</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_default_increment'>default_increment</span>
+  <span class='ivar'>@default_increment</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -598,12 +575,12 @@ cycle effect</p>
       <pre class="lines">
 
 
-11
 12
-13</pre>
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/counter.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/counter.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_max'>max</span>
   <span class='ivar'>@max</span>
@@ -715,14 +692,22 @@ max).</p>
 69
 70
 71
-72</pre>
+72
+73
+74
+75
+76</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/redstruct/counter.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_decrement'>decrement</span><span class='lparen'>(</span><span class='label'>by:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>max:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_by'>by</span> <span class='op'>||=</span> <span class='ivar'>@increment</span>
+  <span class='id identifier rubyid_by'>by</span> <span class='op'>||=</span> <span class='ivar'>@default_increment</span>
   <span class='id identifier rubyid_by'>by</span> <span class='op'>=</span> <span class='op'>-</span><span class='id identifier rubyid_by'>by</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+
+  <span class='id identifier rubyid_max'>max</span> <span class='op'>||=</span> <span class='ivar'>@max</span>
+  <span class='id identifier rubyid_max'>max</span> <span class='op'>=</span> <span class='op'>-</span><span class='id identifier rubyid_max'>max</span> <span class='kw'>unless</span> <span class='id identifier rubyid_max'>max</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
   <span class='kw'>return</span> <span class='id identifier rubyid_increment'>increment</span><span class='lparen'>(</span><span class='label'>by:</span> <span class='id identifier rubyid_by'>by</span><span class='comma'>,</span> <span class='label'>max:</span> <span class='id identifier rubyid_max'>max</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -733,7 +718,7 @@ max).</p>
       <div class="method_details ">
   <h3 class="signature " id="get-instance_method">
   
-    #<strong>get</strong>  &#x21d2; <tt>Integer</tt><sup>?</sup> 
+    #<strong>get</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
@@ -742,7 +727,7 @@ max).</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the stored value as an integer, or nil if nothing stored</p>
+<p>Returns the stored value as an integer</p>
 
 
   </div>
@@ -755,13 +740,13 @@ max).</p>
     <li>
       
       
-        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>the stored value as an integer, or nil if nothing stored</p>
+<p>the stored value as an integer</p>
 </div>
       
     </li>
@@ -774,17 +759,15 @@ max).</p>
       <pre class="lines">
 
 
-22
 23
 24
 25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/counter.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/counter.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get'>get</span>
-  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='kw'>super</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='kw'>nil</span> <span class='op'>:</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+  <span class='kw'>return</span> <span class='kw'>super</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -864,6 +847,130 @@ max).</p>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_getset'>getset</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="increment-instance_method">
+  
+    #<strong>increment</strong>(by: nil, max: nil)  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Increments the counter by the given value. If max is given, will loop
+around and start again from 0 (will increment by (current_value + by) %
+max).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_pry'>pry</span><span class='op'>&gt;</span> <span class='id identifier rubyid_counter'>counter</span><span class='period'>.</span><span class='id identifier rubyid_increment'>increment</span><span class='lparen'>(</span><span class='label'>by:</span> <span class='int'>10</span><span class='comma'>,</span> <span class='label'>max:</span> <span class='int'>5</span><span class='rparen'>)</span> <span class='comment'># returns 0, since 10 % 5 == 0
+</span><span class='id identifier rubyid_pry'>pry</span><span class='op'>&gt;</span> <span class='id identifier rubyid_counter'>counter</span><span class='period'>.</span><span class='id identifier rubyid_increment'>increment</span><span class='lparen'>(</span><span class='label'>by:</span> <span class='int'>9</span><span class='comma'>,</span> <span class='label'>max:</span> <span class='int'>5</span><span class='rparen'>)</span> <span class='comment'># returns 4</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>by</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>defaults to @increment, used to increment the underlying counter</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>max</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if non-nil, the counter will loop and start over from 0 when it reaches max</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the updated value</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/counter.rb', line 48</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_increment'>increment</span><span class='lparen'>(</span><span class='label'>by:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>max:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_by'>by</span> <span class='op'>||=</span> <span class='ivar'>@default_increment</span>
+  <span class='id identifier rubyid_max'>max</span> <span class='op'>||=</span> <span class='ivar'>@max</span>
+
+  <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_max'>max</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_incrby'>incrby</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_by'>by</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_ring_increment_script'>ring_increment_script</span><span class='lparen'>(</span><span class='label'>keys:</span> <span class='ivar'>@key</span><span class='comma'>,</span> <span class='label'>argv:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_by'>by</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='id identifier rubyid_max'>max</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>return</span> <span class='id identifier rubyid_value'>value</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -961,9 +1068,9 @@ max).</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Dec 28 01:29:53 2016 by
+  Generated on Fri May 19 16:15:03 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.5 (ruby-2.3.1).
+  0.9.5 (ruby-2.4.1).
 </div>
 
     </div>

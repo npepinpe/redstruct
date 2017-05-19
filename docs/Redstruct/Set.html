@@ -419,7 +419,7 @@ underlying redis db.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#to_enum-instance_method" title="#to_enum (instance method)">#<strong>to_enum</strong>(match:, count:)  &#x21d2; Enumerator </a>
+      <a href="#to_enum-instance_method" title="#to_enum (instance method)">#<strong>to_enum</strong>(match: &#39;*&#39;, count: 10)  &#x21d2; Enumerator </a>
     
 
     
@@ -504,7 +504,7 @@ underlying redis db.</p>
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Struct.html" title="Redstruct::Struct (class)">Struct</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Struct.html#delete-instance_method" title="Redstruct::Struct#delete (method)">#delete</a></span>, <span class='object_link'><a href="Struct.html#exists%3F-instance_method" title="Redstruct::Struct#exists? (method)">#exists?</a></span>, <span class='object_link'><a href="Struct.html#expire-instance_method" title="Redstruct::Struct#expire (method)">#expire</a></span>, <span class='object_link'><a href="Struct.html#expire_at-instance_method" title="Redstruct::Struct#expire_at (method)">#expire_at</a></span>, <span class='object_link'><a href="Struct.html#initialize-instance_method" title="Redstruct::Struct#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Struct.html#inspectable_attributes-instance_method" title="Redstruct::Struct#inspectable_attributes (method)">#inspectable_attributes</a></span>, <span class='object_link'><a href="Struct.html#persist-instance_method" title="Redstruct::Struct#persist (method)">#persist</a></span>, <span class='object_link'><a href="Struct.html#type-instance_method" title="Redstruct::Struct#type (method)">#type</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Struct.html#delete-instance_method" title="Redstruct::Struct#delete (method)">#delete</a></span>, <span class='object_link'><a href="Struct.html#dump-instance_method" title="Redstruct::Struct#dump (method)">#dump</a></span>, <span class='object_link'><a href="Struct.html#exists%3F-instance_method" title="Redstruct::Struct#exists? (method)">#exists?</a></span>, <span class='object_link'><a href="Struct.html#expire-instance_method" title="Redstruct::Struct#expire (method)">#expire</a></span>, <span class='object_link'><a href="Struct.html#expire_at-instance_method" title="Redstruct::Struct#expire_at (method)">#expire_at</a></span>, <span class='object_link'><a href="Struct.html#initialize-instance_method" title="Redstruct::Struct#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Struct.html#inspectable_attributes-instance_method" title="Redstruct::Struct#inspectable_attributes (method)">#inspectable_attributes</a></span>, <span class='object_link'><a href="Struct.html#persist-instance_method" title="Redstruct::Struct#persist (method)">#persist</a></span>, <span class='object_link'><a href="Struct.html#restore-instance_method" title="Redstruct::Struct#restore (method)">#restore</a></span>, <span class='object_link'><a href="Struct.html#ttl-instance_method" title="Redstruct::Struct#ttl (method)">#ttl</a></span>, <span class='object_link'><a href="Struct.html#type-instance_method" title="Redstruct::Struct#type (method)">#type</a></span></p>
 
   
   <div id="constructor_details" class="method_details_list">
@@ -588,12 +588,12 @@ number of items added</p>
       <pre class="lines">
 
 
-44
 45
-46</pre>
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_items'>items</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_sadd'>sadd</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_items'>items</span><span class='rparen'>)</span>
@@ -636,12 +636,12 @@ number of items added</p>
       <pre class="lines">
 
 
-14
 15
-16</pre>
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear'>clear</span>
   <span class='id identifier rubyid_delete'>delete</span>
@@ -719,12 +719,12 @@ number of items added</p>
       <pre class="lines">
 
 
-36
 37
-38</pre>
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_contain?'>contain?</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_coerce_bool'>coerce_bool</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_sismember'>sismember</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -823,7 +823,6 @@ Ruby set containing the difference</p>
       <pre class="lines">
 
 
-74
 75
 76
 77
@@ -832,10 +831,11 @@ Ruby set containing the difference</p>
 80
 81
 82
-83</pre>
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_difference'>difference</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='comma'>,</span> <span class='label'>dest:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_destination'>destination</span> <span class='op'>=</span> <span class='id identifier rubyid_coerce_destination'>coerce_destination</span><span class='lparen'>(</span><span class='id identifier rubyid_dest'>dest</span><span class='rparen'>)</span>
@@ -904,12 +904,12 @@ underlying redis db</p>
       <pre class="lines">
 
 
-29
 30
-31</pre>
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_empty?'>empty?</span>
   <span class='kw'>return</span> <span class='op'>!</span><span class='id identifier rubyid_exists?'>exists?</span>
@@ -1008,7 +1008,6 @@ Ruby set containing the intersection</p>
       <pre class="lines">
 
 
-92
 93
 94
 95
@@ -1017,10 +1016,11 @@ Ruby set containing the intersection</p>
 98
 99
 100
-101</pre>
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_intersection'>intersection</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='comma'>,</span> <span class='label'>dest:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_destination'>destination</span> <span class='op'>=</span> <span class='id identifier rubyid_coerce_destination'>coerce_destination</span><span class='lparen'>(</span><span class='id identifier rubyid_dest'>dest</span><span class='rparen'>)</span>
@@ -1083,12 +1083,12 @@ the set</p>
       <pre class="lines">
 
 
-52
 53
-54</pre>
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pop'>pop</span>
   <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_spop'>spop</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='rparen'>)</span>
@@ -1162,13 +1162,13 @@ the set</p>
       <pre class="lines">
 
 
-21
 22
 23
-24</pre>
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_random'>random</span><span class='lparen'>(</span><span class='label'>count:</span> <span class='int'>1</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_srandmember'>srandmember</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_count'>count</span><span class='rparen'>)</span>
@@ -1244,12 +1244,12 @@ of items removed</p>
       <pre class="lines">
 
 
-59
 60
-61</pre>
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_items'>items</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_srem'>srem</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_items'>items</span><span class='rparen'>)</span>
@@ -1303,12 +1303,12 @@ of items removed</p>
       <pre class="lines">
 
 
-64
 65
-66</pre>
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_size'>size</span>
   <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_scard'>scard</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -1363,12 +1363,12 @@ by redis NOTE: If the set is particularly large, consider using #each</p>
       <pre class="lines">
 
 
-131
 132
-133</pre>
+133
+134</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 131</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 132</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_a'>to_a</span>
   <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_smembers'>smembers</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='rparen'>)</span>
@@ -1381,7 +1381,7 @@ by redis NOTE: If the set is particularly large, consider using #each</p>
       <div class="method_details ">
   <h3 class="signature " id="to_enum-instance_method">
   
-    #<strong>to_enum</strong>(match:, count:)  &#x21d2; <tt>Enumerator</tt> 
+    #<strong>to_enum</strong>(match: &#39;*&#39;, count: 10)  &#x21d2; <tt>Enumerator</tt> 
   
 
   
@@ -1422,14 +1422,14 @@ by redis NOTE: If the set is particularly large, consider using #each</p>
       <pre class="lines">
 
 
-124
 125
-126</pre>
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 124</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 125</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='label'>match:</span><span class='comma'>,</span> <span class='label'>count:</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='label'>match:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>count:</span> <span class='int'>10</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_sscan_each'>sscan_each</span><span class='lparen'>(</span><span class='label'>match:</span> <span class='id identifier rubyid_match'>match</span><span class='comma'>,</span> <span class='label'>count:</span> <span class='id identifier rubyid_count'>count</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1482,12 +1482,12 @@ set is particularly large, consider using #each</p>
       <pre class="lines">
 
 
-138
 139
-140</pre>
+140
+141</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 138</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 139</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_set'>to_set</span>
   <span class='kw'>return</span> <span class='op'>::</span><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_to_a'>to_a</span><span class='rparen'>)</span>
@@ -1585,7 +1585,6 @@ Ruby set containing the union</p>
       <pre class="lines">
 
 
-110
 111
 112
 113
@@ -1594,10 +1593,11 @@ Ruby set containing the union</p>
 116
 117
 118
-119</pre>
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/set.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_union'>union</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='comma'>,</span> <span class='label'>dest:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_destination'>destination</span> <span class='op'>=</span> <span class='id identifier rubyid_coerce_destination'>coerce_destination</span><span class='lparen'>(</span><span class='id identifier rubyid_dest'>dest</span><span class='rparen'>)</span>
@@ -1619,9 +1619,9 @@ Ruby set containing the union</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Dec 28 01:29:51 2016 by
+  Generated on Fri May 19 16:15:01 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.5 (ruby-2.3.1).
+  0.9.5 (ruby-2.4.1).
 </div>
 
     </div>
