@@ -81,6 +81,11 @@ module Redstruct
     # @return [Integer] the number of items prepended to the list
     def prepend(*items, max: nil, exists: false)
       max = max.to_i
+
+      # redis literally prepends each element one at a time, so 1 2 will end up 2 1
+      # to keep behaviour in sync with Array#unshift we preemptively reverse the list
+      items = items.reverse
+
       results = if max.positive? || exists
         push_and_trim_script(keys: @key, argv: [max - 1, true, exists] + items)
       else
@@ -127,8 +132,7 @@ module Redstruct
     #                        count = 0: Remove all items equal to value.
     # @return [Integer] the number of items removed
     def remove(value, count: 1)
-      count = [1, count.to_i].max
-      self.connection.lrem(@key, count, value)
+      self.connection.lrem(@key, count.to_i, value)
     end
 
     # Checks how many items are in the list.
@@ -145,7 +149,7 @@ module Redstruct
     # @return [Array<String>] the requested slice, or an empty list
     def slice(start: 0, length: -1)
       length = length.to_i
-      end_index = length.positive? ? length - 1 : length
+      end_index = length.positive? ? start + length - 1 : length
 
       return self.connection.lrange(@key, start.to_i, end_index)
     end
@@ -183,6 +187,8 @@ module Redstruct
       end
     end
 
+    # @!group Lua Scripts
+
     # Appends or prepends (argv[1]) a number of items (argv[2]) to a list (keys[1]),
     # then trims it out to size (argv[3])
     # @param [Array<#to_s>] keys first key should be the key to the list to prepend to and resize
@@ -196,13 +202,9 @@ module Redstruct
       local push = prepend and 'lpush' or 'rpush'
       local size = 0
 
-      if exists
-        local first = table.remove(ARGV, 1)
-        push = push .. 'x'
-        size = redis.call(push .. 'x', KEYS[1], first)
-
-        if size < 1 then
-          return 0
+      if exists then
+        if redis.call('exists', KEYS[1]) == 0 then
+          return nil
         end
       end
 
@@ -280,5 +282,7 @@ module Redstruct
       return redis.call('lset', KEYS[1], index, value)
     LUA
     protected :set_script
+
+    # @!endgroup
   end
 end

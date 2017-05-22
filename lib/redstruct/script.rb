@@ -76,6 +76,8 @@ module Redstruct
     def eval(keys: [], argv: [])
       keys = [keys] unless keys.is_a?(Array)
       argv = [argv] unless argv.is_a?(Array)
+      argv = normalize(argv)
+
       @connection.evalsha(self.sha1, keys, argv)
     rescue Redis::CommandError => err
       raise unless err.message.start_with?(ERROR_MESSAGE_PREFIX)
@@ -85,6 +87,19 @@ module Redstruct
     # # @!visibility private
     def inspectable_attributes # :nodoc:
       return super.merge(sha1: self.sha1, script: @script.slice(0, 20))
+    end
+
+    private
+
+    def normalize(values)
+      values.map do |value|
+        case value
+        when true then 1
+        when false then 0
+        else
+          value.to_s
+        end
+      end
     end
   end
 end
