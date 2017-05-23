@@ -42,7 +42,12 @@ module Redstruct
     end
 
     # Inserts the given value at the given zero-based index.
-    # TODO: Support multiple insertion like Array#insert
+    # TODO: Support multiple insertion like Array#insert? The biggest issue
+    # here is that concatenating lists in Lua is O(n), so on very large lists,
+    # this operation would become slow. There are Redis Modules which implement
+    # splice operations (so a O(1) list split/merge), but there's no way to
+    # guarantee if the module will be present. Perhaps provide optional support
+    # if the module is detected?
     # @param [#to_s] value the value to insert
     # @param [#to_i] index the index at which to insert the value
     def insert(value, index)

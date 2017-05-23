@@ -3,3 +3,10 @@ language: ruby
 rvm:
   - 2.4.1
 before_install: gem install bundler -v 1.15.0
+services:
+  - redis-server
+env:
+  global:
+    - REDIS_HOST=localhost
+    - REDIS_PORT=6379
+    - REDIS_DB=0
