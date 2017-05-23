@@ -28,7 +28,7 @@ module Redstruct
       def coerce_bool(value)
         case value
         when nil, false then false
-        when value.respond_to?(:zero?) then !value.zero?
+        when Numeric then !value.zero?
         else
           true
         end

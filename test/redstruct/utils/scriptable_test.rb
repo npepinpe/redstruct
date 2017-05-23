@@ -18,6 +18,7 @@ module Redstruct
 
           return sum
         LUA
+        script = script.strip
         sha1 = Digest::SHA1.hexdigest(script)
 
         klass = Class.new(Redstruct::Factory::Object) do
