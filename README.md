@@ -1,5 +1,8 @@
 # Redstruct
 
+[![Build Status](https://travis-ci.org/npepinpe/redstruct.svg?branch=master)](https://travis-ci.org/npepinpe/redstruct)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a97a31e37fa4432d8836169fa1999d34)](https://www.codacy.com/app/n.pepinpe/redstruct?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=npepinpe/redstruct&amp;utm_campaign=Badge_Grade)
+
 Provides higher level data structures in Ruby using standard Redis commands. Also provides basic object mapping for pre-existing types.
 
 ## Installation
