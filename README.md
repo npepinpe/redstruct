@@ -37,15 +37,16 @@ Avoid using transactions; the Redis documentation suggests using Lua scripts whe
 
 ## TODO
 
-- [x] Implement counters
-- [x] Implement locks (blocking/non-blocking)
-- [x] Implement queues
-- [x] Implement basic types (set, string, list, hash)
-- [x] Implement SortedSet
-- [ ] Implement stacks
-- [ ] Discuss supporting pipelining vs. just using lua scripts (better interface for scripted extensions?)
+- [x] Implement factory
+- [x] Implement counter
+- [x] Implement lock (blocking/non-blocking)
+- [x] Implement string
+- [x] Implement hash
+- [x] Implement set
+- [x] Implement list
+- [x] Implement script
+- [x] Implement sorted set
 - [ ] Design/discuss stored factory meta-data (i.e. keep track of created objects, clear said objects, etc.)
-- [ ] Implement/redesign factory such that types, hls, etc., packages add methods as necessary (or not? discuss)
 - [ ] Implement collections to leverage redis commands such as mget, mset, etc.
 - [ ] Implement value transformers (read and write) to make reusing types with specially encoded objects easy
 
