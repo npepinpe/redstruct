@@ -17,6 +17,5 @@ end
 
 group :test do
   gem 'flexmock', require: false
-  gem 'simplecov', require: false
   gem 'codacy-coverage', require: false
 end

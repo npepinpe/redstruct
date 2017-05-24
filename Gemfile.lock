@@ -58,7 +58,6 @@ DEPENDENCIES
   pry-stack_explorer
   rake (~> 10.0)
   redstruct!
-  simplecov
   yard
 
 BUNDLED WITH

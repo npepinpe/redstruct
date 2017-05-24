@@ -12,15 +12,7 @@ Bundler.require(:default, :test)
 
 if ENV['CI_BUILD'].to_i == 1
   require 'codacy-coverage'
-  require 'simplecov'
-
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([Codacy::Formatter])
-  SimpleCov.start do
-    add_filter '.gems'
-    add_filter 'pkg'
-    add_filter 'spec'
-    add_filter 'vendor'
-  end
+  Codacy::Reporter.start
 end
 
 # Default Redstruct config
