@@ -6,9 +6,8 @@ module Redstruct
   class ScriptTest < Redstruct::Test
     def setup
       super
-      Redstruct.config.default_connection.with { |c| c.script(:flush) }
-
-      @code = 'return 1'
+      @value = @@counter.incr
+      @code = "return #{@value}"
       @factory = create_factory
       @script = @factory.script(@code)
     end
@@ -23,7 +22,7 @@ module Redstruct
     end
 
     def test_script=
-      lua = 'return 0'
+      lua = 'return -1'
       old_sha1 = @script.sha1
       new_sha1 = Digest::SHA1.hexdigest(lua)
 
@@ -47,7 +46,7 @@ module Redstruct
 
     def test_eval
       refute @script.exists?, 'should not exist initially'
-      assert_equal 1, @script.eval, 'should execute the script (which returns 1)'
+      assert_equal @value, @script.eval, "should execute the script (which returns #{@value})"
       assert @script.exists?, 'should exist after first evaluation'
     end
   end
