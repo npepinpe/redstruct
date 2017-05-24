@@ -37,7 +37,7 @@ module Redstruct
           class_eval <<~METHOD, __FILE__, __LINE__ + 1
             #{constant} = { script: %(#{script}).freeze, sha1: Digest::SHA1.hexdigest(%(#{script})).freeze }.freeze
               def #{id}(keys: [], argv: [])
-                return @factory.script(script: #{constant}[:script], sha1: #{constant}[:sha1]).eval(keys: keys, argv: argv)
+                return @factory.script(#{constant}[:script], sha1: #{constant}[:sha1]).eval(keys: keys, argv: argv)
               end
           METHOD
         end

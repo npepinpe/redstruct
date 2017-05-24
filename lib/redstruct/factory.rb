@@ -76,8 +76,8 @@ module Redstruct
     # Creates using this factory's connection
     # @see Redstruct::Script#new
     # @return [Redstruct::Script] script sharing the factory connection
-    def script(**options)
-      return Redstruct::Script.new(connection: @connection, **options)
+    def script(script, **options)
+      return Redstruct::Script.new(script: script, connection: @connection, **options)
     end
 
     # Creates a lock for the given resource within this factory
@@ -92,7 +92,6 @@ module Redstruct
       Counter: :counter,
       Hash: :hashmap,
       List: :list,
-      Queue: :queue,
       Set: :set,
       SortedSet: :sorted_set,
       String: :string,

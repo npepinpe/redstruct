@@ -84,12 +84,11 @@ module Redstruct
       @connection.eval(@script, keys, argv)
     end
 
-    # # @!visibility private
+    private
+
     def inspectable_attributes # :nodoc:
       return super.merge(sha1: self.sha1, script: @script.slice(0, 20))
     end
-
-    private
 
     def normalize(values)
       values.map do |value|

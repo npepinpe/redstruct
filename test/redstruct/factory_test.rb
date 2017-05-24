@@ -68,7 +68,7 @@ module Redstruct
 
     def test_script
       factory = create_factory
-      script = factory.script(script: 'return 0')
+      script = factory.script('return 0')
       assert_kind_of Redstruct::Script, script, 'should always return a script object'
       assert_equal 0, script.eval, 'should execute script correctly'
       assert_equal factory.connection, script.connection, 'script and factory should share the same connection'
@@ -102,7 +102,7 @@ module Redstruct
 
     def test_structs
       factory = create_factory
-      %w[Counter List Queue Set SortedSet String Struct].each do |struct|
+      %w[Counter List Set SortedSet String Struct].each do |struct|
         method = struct.gsub(/([a-z\d])([A-Z])/, '\1_\2').downcase
         type = Redstruct.const_get(struct)
         assert_struct_method(method, type, factory)
