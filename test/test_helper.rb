@@ -7,11 +7,21 @@ require 'bundler/setup'
 require 'redstruct/all'
 require 'minitest/autorun'
 require 'flexmock/minitest'
-require 'codacy-coverage'
 
 Bundler.require(:default, :test)
 
-Codacy::Reporter.start
+if ENV['CI_BUILD'].to_i == 1
+  require 'codacy-coverage'
+  require 'simplecov'
+
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([Codacy::Formatter])
+  SimpleCov.start do
+    add_filter '.gems'
+    add_filter 'pkg'
+    add_filter 'spec'
+    add_filter 'vendor'
+  end
+end
 
 # Default Redstruct config
 Redstruct.config.default_namespace = "redstruct:test:#{SecureRandom.uuid}"

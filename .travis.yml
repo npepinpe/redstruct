@@ -10,6 +10,7 @@ env:
   - REDIS_HOST=localhost
   - REDIS_PORT=6379
   - REDIS_DB=0
+  - CI_BUILD=1
 notifications:
   email:
     on_success: change
