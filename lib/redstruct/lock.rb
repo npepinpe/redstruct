@@ -10,11 +10,12 @@ module Redstruct
   # Uses two redis structures: a string for the lease, and a list for blocking operations.
   class Lock < Redstruct::Factory::Object
     include Redstruct::Utils::Scriptable
+    include Redstruct::Utils::Coercion
 
     # The default expiry on the underlying redis keys, in seconds; can be between 0 and 1 as a float for milliseconds
     DEFAULT_EXPIRY = 1
 
-    # The default timeout when blocking, in seconds; a nil value means it is non-blocking
+    # The default timeout when blocking, in seconds
     DEFAULT_TIMEOUT = nil
 
     # @return [String] the resource name (or ID of the lock)
@@ -30,15 +31,20 @@ module Redstruct
     attr_reader :timeout
 
     # @param [String] resource the name of the resource to be locked (or ID)
-    # @param [Integer] expiry in seconds; to prevent infinite locking, each mutex is released after a certain expiry time
-    # @param [Integer] timeout in seconds; if > 0, will block for this amount of time when trying to obtain the lock
+    # @param [Integer] expiry in seconds; to prevent infinite locking, you should pass a minimum expiry; you can pass 0 if you want to control it yourself
+    # @param [Integer] timeout in seconds; if > 0, will block when trying to obtain the lock; if 0, blocks indefinitely; if nil, does not block
     def initialize(resource, expiry: DEFAULT_EXPIRY, timeout: DEFAULT_TIMEOUT, **options)
       super(**options)
 
       @resource = resource
       @token = nil
-      @expiry = (expiry.to_f * 1000).floor
-      @timeout = timeout.to_i
+      @expiry = expiry
+      @timeout = case timeout
+      when nil then nil
+      when Float::INFINITY then 0
+      else
+        timeout.to_i
+      end
 
       factory = @factory.factory(@resource)
       @lease = factory.string('lease')
@@ -48,15 +54,23 @@ module Redstruct
     # Executes the given block if the lock can be acquired
     # @yield Block to be executed if the lock is acquired
     def locked
-      yield if acquire
-    ensure
-      release
+      Thread.handle_interrupt(Exception => :never) do
+        begin
+          if acquire
+            Thread.handle_interrupt(Exception => :immediate) do
+              yield
+            end
+          end
+        ensure
+          release
+        end
+      end
     end
 
     # Whether or not the lock will block when attempting to acquire it
     # @return [Boolean]
     def blocking?
-      return @timeout.positive?
+      return !@timeout.nil?
     end
 
     # Attempts to acquire the lock. First attempts to grab the lease (a redis string).
@@ -69,10 +83,12 @@ module Redstruct
     # @return [Boolean] True if acquired, false otherwise
     def acquire
       acquired = false
-      token = non_blocking_acquire(@token)
+
+      token = non_blocking_acquire
       token = blocking_acquire if token.nil? && blocking?
 
       unless token.nil?
+        @lease.expire(@expiry)
         @token = token
         acquired = true
       end
@@ -86,53 +102,55 @@ module Redstruct
     def release
       return false if @token.nil?
 
-      next_token = SecureRandom.uuid
-      return coerce_bool(release_script(keys: [@lease.key, @tokens.key], argv: [@token, next_token, @expiry]))
+      keys = [@lease.key, @tokens.key]
+      argv = [@token, generate_token, (@expiry.to_f * 1000).floor]
+
+      released = release_script(keys: keys, argv: argv)
+      @token = nil
+
+      return coerce_bool(released)
     end
 
-    def non_blocking_acquire(token = nil)
-      token ||= generate_token
-      return acquire_script(keys: @lease.key, argv: [token, @expiry])
+    private
+
+    def non_blocking_acquire
+      keys = [@lease.key, @tokens.key]
+      argv = [generate_token]
+
+      return acquire_script(keys: keys, argv: argv)
     end
-    private :non_blocking_acquire
 
     def blocking_acquire
-      timeout = @timeout == Float::INFINITY ? 0 : @timeout
-      token = @tokens.pop(timeout: timeout)
-
-      # Attempt to reacquire in a non blocking way to:
-      # 1) assert we do own the lock (edge case)
-      # 2) touch the lock expiry
-      token = non_blocking_acquire(token) unless token.nil?
-
-      return token
+      return @tokens.pop(timeout: @timeout)
     end
-    private :blocking_acquire
 
     # The acquire script attempts to set the lease (keys[1]) to the given token (argv[1]), only
     # if it wasn't already set. It then compares to check if the value of the lease is that of the token,
     # and if so refreshes the expiry (argv[2]) time of the lease.
     # @param [Array<(::String)>] keys The lease key specifying who owns the mutex at the moment
-    # @param [Array<(::String, Fixnum)>] argv The current token; the expiry time in milliseconds
+    # @param [Array<(::String, Fixnum)>] argv the current token
     # @return [::String] Returns the token if acquired, nil otherwise.
     defscript :acquire_script, <<~LUA
       local token = ARGV[1]
-      local expiry = tonumber(ARGV[2])
+      local lease = redis.call('get', KEYS[1])
 
-      redis.call('set', KEYS[1], token, 'NX')
-      if redis.call('get', KEYS[1]) == token then
-        redis.call('pexpire', KEYS[1], expiry)
-        return token
+      if not lease then
+        redis.call('set', KEYS[1], token)
+      elseif token ~= lease then
+        token = redis.call('lpop', KEYS[2])
+        if not token or token ~= lease then
+          return false
+        end
       end
 
-      return false
+      return token
     LUA
 
     # The release script compares the given token (argv[1]) with the lease value (keys[1]); if they are the same,
     # then a new token (argv[2]) is set as the lease, and pushed on the tokens (keys[2]) list
     # for the next acquire request.
-    # @param [Array<(::String, ::String)>] keys The lease key; the tokens list key
-    # @param [Array<(::String, ::String, Fixnum)>] argv The current token; the next token to push; the expiry time of both keys
+    # @param [Array<(::String, ::String)>] keys the lease key; the tokens list key
+    # @param [Array<(::String, ::String, Fixnum)>] argv the current token; the next token to push; the expiry time of both keys
     # @return [Fixnum] 1 if released, 0 otherwise
     defscript :release_script, <<~LUA
       local currentToken = ARGV[1]
@@ -140,9 +158,14 @@ module Redstruct
       local expiry = tonumber(ARGV[3])
 
       if redis.call('get', KEYS[1]) == currentToken then
-        redis.call('set', KEYS[1], nextToken, 'PX', expiry)
+        redis.call('set', KEYS[1], nextToken)
         redis.call('lpush', KEYS[2], nextToken)
-        redis.call('pexpire', KEYS[2], expiry)
+
+        if expiry > 0 then
+          redis.call('pexpire', KEYS[1], expiry)
+          redis.call('pexpire', KEYS[2], expiry)
+        end
+
         return true
       end
 
@@ -152,9 +175,7 @@ module Redstruct
     def generate_token
       return SecureRandom.uuid
     end
-    private :generate_token
 
-    # # @!visibility private
     def inspectable_attributes
       super.merge(expiry: @expiry, blocking: blocking?)
     end

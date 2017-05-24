@@ -79,6 +79,14 @@ module Redstruct
     end
     alias push append
 
+    # Pushes the given element onto the list. As << is a binary operator, it can
+    # only take one argument in. It's more of a convenience method.
+    # @param [#to_s] item the item to append to the list
+    # @return [Integer] 1 if appended, 0 otherwise
+    def <<(item)
+      return append(item)
+    end
+
     # Prepends the given items (from the right) to the list
     # @param [Array<#to_s>] items the items to prepend
     # @param [Integer] max optional; if given, prepends the items and trims down the list to max afterwards
@@ -128,6 +136,20 @@ module Redstruct
       else
         raise ArgumentError, 'timeout is only supported if size == 1' unless size == 1
         return self.connection.blpop(@key, timeout: timeout)&.last
+      end
+    end
+
+    # Pops an element from this list and shifts it onto the given list.
+    # @param [Redstruct::List] list the list to shift the element onto
+    # @param [#to_i] timeout optional timeout to wait for in seconds
+    # @return [String] the element that was popped from the list and pushed onto the other
+    def popshift(list, timeout: nil)
+      raise ArgumentError, 'list must respond to #key' unless list.respond_to?(:key)
+
+      if timeout.nil?
+        return self.connection.rpoplpush(@key, list.key)
+      else
+        return self.connection.brpoplpush(@key, list.key, timeout: timeout)
       end
     end
 

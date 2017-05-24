@@ -223,5 +223,22 @@ module Redstruct
       assert_equal values, @list.slice(start: 0, length: -1), 'should return the same as Array#slice'
       assert_equal values[2..-2], @list.slice(start: 2, length: -2), 'should return the same as Array#slice'
     end
+
+    # Blocking is not tested as I'm still unsure what's a good way to test it
+    def test_popshift
+      assert_raises(ArgumentError, 'should not be able to push on something that is not a list') do
+        @list.popshift(2)
+      end
+
+      values = %w[a b c]
+      list2 = @factory.list('list2')
+
+      @list.push(*values)
+      assert_equal 'c', @list.popshift(list2), 'should have popped the last element'
+      assert_equal %w[c], list2.to_a, 'should contain the popped element'
+
+      assert_equal 'b', @list.popshift(list2), 'should have popped the last element'
+      assert_equal %w[b c], list2.to_a, 'should contain the new popped element as its first element'
+    end
   end
 end
