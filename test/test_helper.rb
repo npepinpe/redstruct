@@ -7,8 +7,11 @@ require 'bundler/setup'
 require 'redstruct/all'
 require 'minitest/autorun'
 require 'flexmock/minitest'
+require 'codacy-coverage'
 
 Bundler.require(:default, :test)
+
+Codacy::Reporter.start
 
 # Default Redstruct config
 Redstruct.config.default_namespace = "redstruct:test:#{SecureRandom.uuid}"

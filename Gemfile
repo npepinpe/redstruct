@@ -16,5 +16,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'flexmock', require: 'flexmock/minitest' # more complete mocking than minitest/mock, useful mostly for proxy testing
+  gem 'flexmock', require: false
+  gem 'codacy-coverage', require: false
 end

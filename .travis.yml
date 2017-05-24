@@ -1,16 +1,17 @@
 sudo: false
 language: ruby
 rvm:
-  - 2.4.1
+- 2.4.1
 before_install: gem install bundler -v 1.15.0
 services:
-  - redis-server
+- redis-server
 env:
   global:
-    - REDIS_HOST=localhost
-    - REDIS_PORT=6379
-    - REDIS_DB=0
+  - REDIS_HOST=localhost
+  - REDIS_PORT=6379
+  - REDIS_DB=0
 notifications:
   email:
     on_success: change
     on_failure: change
+  secure: uAawUo1LBGhuSP4dw34k0Vn6F6A3Xmr7AIfSpvd+mV2Nm1WpSsguE0sE+dhIqetN+XiX2AFJZ6fvomOHRrDU1ELRToNEbesbQ2C6ZZDTYB/02DZGwYOKmRtiX2jxOTMXYSMQjoNxJQ0v5sQ0WufdssgatHlpGWfJ1YxEP1yGy0SDcSxtj+OiAYjGEuV7OypbSmvjCq0DYXZRhA1NTy6+BACRjXn9IJr/1K4AZGlyZV19hkTauRaTowmPhMXDNuhrvp3bSQGGhd7yVUNAjluTltbLR82/pg9fnyTfO4r3Uh20c5K1OSJhRpPpm8dQ21DN3elDh8VZuKfJrZEJj2A/KhwDJ4cDiGP0zba7TRQHOlqsZUK9ObqrMAwd6F22r3YIzN8XDGiGQy49vA2fVDqNWa1Ze5x3Mqh66rhwhmf83SgHnJtUbccxXwaFhKHFrdgY7MPe44HbKppuKR01zEW4IVKGM9P2h/65+gyvKzDSc8UYdVZVdDgZdbBb4xPeZNPvjTvxKiTv0z8DP7w4Y/Ndp4nKOKsum6r8ie80gtDpn8aSIHjAVwCg+BqVuxRpsbFZy6EmNF/S85yxSMhaCD4fX6sg46pBNJrwkvds9XIBa+RjbpZpL1fpYTEzU+yv4EtvU7BljfPTRJGVM/7vFLkH4CmaMoXlLsVEaB5k2B0NcIc=
