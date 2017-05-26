@@ -6,12 +6,14 @@ require 'bundler/setup'
 require 'minitest/autorun'
 require 'flexmock/minitest'
 
-Bundler.require(:default, :test)
+ci_build = ENV['CI_BUILD'].to_i.positive?
 
-if ENV['CI_BUILD'].to_i == 1
-  require 'codacy-coverage'
-  Codacy::Reporter.start
-end
+bundler_groups = %i[default test]
+bundler_groups << (ci_build ? :ci : :debug)
+Bundler.require(*bundler_groups)
+
+# Start coverage
+Codacy::Reporter.start if ci_build
 
 # Default Redstruct config
 require 'redstruct/all'
