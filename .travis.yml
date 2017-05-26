@@ -1,7 +1,7 @@
 sudo: false
 language: ruby
 cache: bundler
-bundler_args: --without development debug
+bundler_args: --without debug
 rvm:
 - 2.4.1
 addons:
