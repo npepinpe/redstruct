@@ -57,20 +57,19 @@ module Redstruct
       assert lock.release, 'should have released the lock'
     end
 
-    # Simply tests that we wait the specified amount of time to acquire a lock.
-    # I'm not sure how to deterministically test the actual wait-and-acquire-lock
-    # logic at the moment; something with Threads and a messaging queue might work,
-    # but I think it's not controlled/deterministic enough
+    # To avoid actually blocking, we simply test that the method is called
+    # without actually calling it. The non-blocking tests should be
+    # sufficient for the actual locking logic.
     def test_acquire_blocking
       resource = 'resource'
-      lock = create(resource, expiry: 2) # needs to be higher than the timeout
+      lock = create(resource, expiry: 1)
       lock2 = create(resource, timeout: 1)
 
-      acquired = true
+      tokens = lock2.instance_eval { @tokens }
+      ensure_command_called(tokens, :brpop, { timeout: lock2.timeout }, allow: false).and_return(nil)
+
       assert lock.acquire, 'should have acquired the lock'
-      elapsed = time { acquired = lock2.acquire }
-      assert elapsed >= lock2.timeout, 'should have waited at least lock2#timeout'
-      refute acquired, 'should not have been able to acquire the lock'
+      refute lock2.acquire
       refute lock2.release, 'should not release something not acquired'
       assert lock.release, 'should release what was acquired'
     end
@@ -101,12 +100,6 @@ module Redstruct
     end
 
     private
-
-    def time
-      start = Time.now.to_f
-      yield
-      return Time.now.to_f - start
-    end
 
     def create(resource = nil, **options)
       return @factory.lock(resource || SecureRandom.hex(4), **options)

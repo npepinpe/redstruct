@@ -62,5 +62,18 @@ module Redstruct
       namespace ||= "#{Redstruct.config.default_namespace}:#{@@counter.incr}"
       return Redstruct::Factory.new(namespace: namespace)
     end
+
+    # Helper when trying to ensure a particular redis-rb command was called
+    # while still calling it. This allows for testing things outside of our
+    # control (e.g. srandmember returning random items)
+    # The reason we don't simply just mock the return value is to ensure
+    # that tests will break if a command (e.g. srandmember) changes its return
+    # value
+    def ensure_command_called(object, command, *args, allow: true)
+      mock = flexmock(object.connection).should_receive(command).with(object.key, *args)
+      mock = mock.pass_thru if allow
+
+      return mock
+    end
   end
 end
