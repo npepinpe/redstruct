@@ -2,9 +2,7 @@
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'securerandom'
-require 'monitor'
 require 'bundler/setup'
-require 'redstruct/all'
 require 'minitest/autorun'
 require 'flexmock/minitest'
 
@@ -16,6 +14,7 @@ if ENV['CI_BUILD'].to_i == 1
 end
 
 # Default Redstruct config
+require 'redstruct/all'
 Redstruct.config.default_namespace = "redstruct:test:#{SecureRandom.uuid}"
 Redstruct.config.default_connection = ConnectionPool.new(size: 5, timeout: 2) do
   Redis.new(host: ENV.fetch('REDIS_HOST', '127.0.0.1'), port: ENV.fetch('REDIS_PORT', 6379).to_i, db: ENV.fetch('REDIS_DB', 0).to_i)
