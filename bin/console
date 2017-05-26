@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require 'bundler/setup'
-Bundler.require(:default, :development)
+Bundler.require(:default, :development, :debug)
 
 require 'pry'
 

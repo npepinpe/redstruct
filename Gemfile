@@ -11,7 +11,7 @@ group :ci do
   gem 'codacy-coverage'
 end
 
-group :development, :debug do
+group :debug do
   gem 'byebug' # debugger
   gem 'pry' # better console
   gem 'pry-byebug' # pry integration for byebug
