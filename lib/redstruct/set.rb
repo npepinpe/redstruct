@@ -11,7 +11,7 @@ module Redstruct
     include Redstruct::Utils::Iterable
 
     # Clears the set by simply removing the key from the DB
-    # @see Redstruct::Struct#clear
+    # @see Redstruct::Struct#delete
     def clear
       delete
     end
@@ -21,7 +21,9 @@ module Redstruct
     # @return [String, Set] if count is one, then return the item; otherwise returns a set
     def random(count: 1)
       list = self.connection.srandmember(@key, count)
-      return count == 1 ? list[0] : Set.new(list)
+
+      return nil if list.nil?
+      return count == 1 ? list[0] : ::Set.new(list)
     end
 
     # Checks if the set is empty by checking if the key actually exists on the underlying redis db
@@ -71,7 +73,7 @@ module Redstruct
     # @param [Redstruct::Set] other set the set to subtract
     # @param [Redstruct::Set, String] dest if nil, results are computed in memory. if a string, a new Redstruct::Set is
     # constructed with the string as the key, and results are stored there. if already a Redstruct::Set, results are stored there.
-    # @return [::Set, Redstruct::Set] if dest was provided, return dest as a Redstruct::Set, otherwise a standard Ruby set containing the difference
+    # @return [::Set, Integer] if dest was provided, returns the number of elements in the destination; otherwise a standard Ruby set containing the difference
     def difference(other, dest: nil)
       destination = coerce_destination(dest)
       results = if destination.nil?
@@ -89,7 +91,7 @@ module Redstruct
     # @param [Redstruct::Set] other set the set to intersect
     # @param [Redstruct::Set, String] dest if nil, results are computed in memory. if a string, a new Redstruct::Set is
     # constructed with the string as the key, and results are stored there. if already a Redstruct::Set, results are stored there.
-    # @return [::Set, Redstruct::Set] if dest was provided, return dest as a Redstruct::Set, otherwise a standard Ruby set containing the intersection
+    # @return [::Set, Integer] if dest was provided, returns the number of elements in the destination; otherwise a standard Ruby set containing the intersection
     def intersection(other, dest: nil)
       destination = coerce_destination(dest)
       results = if destination.nil?
@@ -107,7 +109,7 @@ module Redstruct
     # @param [Redstruct::Set] other set the set to add
     # @param [Redstruct::Set, String] dest if nil, results are computed in memory. if a string, a new Redstruct::Set is
     #  constructed with the string as the key, and results are stored there. if already a Redstruct::Set, results are stored there.
-    # @return [::Set, Redstruct::Set] if dest was provided, return dest as a Redstruct::Set, otherwise a standard Ruby set containing the union
+    # @return [::Set, Integer] if dest was provided, returns the number of elements in the destination; otherwise a standard Ruby set containing the union
     def union(other, dest: nil)
       destination = coerce_destination(dest)
       results = if destination.nil?
@@ -123,7 +125,7 @@ module Redstruct
     # Use redis-rb sscan_each method to iterate over particular keys
     # @return [Enumerator] base enumerator to iterate of the namespaced keys
     def to_enum(match: '*', count: 10)
-      return self.connection.sscan_each(match: match, count: count)
+      return self.connection.sscan_each(@key, match: match, count: count)
     end
 
     # Returns an array representation of the set. Ordering is random and defined by redis
