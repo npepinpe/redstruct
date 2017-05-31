@@ -11,8 +11,8 @@ module Redstruct
       # @param [Integer] max_iterations maximum number of iterations; if nil given, could potentially never terminate
       # @param [Integer] batch_size if greater than 1, will yield arrays of keys of size between 1 and batch_size
       # @return [Enumerator] if no block given, returns an enumerator that you can chain with others
-      def each(match: '*', count: 10, max_iterations: 10_000, batch_size: 1, &block)
-        enumerator = to_enum(match: match, count: count)
+      def each(match: '*', count: 10, max_iterations: 10_000, batch_size: 1, **options, &block) # rubocop: disable Metrics/ParameterLists
+        enumerator = to_enum(match: match, count: count, **options)
         enumerator = enumerator.each_slice(batch_size) if batch_size > 1
         enumerator = Redstruct::Utils::Iterable.bound_enumerator(enumerator, max: max_iterations) unless max_iterations.nil?
 
