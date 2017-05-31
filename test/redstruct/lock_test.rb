@@ -99,6 +99,16 @@ module Redstruct
       refute lock.release, 'should not be able to release lock since it was already released'
     end
 
+    def test_delete
+      lock = create(expiry: 60)
+      refute lock.delete, 'should not be able to delete what does not exist'
+      assert lock.acquire, 'should have acquired the lock'
+      assert lock.delete, 'should delete the lock'
+
+      lock = create(lock.resource, expiry: 60)
+      assert lock.acquire, 'should be to acquire the lock again since it was deleted'
+    end
+
     private
 
     def create(resource = nil, **options)

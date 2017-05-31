@@ -51,6 +51,12 @@ module Redstruct
       @tokens = factory.list('tokens')
     end
 
+    # Deletes all traces of this lock
+    # @return [Boolean] true if deleted, false otherwise
+    def delete
+      return coerce_bool(delete_script(keys: [@lease.key, @tokens.key]))
+    end
+
     # Executes the given block if the lock can be acquired
     # @yield Block to be executed if the lock is acquired
     def locked
@@ -170,6 +176,13 @@ module Redstruct
       end
 
       return false
+    LUA
+
+    # Atomically deletes the given KEYS
+    # @param [Array<(::String)>] keys the keys to delete
+    # @return [Integer] returns the number of keys deleted
+    defscript :delete_script, <<~LUA
+      return redis.call('del', unpack(KEYS))
     LUA
 
     def generate_token
