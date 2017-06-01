@@ -62,6 +62,11 @@
       <div id="content"><div id='filecontents'>
 <h1 id="label-Redstruct">Redstruct</h1>
 
+<p><a href="https://travis-ci.org/npepinpe/redstruct"><img
+src="https://travis-ci.org/npepinpe/redstruct.svg?branch=master"></a> <a
+href="https://www.codacy.com/app/n.pepinpe/redstruct?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=npepinpe/redstruct&amp;utm_campaign=Badge_Grade"><img
+src="https://api.codacy.com/project/badge/Grade/a97a31e37fa4432d8836169fa1999d34"></a></p>
+
 <p>Provides higher level data structures in Ruby using standard Redis
 commands. Also provides basic object mapping for pre-existing types.</p>
 
@@ -107,26 +112,26 @@ the <code>defscript</code> macro instead.</p>
 
 <h2 id="label-TODO">TODO</h2>
 <ul><li>
-<p>[x] Implement counters</p>
+<p>[x] Implement factory</p>
 </li><li>
-<p>[x] Implement locks (blocking/non-blocking)</p>
+<p>[x] Implement counter</p>
 </li><li>
-<p>[x] Implement queues</p>
+<p>[x] Implement lock (blocking/non-blocking)</p>
 </li><li>
-<p>[x] Implement basic types (set, string, list, hash)</p>
+<p>[x] Implement string</p>
 </li><li>
-<p>[x] Implement SortedSet</p>
+<p>[x] Implement hash</p>
 </li><li>
-<p>[ ] Implement stacks</p>
+<p>[x] Implement set</p>
 </li><li>
-<p>[ ] Discuss supporting pipelining vs. just using lua scripts (better
-interface for scripted extensions?)</p>
+<p>[x] Implement list</p>
+</li><li>
+<p>[x] Implement script</p>
+</li><li>
+<p>[x] Implement sorted set</p>
 </li><li>
 <p>[ ] Design/discuss stored factory meta-data (i.e. keep track of created
 objects, clear said objects, etc.)</p>
-</li><li>
-<p>[ ] Implement/redesign factory such that types, hls, etc., packages add
-methods as necessary (or not? discuss)</p>
 </li><li>
 <p>[ ] Implement collections to leverage redis commands such as mget, mset,
 etc.</p>
@@ -147,7 +152,7 @@ href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Fri May 19 16:17:12 2017 by
+  Generated on Thu Jun  1 15:42:26 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.4.1).
 </div>

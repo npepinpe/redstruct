@@ -212,7 +212,8 @@ strings on the DB side</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>True if the item is in the set, false otherwise.</p>
+<p>Relies on the score method, since it is O(1), whereas the index method is
+O(logn).</p>
 </div></span>
   
 </li>
@@ -343,6 +344,54 @@ strings on the DB side</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#lexicographic%3F-instance_method" title="#lexicographic? (instance method)">#<strong>lexicographic?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>True if this is a lexicographically sorted set.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#remove-instance_method" title="#remove (instance method)">#<strong>remove</strong>(*items)  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Removes the items from the set.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#rindex-instance_method" title="#rindex (instance method)">#<strong>rindex</strong>(item)  &#x21d2; Integer<sup>?</sup> </a>
     
 
@@ -367,7 +416,7 @@ strings on the DB side</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#size-instance_method" title="#size (instance method)">#<strong>size</strong>(lower: nil, upper: nil, **options)  &#x21d2; Integer </a>
+      <a href="#score-instance_method" title="#score (instance method)">#<strong>score</strong>(item)  &#x21d2; Float<sup>?</sup> </a>
     
 
     
@@ -382,7 +431,7 @@ strings on the DB side</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Returns the number of items between lower and upper bounds.</p>
+<p>Returns the score of the given item.</p>
 </div></span>
   
 </li>
@@ -391,7 +440,31 @@ strings on the DB side</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#slice-instance_method" title="#slice (instance method)">#<strong>slice</strong>(lower: nil, upper: nil, exclusive: false)  &#x21d2; Array&lt;Redstruct::Utils::ScoredValue&gt; </a>
+      <a href="#size-instance_method" title="#size (instance method)">#<strong>size</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the number of items in the set.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#slice-instance_method" title="#slice (instance method)">#<strong>slice</strong>(**options)  &#x21d2; Redstruct::SortedSet::Slice </a>
     
 
     
@@ -431,7 +504,8 @@ strings on the DB side</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Returns an array representation of the set, sorted by score ascending NOTE:
-It pulls the whole set into memory, so use each if that&#39;s a concern.</p>
+It pulls the whole set into memory, so use each if that&#39;s a concern, or
+use slices with pre-determined ranges.</p>
 </div></span>
   
 </li>
@@ -440,7 +514,7 @@ It pulls the whole set into memory, so use each if that&#39;s a concern.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#to_enum-instance_method" title="#to_enum (instance method)">#<strong>to_enum</strong>(match: &#39;*&#39;, count: 10)  &#x21d2; Enumerator </a>
+      <a href="#to_enum-instance_method" title="#to_enum (instance method)">#<strong>to_enum</strong>(match: &#39;*&#39;, count: 10, with_scores: false)  &#x21d2; Enumerator </a>
     
 
     
@@ -456,6 +530,30 @@ It pulls the whole set into memory, so use each if that&#39;s a concern.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Use redis-rb zscan_each method to iterate over particular keys.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_set-instance_method" title="#to_set (instance method)">#<strong>to_set</strong>  &#x21d2; ::Set </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>TODO: Consider using ::SortedSet or some other data structure.</p>
 </div></span>
   
 </li>
@@ -647,21 +745,21 @@ It pulls the whole set into memory, so use each if that&#39;s a concern.</p>
       <pre class="lines">
 
 
-23
-24
-25
-26
-27
 28
 29
 30
 31
 32
 33
-34</pre>
+34
+35
+36
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='comma'>,</span> <span class='label'>exists:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>overwrite:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>xx:</span> <span class='id identifier rubyid_exists'>exists</span><span class='comma'>,</span> <span class='label'>nx:</span> <span class='op'>!</span><span class='id identifier rubyid_overwrite'>overwrite</span><span class='comma'>,</span> <span class='label'>ch:</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
@@ -713,12 +811,12 @@ It pulls the whole set into memory, so use each if that&#39;s a concern.</p>
       <pre class="lines">
 
 
-53
-54
-55</pre>
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear'>clear</span>
   <span class='id identifier rubyid_delete'>delete</span>
@@ -744,7 +842,8 @@ It pulls the whole set into memory, so use each if that&#39;s a concern.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns true if the item is in the set, false otherwise</p>
+<p>Relies on the score method, since it is O(1), whereas the index method is
+O(logn)</p>
 
 
   </div>
@@ -796,15 +895,15 @@ It pulls the whole set into memory, so use each if that&#39;s a concern.</p>
       <pre class="lines">
 
 
-86
-87
-88</pre>
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_contain?'>contain?</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='op'>!</span><span class='id identifier rubyid_index'>index</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_coerce_bool'>coerce_bool</span><span class='lparen'>(</span><span class='id identifier rubyid_score'>score</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -891,15 +990,15 @@ It pulls the whole set into memory, so use each if that&#39;s a concern.</p>
       <pre class="lines">
 
 
-47
-48
-49</pre>
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_decrement'>decrement</span><span class='lparen'>(</span><span class='id identifier rubyid_member'>member</span><span class='comma'>,</span> <span class='label'>by:</span> <span class='float'>1.0</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_increment'>increment</span><span class='lparen'>(</span><span class='id identifier rubyid_member'>member</span><span class='comma'>,</span> <span class='op'>-</span><span class='id identifier rubyid_by'>by</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_increment'>increment</span><span class='lparen'>(</span><span class='id identifier rubyid_member'>member</span><span class='comma'>,</span> <span class='label'>by:</span> <span class='op'>-</span><span class='id identifier rubyid_by'>by</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -951,15 +1050,15 @@ otherwise</p>
       <pre class="lines">
 
 
-80
-81
-82</pre>
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_empty?'>empty?</span>
-  <span class='kw'>return</span> <span class='op'>!</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span>
+  <span class='kw'>return</span> <span class='op'>!</span><span class='id identifier rubyid_exists?'>exists?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1039,6 +1138,19 @@ otherwise</p>
     </li>
   
 </ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1046,16 +1158,16 @@ otherwise</p>
       <pre class="lines">
 
 
-39
-40
-41
-42</pre>
+44
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_increment'>increment</span><span class='lparen'>(</span><span class='id identifier rubyid_member'>member</span><span class='comma'>,</span> <span class='label'>by:</span> <span class='float'>1.0</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>cannot increment the score of items in a lexicographically ordered set</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='ivar'>@lex</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>cannot increment the score of items in a lexicographically ordered set</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='ivar'>@lex</span>
   <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_zincrby'>zincrby</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_by'>by</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='comma'>,</span> <span class='id identifier rubyid_member'>member</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1121,12 +1233,64 @@ otherwise</p>
   
 </ul>
 
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+101
+102
+103</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 101</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_zrank'>zrank</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
     
-      <li>Redis#zrank</li>
+      <div class="method_details ">
+  <h3 class="signature " id="lexicographic?-instance_method">
+  
+    #<strong>lexicographic?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
     
-  </ul>
+<p>Returns true if this is a lexicographically sorted set</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>true if this is a lexicographically sorted set</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1134,15 +1298,94 @@ otherwise</p>
       <pre class="lines">
 
 
-95
-96
-97</pre>
+20
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_zrank'>zrank</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_lexicographic?'>lexicographic?</span>
+  <span class='kw'>return</span> <span class='ivar'>@lex</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remove-instance_method">
+  
+    #<strong>remove</strong>(*items)  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Removes the items from the set.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>items</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;#to_s&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the items to remove from the set</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the amount of items removed from the set</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+122
+123
+124</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 122</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_items'>items</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_zrem'>zrem</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_items'>items</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1207,25 +1450,18 @@ otherwise</p>
   
 </ul>
 
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li>Redis#zrevrank</li>
-    
-  </ul>
-
 </div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-103
-104
-105</pre>
+108
+109
+110</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rindex'>rindex</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_zrevrank'>zrevrank</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
@@ -1236,9 +1472,9 @@ otherwise</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="size-instance_method">
+  <h3 class="signature " id="score-instance_method">
   
-    #<strong>size</strong>(lower: nil, upper: nil, **options)  &#x21d2; <tt>Integer</tt> 
+    #<strong>score</strong>(item)  &#x21d2; <tt>Float</tt><sup>?</sup> 
   
 
   
@@ -1247,9 +1483,7 @@ otherwise</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the number of items between lower and upper bounds. By default
-lower and upper are inclusive. If you want to make them exclusive, prepend
-the value with “(”</p>
+<p>Returns the score of the given item.</p>
 
 
   </div>
@@ -1260,32 +1494,16 @@ the value with “(”</p>
   
     <li>
       
-        <span class='name'>lower</span>
+        <span class='name'>item</span>
       
       
-        <span class='type'>(<tt>#to_s</tt>, <tt>#to_f</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>lower bound for the count range</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>upper</span>
-      
-      
-        <span class='type'>(<tt>#to_s</tt>, <tt>#to_f</tt>)</span>
+        <span class='type'>(<tt>#to_s</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>upper bound for the count range</p>
+<p>the item to check for</p>
 </div>
       
     </li>
@@ -1298,13 +1516,13 @@ the value with “(”</p>
     <li>
       
       
-        <span class='type'>(<tt>Integer</tt>)</span>
+        <span class='type'>(<tt>Float</tt>, <tt>nil</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>the number of items in the given range</p>
+<p>the score of the item, or nil if not found</p>
 </div>
       
     </li>
@@ -1317,23 +1535,75 @@ the value with “(”</p>
       <pre class="lines">
 
 
-62
-63
-64
-65
-66
-67
-68</pre>
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 115</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_size'>size</span><span class='lparen'>(</span><span class='label'>lower:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>upper:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_lower'>lower</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_upper'>upper</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-    <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_zcard'>zcard</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='kw'>return</span> <span class='id identifier rubyid_slice'>slice</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>lower:</span> <span class='id identifier rubyid_lower'>lower</span><span class='comma'>,</span> <span class='label'>upper:</span> <span class='id identifier rubyid_upper'>upper</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
-  <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_score'>score</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_zscore'>zscore</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="size-instance_method">
+  
+    #<strong>size</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the number of items in the set. If you want to specify within a
+range, first get the slice and query its size.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the number of items in the set</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+65
+66
+67</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 65</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_size'>size</span>
+  <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_zcard'>zcard</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1343,7 +1613,7 @@ the value with “(”</p>
       <div class="method_details ">
   <h3 class="signature " id="slice-instance_method">
   
-    #<strong>slice</strong>(lower: nil, upper: nil, exclusive: false)  &#x21d2; <tt>Array&lt;Redstruct::Utils::ScoredValue&gt;</tt> 
+    #<strong>slice</strong>(**options)  &#x21d2; <tt>Redstruct::SortedSet::Slice</tt> 
   
 
   
@@ -1358,61 +1628,32 @@ the value with “(”</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
   
-    <li>
-      
-        <span class='name'>lower</span>
-      
-      
-        <span class='type'>(<tt>#to_s</tt>, <tt>#to_f</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>lower bound for the slice operation; it should be a simple float</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>upper</span>
-      
-      
-        <span class='type'>(<tt>#to_s</tt>, <tt>#to_f</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>upper bound for the slice operation; it should be a simple float</p>
-</div>
-      
-    </li>
-  
-</ul>
-
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
     <li>
       
       
-        <span class='type'>(<tt>Array&lt;Redstruct::Utils::ScoredValue&gt;</tt>)</span>
+        <span class='type'>(<tt>Redstruct::SortedSet::Slice</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>sorted slice by given bounds</p>
+<p>a newly created slice for this set</p>
 </div>
       
     </li>
   
 </ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Redstruct::SortedSet::Slice#initialize</li>
+    
+  </ul>
 
 </div><table class="source_code">
   <tr>
@@ -1420,15 +1661,29 @@ the value with “(”</p>
       <pre class="lines">
 
 
+72
+73
 74
 75
-76</pre>
+76
+77
+78
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 72</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_slice'>slice</span><span class='lparen'>(</span><span class='label'>lower:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>upper:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>exclusive:</span> <span class='kw'>false</span><span class='rparen'>)</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='op'>::</span><span class='const'>Slice</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='label'>lower:</span> <span class='id identifier rubyid_lower'>lower</span><span class='comma'>,</span> <span class='label'>upper:</span> <span class='id identifier rubyid_upper'>upper</span><span class='comma'>,</span> <span class='label'>exclusive:</span> <span class='id identifier rubyid_exclusive'>exclusive</span><span class='comma'>,</span> <span class='label'>lex:</span> <span class='ivar'>@lex</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_slice'>slice</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_defaults'>defaults</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='label'>lower:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+    <span class='label'>upper:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+    <span class='label'>exclusive:</span> <span class='kw'>false</span><span class='comma'>,</span>
+    <span class='label'>lex:</span> <span class='ivar'>@lex</span>
+  <span class='rbrace'>}</span>
+
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='op'>::</span><span class='const'>Slice</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_defaults'>defaults</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1448,7 +1703,8 @@ the value with “(”</p>
   <div class="discussion">
     
 <p>Returns an array representation of the set, sorted by score ascending NOTE:
-It pulls the whole set into memory, so use each if that&#39;s a concern</p>
+It pulls the whole set into memory, so use each if that&#39;s a concern, or
+use slices with pre-determined ranges.</p>
 
 
   </div>
@@ -1474,25 +1730,18 @@ It pulls the whole set into memory, so use each if that&#39;s a concern</p>
   
 </ul>
 
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li>Redis#zrange</li>
-    
-  </ul>
-
 </div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-111
-112
-113</pre>
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 130</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_a'>to_a</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_slice'>slice</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
@@ -1505,7 +1754,7 @@ It pulls the whole set into memory, so use each if that&#39;s a concern</p>
       <div class="method_details ">
   <h3 class="signature " id="to_enum-instance_method">
   
-    #<strong>to_enum</strong>(match: &#39;*&#39;, count: 10)  &#x21d2; <tt>Enumerator</tt> 
+    #<strong>to_enum</strong>(match: &#39;*&#39;, count: 10, with_scores: false)  &#x21d2; <tt>Enumerator</tt> 
   
 
   
@@ -1546,15 +1795,88 @@ It pulls the whole set into memory, so use each if that&#39;s a concern</p>
       <pre class="lines">
 
 
-117
-118
-119</pre>
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 142</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='label'>match:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>count:</span> <span class='int'>10</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_zscan_each'>zscan_each</span><span class='lparen'>(</span><span class='label'>match:</span> <span class='id identifier rubyid_match'>match</span><span class='comma'>,</span> <span class='label'>count:</span> <span class='id identifier rubyid_count'>count</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_enum'>to_enum</span><span class='lparen'>(</span><span class='label'>match:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>count:</span> <span class='int'>10</span><span class='comma'>,</span> <span class='label'>with_scores:</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_enumerator'>enumerator</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_zscan_each'>zscan_each</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='comma'>,</span> <span class='label'>match:</span> <span class='id identifier rubyid_match'>match</span><span class='comma'>,</span> <span class='label'>count:</span> <span class='id identifier rubyid_count'>count</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_enumerator'>enumerator</span> <span class='kw'>if</span> <span class='id identifier rubyid_with_scores'>with_scores</span>
+  <span class='kw'>return</span> <span class='const'>Enumerator</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_yielder'>yielder</span><span class='op'>|</span>
+    <span class='id identifier rubyid_loop'>loop</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_item'>item</span><span class='comma'>,</span> <span class='op'>=</span> <span class='id identifier rubyid_enumerator'>enumerator</span><span class='period'>.</span><span class='id identifier rubyid_next'>next</span>
+      <span class='id identifier rubyid_yielder'>yielder</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_item'>item</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_set-instance_method">
+  
+    #<strong>to_set</strong>  &#x21d2; <tt><span class='object_link'><a href="Set.html" title="Redstruct::Set (class)">::Set</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>TODO: Consider using ::SortedSet or some other data structure</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Set.html" title="Redstruct::Set (class)">::Set</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>an unordered set representation</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+136
+137
+138</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/sorted_set.rb', line 136</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_set'>to_set</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_slice'>slice</span><span class='period'>.</span><span class='id identifier rubyid_to_set'>to_set</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1566,7 +1888,7 @@ It pulls the whole set into memory, so use each if that&#39;s a concern</p>
 </div>
 
       <div id="footer">
-  Generated on Fri May 19 16:17:14 2017 by
+  Generated on Thu Jun  1 15:42:29 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.4.1).
 </div>

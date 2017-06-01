@@ -290,30 +290,6 @@ unparsed result.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#inspectable_attributes-instance_method" title="#inspectable_attributes (instance method)">#<strong>inspectable_attributes</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p># @!visibility private.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#load-instance_method" title="#load (instance method)">#<strong>load</strong>  &#x21d2; String </a>
     
 
@@ -711,7 +687,9 @@ and we don&#39;t need to send the lua source every time.</p>
 80
 81
 82
-83</pre>
+83
+84
+85</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/redstruct/script.rb', line 76</span>
@@ -719,6 +697,8 @@ and we don&#39;t need to send the lua source every time.</p>
 <span class='kw'>def</span> <span class='id identifier rubyid_eval'>eval</span><span class='lparen'>(</span><span class='label'>keys:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>argv:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_keys'>keys</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_keys'>keys</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_argv'>argv</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_argv'>argv</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_argv'>argv</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_argv'>argv</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize'>normalize</span><span class='lparen'>(</span><span class='id identifier rubyid_argv'>argv</span><span class='rparen'>)</span>
+
   <span class='ivar'>@connection</span><span class='period'>.</span><span class='id identifier rubyid_evalsha'>evalsha</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_sha1'>sha1</span><span class='comma'>,</span> <span class='id identifier rubyid_keys'>keys</span><span class='comma'>,</span> <span class='id identifier rubyid_argv'>argv</span><span class='rparen'>)</span>
 <span class='kw'>rescue</span> <span class='const'>Redis</span><span class='op'>::</span><span class='const'>CommandError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_err'>err</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='kw'>unless</span> <span class='id identifier rubyid_err'>err</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='const'>ERROR_MESSAGE_PREFIX</span><span class='rparen'>)</span>
@@ -782,47 +762,6 @@ and we don&#39;t need to send the lua source every time.</p>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exists?'>exists?</span>
   <span class='kw'>return</span> <span class='ivar'>@connection</span><span class='period'>.</span><span class='id identifier rubyid_script'>script</span><span class='lparen'>(</span><span class='symbol'>:exists</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_sha1'>sha1</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="inspectable_attributes-instance_method">
-  
-    #<strong>inspectable_attributes</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p># @!visibility private</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-86
-87
-88</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/script.rb', line 86</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_inspectable_attributes'>inspectable_attributes</span> <span class='comment'># :nodoc:
-</span>  <span class='kw'>return</span> <span class='kw'>super</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>sha1:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_sha1'>sha1</span><span class='comma'>,</span> <span class='label'>script:</span> <span class='ivar'>@script</span><span class='period'>.</span><span class='id identifier rubyid_slice'>slice</span><span class='lparen'>(</span><span class='int'>0</span><span class='comma'>,</span> <span class='int'>20</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -961,7 +900,7 @@ sha1 of the source code as the cache key.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri May 19 16:17:13 2017 by
+  Generated on Thu Jun  1 15:42:28 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.4.1).
 </div>

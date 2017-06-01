@@ -247,7 +247,7 @@ objects, even when deserializing them.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#script-instance_method" title="#script (instance method)">#<strong>script</strong>(**options)  &#x21d2; Redstruct::Script </a>
+      <a href="#script-instance_method" title="#script (instance method)">#<strong>script</strong>(script, **options)  &#x21d2; Redstruct::Script </a>
     
 
     
@@ -818,12 +818,12 @@ of 500 million keys</p>
       <pre class="lines">
 
 
+120
 121
-122
-123</pre>
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/redstruct/factory.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'lib/redstruct/factory.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspectable_attributes'>inspectable_attributes</span>
   <span class='kw'>return</span> <span class='lbrace'>{</span> <span class='label'>namespace:</span> <span class='ivar'>@namespace</span><span class='comma'>,</span> <span class='label'>connection:</span> <span class='ivar'>@connection</span> <span class='rbrace'>}</span>
@@ -987,7 +987,7 @@ of 500 million keys</p>
       <div class="method_details ">
   <h3 class="signature " id="script-instance_method">
   
-    #<strong>script</strong>(**options)  &#x21d2; <tt><span class='object_link'><a href="Script.html" title="Redstruct::Script (class)">Redstruct::Script</a></span></tt> 
+    #<strong>script</strong>(script, **options)  &#x21d2; <tt><span class='object_link'><a href="Script.html" title="Redstruct::Script (class)">Redstruct::Script</a></span></tt> 
   
 
   
@@ -1042,8 +1042,8 @@ of 500 million keys</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/redstruct/factory.rb', line 79</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_script'>script</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='const'>Redstruct</span><span class='op'>::</span><span class='const'>Script</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>connection:</span> <span class='ivar'>@connection</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_script'>script</span><span class='lparen'>(</span><span class='id identifier rubyid_script'>script</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='const'>Redstruct</span><span class='op'>::</span><span class='const'>Script</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>script:</span> <span class='id identifier rubyid_script'>script</span><span class='comma'>,</span> <span class='label'>connection:</span> <span class='ivar'>@connection</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1114,7 +1114,7 @@ of 500 million keys</p>
 </div>
 
       <div id="footer">
-  Generated on Fri May 19 16:17:14 2017 by
+  Generated on Thu Jun  1 15:42:28 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.4.1).
 </div>
