@@ -5,6 +5,7 @@ require 'securerandom'
 require 'bundler/setup'
 require 'minitest/autorun'
 require 'flexmock/minitest'
+require 'redstruct/utils/atomic_counter'
 
 ci_build = ENV['CI_BUILD'].to_i.positive?
 
@@ -30,37 +31,18 @@ Minitest.after_run do
   end
 end
 
-# Small class used to generate thread-safe sequence when creating per-test
-# factories
-class AtomicInteger
-  def initialize
-    @lock = Mutex.new
-    @current = 0
-  end
-
-  def incr
-    value = nil
-    @lock.synchronize do
-      value = @current
-      @current += 1
-    end
-
-    return value
-  end
-end
-
 module Redstruct
   # Base class for all Redstruct tests. Configures the gem, provides a default factory, and makes sure to clean it up
   # at the end
   class Test < Minitest::Test
-    @@counter = AtomicInteger.new # rubocop: disable Style/ClassVars
+    @@counter = Redstruct::Utils::AtomicCounter.new # rubocop: disable Style/ClassVars
 
     parallelize_me!
     make_my_diffs_pretty!
 
     # Use this helper to create a factory that the test class will keep track of and remove at the end
     def create_factory(namespace = nil)
-      namespace ||= "#{Redstruct.config.default_namespace}:#{@@counter.incr}"
+      namespace ||= "#{Redstruct.config.default_namespace}:#{@@counter.increment}"
       return Redstruct::Factory.new(namespace: namespace)
     end
 

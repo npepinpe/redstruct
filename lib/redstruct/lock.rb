@@ -4,6 +4,7 @@ require 'securerandom'
 require 'redstruct/factory/object'
 require 'redstruct/utils/scriptable'
 require 'redstruct/utils/coercion'
+require 'redstruct/utils/atomic_counter'
 
 module Redstruct
   # Implementation of a simple binary lock (locked/not locked), with option to block and wait for the lock.
@@ -39,6 +40,8 @@ module Redstruct
       @resource = resource
       @token = nil
       @expiry = expiry
+      @acquired = Redstruct::Utils::AtomicCounter.new
+
       @timeout = case timeout
       when nil then nil
       when Float::INFINITY then 0
@@ -96,6 +99,8 @@ module Redstruct
       unless token.nil?
         @lease.expire(@expiry)
         @token = token
+        @acquired.increment
+
         acquired = true
       end
 
@@ -108,20 +113,24 @@ module Redstruct
     def release
       return false if @token.nil?
 
-      keys = [@lease.key, @tokens.key]
-      argv = [@token, generate_token, (@expiry.to_f * 1000).floor]
+      released = true
 
-      released = release_script(keys: keys, argv: argv)
-      @token = nil
+      if @acquired.decrement.zero?
+        keys = [@lease.key, @tokens.key]
+        argv = [@token, generate_token, (@expiry.to_f * 1000).floor]
 
-      return coerce_bool(released)
+        released = coerce_bool(release_script(keys: keys, argv: argv))
+        @token = nil
+      end
+
+      return released
     end
 
     private
 
     def non_blocking_acquire
       keys = [@lease.key, @tokens.key]
-      argv = [generate_token]
+      argv = [@token || generate_token]
 
       return acquire_script(keys: keys, argv: argv)
     end

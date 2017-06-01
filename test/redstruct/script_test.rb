@@ -6,7 +6,7 @@ module Redstruct
   class ScriptTest < Redstruct::Test
     def setup
       super
-      @value = @@counter.incr
+      @value = @@counter.increment
       @code = "return #{@value}"
       @factory = create_factory
       @script = @factory.script(@code)

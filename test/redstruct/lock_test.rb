@@ -109,6 +109,22 @@ module Redstruct
       assert lock.acquire, 'should be to acquire the lock again since it was deleted'
     end
 
+    def test_nested
+      lock = create
+      nested = false
+
+      lock.locked do
+        lock.locked do
+          nested = true
+        end
+
+        refute_nil lock.token, 'should still own the lock'
+        assert lock.acquire, 'should still own the lock'
+      end
+
+      assert nested, 'should have turned on the nested flag'
+    end
+
     private
 
     def create(resource = nil, **options)
