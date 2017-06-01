@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    redstruct (0.2.1)
+    redstruct (0.2.2)
       connection_pool (~> 2.2)
       redis (>= 3.3.1, < 4)
 
