@@ -3,7 +3,7 @@
 require 'test_helper'
 
 module Redstruct
-  class FactoryTest < Redstruct::Test
+  class FactoryTest < Redstruct::TestCase
     def test_initialize_default
       flexmock(Redstruct::ConnectionProxy).should_receive(:new).with(Redstruct.config.default_connection).once.pass_thru
       factory = Redstruct::Factory.new

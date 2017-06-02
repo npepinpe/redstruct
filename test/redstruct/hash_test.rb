@@ -3,7 +3,7 @@
 require 'test_helper'
 
 module Redstruct
-  class HashTest < Redstruct::Test
+  class HashTest < Redstruct::TestCase
     def setup
       super
       @factory = create_factory

@@ -3,7 +3,7 @@
 require 'test_helper'
 
 module Redstruct
-  class CounterTest < Redstruct::Test
+  class CounterTest < Redstruct::TestCase
     def setup
       super
       @factory = create_factory

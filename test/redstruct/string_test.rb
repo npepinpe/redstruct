@@ -3,6 +3,6 @@
 require 'test_helper'
 
 module Redstruct
-  class StringTest < Redstruct::Test
+  class StringTest < Redstruct::TestCase
   end
 end

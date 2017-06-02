@@ -3,7 +3,7 @@
 require 'test_helper'
 
 module Redstruct
-  class ScriptTest < Redstruct::Test
+  class ScriptTest < Redstruct::TestCase
     def setup
       super
       @value = @@counter.increment

@@ -4,7 +4,7 @@ require 'test_helper'
 
 module Redstruct
   module Utils
-    class IterableTest < Redstruct::Test
+    class IterableTest < Redstruct::TestCase
       def test_to_enum_bad_impl
         assert_raises(NotImplementedError, 'should fail and raise not implemented on missing implementations') do
           BadIterator.new.to_enum

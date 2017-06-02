@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class RedstructTest < Redstruct::Test
+class RedstructTest < Redstruct::TestCase
   # Test singleton property of the config
   def test_config
     config = Redstruct.config

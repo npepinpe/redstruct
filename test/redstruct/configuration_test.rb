@@ -3,7 +3,7 @@
 require 'test_helper'
 
 module Redstruct
-  class ConfigurationTest < Redstruct::Test
+  class ConfigurationTest < Redstruct::TestCase
     def test_initialize
       @config = Redstruct::Configuration.new
       assert_nil @config.default_connection, 'Should have no default connection initially'

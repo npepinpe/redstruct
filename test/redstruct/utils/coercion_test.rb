@@ -4,7 +4,7 @@ require 'test_helper'
 
 module Redstruct
   module Utils
-    class CoercionTest < Redstruct::Test
+    class CoercionTest < Redstruct::TestCase
       def test_coerce_bool
         refute Redstruct::Utils::Coercion.coerce_bool(nil), 'nil should be coerced to false'
         refute Redstruct::Utils::Coercion.coerce_bool(false), 'false should be coerced to false'

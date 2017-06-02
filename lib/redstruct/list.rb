@@ -277,7 +277,7 @@ module Redstruct
       local index = tonumber(ARGV[2])
       local pivot = redis.call('lindex', KEYS[1], index - 1)
 
-      if pivot ~= nil then
+      if pivot then
         return redis.call('linsert', KEYS[1], 'AFTER', pivot, value)
       end
 

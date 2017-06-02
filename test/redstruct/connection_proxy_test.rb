@@ -4,7 +4,7 @@ require 'test_helper'
 
 module Redstruct
   # TODO: not quite sure if this test suite is good enough
-  class ConnectionProxyTest < Redstruct::Test
+  class ConnectionProxyTest < Redstruct::TestCase
     def test_initialize
       assert_raises(ArgumentError, 'should fail to initialize without a proxy object') { Redstruct::ConnectionProxy.new }
     end

@@ -5,7 +5,7 @@ require 'flexmock/minitest'
 
 module Redstruct
   module Utils
-    class InspectableTest < Redstruct::Test
+    class InspectableTest < Redstruct::TestCase
       def test_inspect
         child = flexmock('test')
         child.should_receive(:inspect).and_return('child').once

@@ -4,7 +4,7 @@ require 'test_helper'
 
 module Redstruct
   class Factory
-    class ObjectTest < Redstruct::Test
+    class ObjectTest < Redstruct::TestCase
       def test_initialize
         factory = create_factory
         object = Redstruct::Factory::Object.new(factory: factory)

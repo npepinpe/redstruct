@@ -51,13 +51,18 @@ module Redstruct
 
     # @return [String] the underlying redis type
     def type
-      self.connection.type(@key)
+      name = self.connection.type(@key)
+      return nil if name == 'none'
+      return name
     end
 
     # Returns the time to live of the key
-    # @return [Float] time to live in seconds as a float where 0.001 == 1 ms
+    # @return [Float, nil time nil if the key does not exist or has no expiry, or the time to live in seconds
     def ttl
-      return self.connection.pttl(@key) / 1000.0
+      value = self.connection.pttl(@key)
+
+      return nil if value == -2 || value == -1
+      return value.to_f / 1000
     end
 
     # Returns a serialized representation of the key, which can be used to store a value externally, and restored to
@@ -71,7 +76,7 @@ module Redstruct
 
     # Restores the struct to its serialized value as given
     # @param [String] serialized serialized representation of the value
-    # @param [#to_f] ttl the time to live for the struct; defaults to 0 (meaning no expiry). 0.001 == 1ms
+    # @param [#to_f] ttl the time to live (in seconds) for the struct; defaults to 0 (meaning no expiry)
     # @raise [Redis::CommandError] raised if the serialized value is incompatible or the key already exists
     # @return [Boolean] true if restored, false otherwise
     def restore(serialized, ttl: 0)

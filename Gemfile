@@ -20,4 +20,7 @@ end
 
 group :test do
   gem 'flexmock', require: false
+  gem 'hiredis', require: 'redis/connection/hiredis'
+  gem 'minitest', require: false
+  gem 'minitest-reporters', require: false
 end

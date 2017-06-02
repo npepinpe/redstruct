@@ -4,7 +4,7 @@ require 'securerandom'
 require 'test_helper'
 
 module Redstruct
-  class StructTest < Redstruct::Test
+  class StructTest < Redstruct::TestCase
     def setup
       super
       @factory = create_factory
@@ -42,11 +42,40 @@ module Redstruct
       refute @struct.exists?, 'should not exist since it was marked to be expired 1 second after 1970-01-01'
     end
 
-    def test_persist; end
+    def test_persist
+      refute @struct.persist, 'should not be able to persist non existent keys'
+      write_struct
+      refute @struct.persist, 'should not be able to persist keys with no expiry'
 
-    def test_type; end
+      @struct.expire(1)
+      assert @struct.ttl.positive?, 'should now have a ttl'
+      assert @struct.persist, 'should be able to persist keys with expiry'
+      assert_nil @struct.ttl, 'should not have a ttl anymore'
+    end
 
-    def test_ttl; end
+    def test_type
+      assert_nil @struct.type, 'should have no type when it does not exist'
+
+      # to avoid writing tests for each possible type, we simply ensure we return
+      # whatever redis returned
+      type = SecureRandom.hex(8)
+      write_struct
+      ensure_command_called(@struct, :type, allow: false).once.and_return(type)
+      assert_equal type, @struct.type, 'should return whatever redis returns'
+    end
+
+    def test_ttl
+      assert_nil @struct.ttl, 'should have no ttl initially'
+
+      write_struct
+      assert_nil @struct.ttl, 'should still have no ttl even if it exists'
+
+      @struct.expire(1)
+      assert @struct.ttl.positive?, 'should have a ttl > 0'
+
+      @struct.persist
+      assert_nil @struct.ttl, 'should now have no ttl again'
+    end
 
     def test_dump; end
 

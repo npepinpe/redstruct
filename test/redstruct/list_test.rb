@@ -3,7 +3,7 @@
 require 'test_helper'
 
 module Redstruct
-  class ListTest < Redstruct::Test
+  class ListTest < Redstruct::TestCase
     def setup
       super
       @factory = create_factory
@@ -34,9 +34,6 @@ module Redstruct
 
     def test_insert_single
       initial = SecureRandom.hex(4)
-      assert_raises(Redis::CommandError, 'should fail (out of bounds)') do
-        @list.insert(initial, 1)
-      end
 
       assert @list.insert(initial, 0), 'should insert correctly first element'
       assert_equal initial, @list[0]
