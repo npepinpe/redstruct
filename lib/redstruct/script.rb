@@ -11,7 +11,7 @@ module Redstruct
   # are not used anymore.
   class Script
     # Redis returns an error starting with NOSCRIPT when we try to evaluate am unknown script using its sha1.
-    ERROR_MESSAGE_PREFIX = /^NOSCRIPT.*$/
+    ERROR_MESSAGE_PATTERN = /^NOSCRIPT.*$/
 
     # @return [String] the Lua script to evaluate
     attr_reader :script
@@ -80,10 +80,7 @@ module Redstruct
 
       @connection.evalsha(self.sha1, keys, argv)
     rescue Redis::CommandError => err
-      unless ERROR_MESSAGE_PREFIX.match(err.message)
-        binding.pry
-        raise
-      end
+      raise unless ERROR_MESSAGE_PATTERN.match(err.message)
       @connection.eval(@script, keys, argv)
     end
 

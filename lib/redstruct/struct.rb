@@ -61,7 +61,7 @@ module Redstruct
     def ttl
       value = self.connection.pttl(@key)
 
-      return nil if value == -2 || value == -1
+      return nil if [-1, -2].include?(value)
       return value.to_f / 1000
     end
 
