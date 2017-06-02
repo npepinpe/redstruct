@@ -10,7 +10,8 @@ module Redstruct
     @@counter = Redstruct::Utils::AtomicCounter.new
     @@factory = Redstruct::Factory.new
 
-    parallelize_me!
+    # disable for now as it causes issues
+    # parallelize_me!
     make_my_diffs_pretty!
 
     # Use this helper to create a factory that the test class will keep track of and remove at the end
