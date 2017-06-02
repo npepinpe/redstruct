@@ -10,9 +10,6 @@ bundler_groups = %i[default test]
 bundler_groups << (ci_build ? :ci : :debug)
 Bundler.require(*bundler_groups)
 
-# Start coverage
-Codacy::Reporter.start if ci_build
-
 # Default Redstruct config
 require 'redstruct/all'
 Redstruct.config.default_namespace = "redstruct:test:#{SecureRandom.uuid}"

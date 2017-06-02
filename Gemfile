@@ -8,7 +8,7 @@ group :rake do
 end
 
 group :ci do
-  gem 'codacy-coverage'
+  # gem 'codacy-coverage'
 end
 
 group :debug do
