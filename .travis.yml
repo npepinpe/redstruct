@@ -8,7 +8,6 @@ addons:
   apt:
     packages:
       - redis-server
-before_install: gem install bundler -v 1.15.0
 services:
 - redis-server
 env:
@@ -17,8 +16,12 @@ env:
   - REDIS_PORT=6379
   - REDIS_DB=0
   - CI_BUILD=1
-  - secure: bZHDKhAThOOKcii43WSyeziMJDmEsNcZ/KXx4TJz1cnkzlhkaQrJjIP44MHesRZsqcp5i3w9fC8BQzEIvyrZdyrJHtCKRj1RLmAo3OISa94MqphOSDlt2s9aIZA0jErvsszixakoVLNTRBZslRwwZk1lgZMrQ7R+b7TkS2qnlyuyGpodOpbQ0LFbE/vtT2uQbQH/rn0jowgvaEaEYv0kTpT5nn/K2dtjP9EcG6upZLZiermY9yB04nXilY4k/XoNaVqZfrFGPTh4S/ZhkOzgvWDOMr9APdXjT8W/7w/BngyX9XeQuWOU0k4CGqUwoLNcWy+eR4kHq5wM3UQLLjtSwphzpgAxkmBopStSvYxCNJTQ++hKqNdytbAwbjk3yg73HUTN5ilJGK2c9Q1NL8pLEZKywRtZgZfuHTdXt/JGdsnxUV5HeUN3g0AcbPnpV7dq2nqn/c2cFP6V7HboLqxR2qEaUycmPweVFXkjO9aE5aWmRPNhAACQpPlw79Mh0vMNdgTaWoDmRGR8+EDDW0e7jn8ZR4ONaeznR2QAPUyAt8fWMnzeVjgRBGlYFCVR+xhQtrUTVbaHnnyGXYQBzu9rK5EFXIE/dfLcJbaRcrQosePhuBrONzdX9gf82KRcR5hw0MpUb1frI3i3O7/U+XTD5O/i22EVJNzLxOww/M+cXcY=
 notifications:
   email:
     on_success: change
     on_failure: change
+
+# Lifecycle
+before_install: gem install bundler
+before_script: bundle exec rubocop -P -E -D
+script: bundle exec rake test

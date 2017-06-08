@@ -80,7 +80,7 @@ module Redstruct
 
       @connection.evalsha(self.sha1, keys, argv)
     rescue Redis::CommandError => err
-      raise unless ERROR_MESSAGE_PATTERN.match(err.message)
+      raise unless ERROR_MESSAGE_PATTERN.match?(err.message)
       @connection.eval(@script, keys, argv)
     end
 

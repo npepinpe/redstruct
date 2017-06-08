@@ -20,7 +20,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'redis', '>= 3.3.1', '< 4'
   spec.add_dependency 'connection_pool', '~> 2.2'
 
-  spec.add_development_dependency 'bundler', '~> 1.13'
-  spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'minitest', '~> 5.1'
+  spec.add_development_dependency 'bundler', '~> 1.15'
+  spec.add_development_dependency 'rake', '~> 10'
+  spec.add_development_dependency 'minitest', '~> 5'
+  spec.add_development_dependency 'rubocop', '~> 0.49'
+  spec.add_development_dependency 'rubocop-thread_safety', '~> 0.3'
 end

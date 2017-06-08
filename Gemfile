@@ -7,10 +7,6 @@ group :rake do
   gem 'yard' # documentation
 end
 
-group :ci do
-  # gem 'codacy-coverage'
-end
-
 group :debug do
   gem 'byebug' # debugger
   gem 'pry' # better console
@@ -21,6 +17,5 @@ end
 group :test do
   gem 'flexmock', require: false
   gem 'hiredis', require: 'redis/connection/hiredis'
-  gem 'minitest', require: false
   gem 'minitest-reporters', require: false
 end

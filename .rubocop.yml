@@ -3,8 +3,11 @@
 # see https://github.com/bbatsov/rubocop/blob/master/config/default.yml
 # for default configuration
 
+require:
+  - rubocop-thread_safety
+
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
 
 Rails:
   Enabled: false
@@ -14,15 +17,12 @@ Documentation:
 
 Metrics/LineLength:
   Max: 200
-  # Enabled: false
 
 Metrics/MethodLength:
   Max: 40
-  # Enabled: false
 
 Metrics/ModuleLength:
   Max: 500
-  # Enabled: false
 
 Metrics/AbcSize:
   Max: 50
@@ -39,7 +39,7 @@ Style/RedundantReturn:
 Style/GuardClause:
   Enabled: false
 
-Style/IndentHash:
+Layout/IndentHash:
   EnforcedStyle: consistent
 
 Metrics/ClassLength:
@@ -54,10 +54,10 @@ Style/NegatedIf:
 Style/DefWithParentheses:
   Enabled: false
 
-Style/MultilineMethodCallIndentation:
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-Style/AlignParameters:
+Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
 Style/SingleLineBlockParams:
@@ -75,3 +75,7 @@ CaseIndentation:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+ThreadSafety/NewThread:
+  Exclude:
+    - 'test/**/*'
