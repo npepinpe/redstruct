@@ -5,6 +5,9 @@ require 'digest'
 module Redstruct
   module Utils
     # Provides utility methods to add lua scripts to any class
+    # There is a built-in Lua debugger, but if you don't want to start
+    # your server in debug mode, you can use the ECHO command and the
+    # MONITOR command to use basic print-debugging
     module Scriptable
       # Callback called whenever the module is included. Adds all methods under ClassMethods as class methods of the
       # includer.
@@ -19,7 +22,7 @@ module Redstruct
         # @param [String] id the script ID
         # @param [String] script the lua script source
         def defscript(id, script)
-          raise ArgumentError, 'no script given' unless script && !script.empty?
+          raise ArgumentError, 'no script given' unless !script&.empty?
 
           script = script.strip
           constant = "SCRIPT_#{id.upcase}"

@@ -87,6 +87,13 @@ module Redstruct
       return Redstruct::Lock.new(resource, factory: self, **options)
     end
 
+    # Creates a time series for the given ID within this factory
+    # @see Redstruct::TimeSeries#new
+    # @return [Redstruct::TimeSeries] time series for the given ID within this factory
+    def time_series(id, **options)
+      return Redstruct::TimeSeries.new(id, factory: self, **options)
+    end
+
     # Factory methods for struct classes
     {
       Counter: :counter,
