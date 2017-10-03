@@ -75,6 +75,10 @@ module Redstruct
       return increment(by: by, max: max)
     end
 
+    protected
+
+    # @!group Lua Scripts
+
     defscript :ring_increment_script, <<~LUA
       local by = tonumber(ARGV[1])
       local max = tonumber(ARGV[2])
@@ -86,11 +90,11 @@ module Redstruct
 
       return value
     LUA
-    protected :ring_increment_script
 
-    # @!visibility private
+    # @!endgroup
+
     def inspectable_attributes
-      super.merge(max: @max, by: @default_increment)
+      return super.merge(max: @max, by: @default_increment)
     end
   end
 end

@@ -84,7 +84,8 @@ module Redstruct
       return self.connection.restore(@key, ttl, serialized)
     end
 
-    # # @!visibility private
+    protected
+
     def inspectable_attributes
       super.merge(key: @key)
     end

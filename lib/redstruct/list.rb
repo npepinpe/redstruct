@@ -214,6 +214,8 @@ module Redstruct
       end
     end
 
+    protected
+
     # @!group Lua Scripts
 
     # Appends or prepends (argv[1]) a number of items (argv[2]) to a list (keys[1]),
@@ -243,7 +245,6 @@ module Redstruct
 
       return size
     LUA
-    protected :push_and_trim_script
 
     # Removes N elements from the list (either from the head or the tail) and trims
     # the list down to size (either from the head or the tail).
@@ -266,7 +267,6 @@ module Redstruct
 
       return list
     LUA
-    protected :shift_pop_script
 
     # Inserts the given element at the given index. Can raise out of bound error
     # @param [Array<#to_s>] keys first key is the list key
@@ -283,7 +283,6 @@ module Redstruct
 
       return false
     LUA
-    protected :insert_script
 
     # Sets the element in much the same way a ruby array would, by padding
     # with empty strings (redis equivalent of nil) when the index is out of range
@@ -308,7 +307,6 @@ module Redstruct
 
       return redis.call('lset', KEYS[1], index, value)
     LUA
-    protected :set_script
 
     # @!endgroup
   end

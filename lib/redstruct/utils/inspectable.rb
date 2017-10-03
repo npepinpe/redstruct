@@ -8,12 +8,12 @@ module Redstruct
       # @return [String]
       def inspect
         attributes = inspectable_attributes.map do |key, value|
-          "#{key}: <#{value.inspect}>"
+          "#{key}: #{value.inspect}"
         end
 
-        return "#{self.class.name}: #{attributes.join(', ')}"
+        address = format('0x%016x', (object_id << 1))
+        return "#<#{self.class.name}:#{address} #{attributes.join(', ')}>"
       end
-      alias to_s inspect
 
       # To be overloaded by the including class
       # @return [Hash<String, #inspect>] list of attributes that can be seen

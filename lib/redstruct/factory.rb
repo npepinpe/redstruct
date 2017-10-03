@@ -123,7 +123,8 @@ module Redstruct
 
     # @!endgroup
 
-    # # @!visibility private
+    private
+
     def inspectable_attributes
       return { namespace: @namespace, connection: @connection }
     end

@@ -16,7 +16,7 @@ module Redstruct
       assert_equal resource, lock.resource, 'should be locking the correct resource'
       assert_nil lock.token, 'should not hold any tokens at the moment'
       assert_equal Redstruct::Lock::DEFAULT_EXPIRY, lock.expiry, 'should have the default expiry'
-      assert_equal Redstruct::Lock::DEFAULT_TIMEOUT, lock.timeout, 'should have the default timeout'
+      assert_nil lock.timeout, 'should have the default timeout'
 
       expiry = rand
       timeout = rand(10)

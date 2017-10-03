@@ -51,6 +51,7 @@ module Redstruct
   end
 
   @instance = Redstruct::Instance.new
+
   class << self
     extend Forwardable
     attr_reader :instance

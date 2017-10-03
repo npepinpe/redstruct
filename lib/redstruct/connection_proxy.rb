@@ -83,15 +83,6 @@ module Redstruct
 
     # @!endgroup
 
-    # Necessary when overwriting method_missing, so that respond_to? work properly
-    # @param [String, Symbol] _method the method name
-    # @param [Boolean] _include_private if true, also looks up private methods
-    # @return [Boolean] true if responding through method_missing, false otherwise
-    def respond_to_missing?(_method, _include_private = false)
-      true
-    end
-    private :respond_to_missing?
-
     # Fallback when calling methods we may not have dynamically created above
     # @param [String, Symbol] method the called method name
     # @param [Array<Object>] args the arguments it was called with
@@ -107,8 +98,17 @@ module Redstruct
       end
     end
 
-    # @!visibility private
-    def inspectable_attributes # :nodoc:
+    private
+
+    # Necessary when overwriting method_missing, so that respond_to? work properly
+    # @param [String, Symbol] _method the method name
+    # @param [Boolean] _include_private if true, also looks up private methods
+    # @return [Boolean] true if responding through method_missing, false otherwise
+    def respond_to_missing?(_method, _include_private = false)
+      true
+    end
+
+    def inspectable_attributes
       transport = if !@pool.nil?
         'connection_pool'
       elsif !@redis.nil?

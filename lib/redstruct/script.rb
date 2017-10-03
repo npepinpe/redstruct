@@ -84,7 +84,7 @@ module Redstruct
       @connection.eval(@script, keys, argv)
     end
 
-    private
+    protected
 
     def inspectable_attributes # :nodoc:
       return super.merge(sha1: self.sha1, script: @script.slice(0, 20))

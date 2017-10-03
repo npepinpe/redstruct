@@ -142,6 +142,8 @@ module Redstruct
       return ::Set.new(to_a)
     end
 
+    protected
+
     def coerce_destination(dest)
       case dest
       when ::String
@@ -150,6 +152,5 @@ module Redstruct
         dest
       end
     end
-    private :coerce_destination
   end
 end

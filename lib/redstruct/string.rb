@@ -50,6 +50,10 @@ module Redstruct
       return self.connection.getrange(@key, start, length)
     end
 
+    protected
+
+    # @!group Lua Scripts
+
     # Deletes the key (keys[1]) iff the value is equal to argv[1].
     # @param [Array<(::String)>] keys The key to delete
     # @param [Array<(::String)>] argv The value to compare with
@@ -62,5 +66,7 @@ module Redstruct
 
       return deleted
     LUA
+
+    # @!endgroup
   end
 end

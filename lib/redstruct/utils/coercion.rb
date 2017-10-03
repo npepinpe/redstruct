@@ -18,7 +18,6 @@ module Redstruct
           value.respond_to?(:to_a) ? value.to_a : [value]
         end
       end
-      module_function :coerce_array
 
       # Coerces an object into a boolean:
       #   If nil or 0 (after .to_i) => false
@@ -33,7 +32,27 @@ module Redstruct
           true
         end
       end
-      module_function :coerce_bool
+
+      # Coerces a value into a timestamp in milliseconds
+      # If given an integer, assumes it is a value in seconds.
+      # If given a float, assumes it is a value in seconds (with decimals as milliseconds)
+      # If given anything else, converts to float or integer, then coerces.
+      # If not convertable, returns 0.
+      # @return [Integer]
+      def coerce_time_milli(value)
+        case value
+        when Integer then value * 1000
+        when Float then (value * 1000).floor
+        else
+          if value.respond_to?(:to_f)
+            coerce_time_milli(value.to_f)
+          elsif value.respond_to?(:to_i)
+            coerce_time_milli(value.to_i)
+          else
+            0
+          end
+        end
+      end
     end
   end
 end

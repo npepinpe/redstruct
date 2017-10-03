@@ -126,7 +126,7 @@ module Redstruct
       return released
     end
 
-    private
+    protected
 
     def non_blocking_acquire
       keys = [@lease.key, @tokens.key]
@@ -138,6 +138,8 @@ module Redstruct
     def blocking_acquire
       return @tokens.pop(timeout: @timeout)
     end
+
+    # @!group Lua Scripts
 
     # The acquire script attempts to set the lease (keys[1]) to the given token (argv[1]), only
     # if it wasn't already set. It then compares to check if the value of the lease is that of the token,
@@ -193,6 +195,8 @@ module Redstruct
     defscript :delete_script, <<~LUA
       return redis.call('del', unpack(KEYS))
     LUA
+
+    # @!endgroup
 
     def generate_token
       return SecureRandom.uuid

@@ -91,7 +91,7 @@ module Redstruct
         { lower: @lower, upper: @upper, lex: @lex, exclusive: @exclusive, key: @key }
       end
 
-      private
+      protected
 
       # ( is exclusive, [ is inclusive
       def parse_lex_bound(bound)
