@@ -3,6 +3,7 @@ require 'bundler/setup'
 Bundler.require(:default, :development, :debug)
 
 require 'pry'
+require 'redis/connection/hiredis'
 
 def reload!
   Object.send(:remove_const, :Redstruct) if Object.const_defined?(:Redstruct)
